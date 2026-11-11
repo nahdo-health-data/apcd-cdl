@@ -1,0 +1,136 @@
+element_id,element_name,rif_file,rif_file_part,rif_short_sas_name,rif_long_sas_name,rif_label,notes
+CDLME001,Data Submitter Code,N/A,,,N/A,N/A,APCD Specific
+CDLME002,Payer Code,N/A,,,N/A,N/A,APCD Specific
+CDLME003,Plan ID,N/A,,,N/A,N/A,Report as null.
+CDLME004,Member Insurance/ Product Category code,MBSF,,,MDCR_ENTLMT_BUYIN_IND_01 through MDCR_ENTLMT_BUYIN_IND_12,"Medicare Entitlement/ Buy-In Indicator - January through 
+Medicare Entitlement/ Buy-In Indicator - December","For each month <> 0, create a record with the  corresponding Year and Month, medical_coverage = 'Y' and Product Code.
+Transform as listed below to Product Code for each applicable month:
+0 (Not entitled) = No record for the month
+1 (Part A only) = MA
+2 (Part B only) = MB
+3 (Part A and Part B) = AB
+A (Part A state buy-in) = MA
+B (Part B state buy-in) = MB
+C (Part A and Part B state buy-in) = AB"
+CDLME005,Eligibility Year,MBSF,,,BENE_ENROLLMT_REF_YR,Beneficiary Enrollment Reference Year,
+CDLME006,Eligibility Month,MBSF,,,MDCR_ENTLMT_BUYIN_IND_01 through MDCR_ENTLMT_BUYIN_IND_12,"Medicare Entitlement/ Buy-In Indicator - January through 
+Medicare Entitlement/ Buy-In Indicator - December","For each month <> 0, create a record with the  corresponding Year and Month, medical_coverage = 'Y' and Product Code."
+CDLME007,Insured Group or Policy Number,N/A,,,N/A,N/A,Hard code as 'IND'
+CDLME008,Coverage Level Code,N/A,,,N/A,N/A,Hard code as 'EMP'
+CDLME009,Medicaid AID Category,N/A,,,N/A,N/A,Report as null.
+CDLME010,Subscriber Social Security Number,BENE_SSN_CROSSWALK,,,SSN,Beneficiary Social Security Number,"Join to bene_ssn file using the bene_id
+Member is subscriber, repeat for CDLMC016 Member SSN"
+CDLME011,Plan Specific Contract Number,BENE_MBI_CROSSWALK,,,MBI_NUM,Medicare Beneficiary Identifier (MBI),"Join to bene_mbi crosswalk table using the bene_id where crnt_sw = 'Y'
+Note: The MBI replaced the Health Insurance Claim Number (HICN) as of 1/1/2020.
+The transition period for replacing the HICN with the new Medicare Beneficiary Identifier (MBI) is April 1, 2018 through December 31, 2019."
+CDLME012,Subscriber Last Name,BENE_NAME_CROSSWALK,,,BENE_SRNM_NAME,Beneficiary Surname,"Join to bene_name file using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Member name fields"
+CDLME013,Subscriber First Name,BENE_NAME_CROSSWALK,,,BENE_GVN_NAME,Beneficiary First Name,"Join to bene_name file using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Member name fields"
+CDLME014,Subscriber Middle Initial,BENE_NAME_CROSSWALK,,,BENE_MDL_NAME,Beneficiary Middle Name,"Join to bene_name file using the bene_id where crnt_rec_ind = 'Y'.
+Transform to middle initial only.
+
+Member is subscriber, repeat for Member name fields"
+CDLME015,Sequence Number,N/A,,,N/A,N/A,Hard code as '01'
+CDLME016,Member Social Security Number,BENE_SSN_CROSSWALK,,,SSN,Beneficiary Social Security Number,"Join to bene_ssn file using the bene_id
+Member is subscriber, repeat for CDLMC011 Subscriber SSN"
+CDLME017,Individual Relationship Code,N/A,,,N/A,N/A,Hard code as '18'
+CDLME018,Member Sex,MBSF,,,SEX_IDENT_CD,Sex,"Transformation rules below:
+0 = Unknown; transformed to 'U'
+1 = Male; transformed to 'M'
+2 = Female; transformed to 'F'"
+CDLME019,Member Date of Birth,MBSF,,,BENE_BIRTH_DT,Beneficiary Date of Birth,
+CDLME020,Member Last Name,BENE_NAME_CROSSWALK,,,BENE_SRNM_NAME,Beneficiary Surname,"Join to bene_name file using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Subscriber name fields"
+CDLME021,Member First Name,BENE_NAME_CROSSWALK,,,BENE_GVN_NAME,Beneficiary First Name,"Join to bene_name file using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Subscriber name fields"
+CDLME022,Member Middle Initial,BENE_NAME_CROSSWALK,,,BENE_MDL_NAME,Beneficiary Middle Name,"Join to bene_name file using the bene_id where crnt_rec_ind = 'Y'
+Transform to middle initial only.
+
+Member is subscriber, repeat for Subscriber name fields"
+CDLME023,Member Street Address,N/A,,,N/A,N/A,Report as null.
+CDLME024,Member City Name,N/A,,,N/A,N/A,Report as null.
+CDLME025,Member State or Province,MBSF,,,STATE_CODE,SSA State Code,Transform numeric codes to 2 alpha-character State or Province codes are maintained by the US Postal Service.
+CDLME026,Member ZIP Code,MBSF,,,ZIP_CD,5-digit ZIP Code,
+CDLME027,Member FIPS County Code,MBSF,,,STATE_CNTY_FIPS_CD_01 - STATE_CNTY_FIPS_CD_12,FIPS State-County Code,These 12 fields are transposed and reported in 1 column for each corresponding monthly record.
+CDLME028,Member Country Code,N/A,,,N/A,N/A,Report as null.
+CDLME029,Race 1,MBSF,,,BENE_RACE_CD,Beneficiary Race Code,"Transform as follow:
+0 = Unknown; transform to 'UN'
+1 = White; transform to 'R5'
+2 = Black; transform to 'R3'
+3 = Other; transform to 'R9'
+4 = Asian; transform to 'R2'
+5 = Hispanic; transform to 'R9'
+6 = North American Native; transform to 'R1'"
+CDLME030,Race 2,N/A,,,N/A,N/A,Report as null.
+CDLME031,Race 3,N/A,,,N/A,N/A,Report as null.
+CDLME032,Hispanic Indicator,MBSF,,,BENE_RACE_CD,Beneficiary Race Code,"Transform as follows:
+bene_race_cd = 5 (Hispanic) then ME032 = Y
+Else 'U'.
+Recommend reporting as 'U' instead of 'N' since it is unknown if the person is Hispanic if not reported as '5'"
+CDLME033,Ethnicity 1,N/A,,,N/A,N/A,Report as null.
+CDLME034,Ethnicity 2,N/A,,,N/A,N/A,Report as null.
+CDLME035,Other Ethnicity,N/A,,,N/A,N/A,Report as null.
+CDLME036,Medical Coverage Under This Plan,MBSF,,,MDCR_ENTLMT_BUYIN_IND_01 through MDCR_ENTLMT_BUYIN_IND_12,"Medicare Entitlement/ Buy-In Indicator - January through 
+Medicare Entitlement/ Buy-In Indicator - December","For each month <> 0, there should be a record with a corresponding Year and Month
+and medical_coverage = 'Y'. A separate record will be reported if the member also had pharmacy coverage."
+CDLME037,Pharmacy Coverage Under This Plan,MBSF,,,PTD_CNTRCT_ID_01 through PTD_CNTRCT_ID_12,Part D Contract ID - January through Part D Contract ID December,"Transform as follows:
+Where = (E,H,R,S,X) then 'Y' 
+Else 'N'
+
+A separate record will be reported for the member's  medical coverage."
+CDLME038,Dental Coverage Under This Plan,N/A,,,N/A,N/A,Hard code as 'N' since Medicare does not cover dental
+CDLME039,Behavioral Health Coverage Under this Plan,N/A,,,N/A,N/A,Hard code as 'Y' as Medicare covers behavioral health services
+CDLME040,Primary Insurance Indicator,N/A,,,N/A,N/A,Report as null.
+CDLME041,Coverage Type,N/A,,,N/A,N/A,"Report as 'OTH""."
+CDLME042,Plan State,N/A,,,N/A,N/A,Report as null.
+CDLME043,Market Category Code,N/A,,,N/A,N/A,Report as 'IND' (Individual Policy)
+CDLME044,Special Coverage,N/A,,,N/A,N/A,Report as '0' (Not Applicable)
+CDLME045,Group Name,N/A,,,N/A,N/A,Report as 'IND' (Individual Policy)
+CDLME046,Member PCP ID,N/A,,,N/A,N/A,Report as null.
+CDLME047,NPI of Member’s PCP,N/A,,,N/A,N/A,Report as null.
+CDLME048,PCP Assignment,N/A,,,N/A,N/A,Report as null.
+CDLME049,Member PCP Effective Date,N/A,,,N/A,N/A,Report as null.
+CDLME050,Plan Effective Date,MBSF,,,"COVSTART for medical eligibility record
+PTD_CVRG_STRT_DT for the pharmacy (Part D) eligibility record",Medicare Coverage Start Date,"Note that two different data elements are used, one for the medical eligibility record and the other for the pharmacy eligibility record."
+CDLME051,Plan Term Date,N/A,,,N/A,N/A,N/A
+CDLME052,HIOS Plan indicator,N/A,,,N/A,N/A,N/A
+CDLME053,HIOS Plan ID,N/A,,,N/A,N/A,N/A
+CDLME054,Metal Tier,N/A,,,N/A,N/A,Report as null.
+CDLME055,Medical Home Indicator,N/A,,,N/A,N/A,N/A
+CDLME056,Payer assigned ID for Medical Home,N/A,,,N/A,N/A,N/A
+CDLME057,Enrolled Through a Public Health Insurance Exchange,N/A,,,N/A,N/A,Hard code as '2'
+CDLME058,Employer Tax ID,N/A,,,N/A,N/A,Report as null.
+CDLME059,Employment Status,N/A,,,N/A,N/A,Report as null.
+CDLME060,Employer ZIP Code,N/A,,,N/A,N/A,Report as null.
+CDLME061,Carrier Specific Unique Member ID,MBSF,,,BENE_ID,Encrypted 723 Beneficiary ID,
+CDLME062,Carrier Specific Unique Subscriber ID,MBSF,,,BENE_ID,Encrypted 723 Beneficiary ID,
+CDLME063,NAIC ID,N/A,,,N/A,N/A,Report as null.
+CDLME064,High Deductible Plan Indicator,N/A,,,N/A,N/A,Report as null.
+CDLME065,Total Monthly Premium Amount,N/A,,,N/A,N/A,Report as null.
+CDLME066,Actuarial Value,N/A,,,N/A,N/A,Report as null.
+CDLME067,Grand-fathered Plan Indicator,N/A,,,N/A,N/A,Hard code as '2'
+CDLME068,Cost-Sharing Reduction Indicator,N/A,,,N/A,N/A,N/A
+CDLME069,Administrative Service Fees,N/A,,,N/A,N/A,N/A
+CDLME070,Tiered Network,N/A,,,N/A,N/A,N/A
+CDLME071,Member Income Frequency Code,N/A,,,N/A,N/A,N/A
+CDLME072,Member Income Monetary Amount,N/A,,,N/A,N/A,N/A
+CDLME073,Member Primary Language,N/A,,,N/A,N/A,N/A
+CDLME074,Un-assigned,N/A,,,N/A,N/A,N/A
+CDLME075,Member Medicare Beneficiary Identifier,BENE_MBI_CROSSWALK,,,MBI_NUM,Medicare Beneficiary Identifier (MBI),"Join to bene_mbi crosswalk table using the bene_id where crnt_sw = 'Y'
+Note: The MBI replaced the Health Insurance Claim Number (HICN) as of 1/1/2020.
+The transition period for replacing the HICN with the new Medicare Beneficiary Identifier (MBI) is April 1, 2018 through December 31, 2019."
+CDLME076,ACO Identifier,N/A,,,N/A,N/A,N/A
+CDLME077,ACO Name,N/A,,,N/A,N/A,N/A
+CDLME078,Physician Organization Identifier,N/A,,,N/A,N/A,Report as null.
+CDLME079,Vision Coverage Indicator,N/A,,,N/A,N/A,Report as null.
+CDLME080,Financial Risk Type,N/A,,,N/A,N/A,Report as null.
+CDLME081,Member Gender Identity,N/A,,,N/A,N/A,Report as null.
+CDLME082,Member Sexual Orientation,N/A,,,N/A,N/A,Report as null.
+CDLME083,Member Street Address 2,N/A,,,N/A,N/A,Report as null.
+CDLMEXXX,Un-assigned,N/A,,,N/A,N/A,Report as null.
+CDLME899,Record Type,N/A,,,N/A,N/A,Hard code as 'ME'

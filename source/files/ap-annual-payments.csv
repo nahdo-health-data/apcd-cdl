@@ -1,0 +1,80 @@
+element_id,element_name,type,max_length,description
+CDLAP001,Data Submitter Code,varchar,8,APCD-assigned identifier of payer submitting data file. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms). This may or may not be the same code as the payer.
+CDLAP002,Payer Code,varchar,8,"APCD-assigned identifier of insurer in the case of premiums-based coverage, or of the administrator in the case of self-funded coverage. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms)."
+CDLAP003,Reporting Period Start Date,integer,6,YYYYMM. Beginning of reporting period covered for contract performance.
+CDLAP004,Reporting Period End Date,integer,6,YYYYMM. End of reporting period covered for contract performance.
+CDLAP005,Contract Number,varchar,80,The unique number identifying a contract between the submitter and the billing provider for the reported payment model.
+CDLAP006,Contract Type,char,1,"Use this field to indicate whether the payments reported were administered as part of a medical benefits contract or a dental benefits contract. The only valid codes for this field are:
+M = Medical: Payments made under a medical benefits contract, including all payments made to providers for medical, pharmacy, and dental services incurred under medical stand-alone coverage.
+D = Dental: Payments made under a dental benefits contract; this should include only payments made to providers for members on dental stand-alone coverage."
+CDLAP007,Billing Provider ID,varchar,35,Unique code assigned to the provider by the reporting entity. Payer assigned provider ID for the provider that is the billing provider. This should be the identifier used by the payer for internal identification purposes and does not routinely change.
+CDLAP008,Billing Provider NPI,char,10,National Provider Identifier (NPI) for the billing provider as enumerated in the Center for Medicaid and Medicare Services National Plan & Provider Enumeration System (NPPES).
+CDLAP009,Billing Provider Tax ID,char,9,Tax ID of the billing provider. Do not code punctuation.
+CDLAP010,Billing Provider Last Name or Organization Name,varchar,60,Full name of provider billing organization or last name of individual billing provider.
+CDLAP011,Billing Provider First Name,varchar,35,"Individual first name. If provider is a facility or organization, leave blank."
+CDLAP012,Payment Category,char,1,"A = Population health and practice infrastructure payments
+B = Performance payments
+C = Payments with shared savings and recoupments
+D = Capitation and full risk payments
+E = Other non-claims payments
+X = Fee for service
+Z = Member count
+
+Select a corresponding Payment Subcategory based on the initial character in the Payment Category."
+CDLAP013,Payment Subcategory,char,2,"A1 = Care management/ care coordination/ population health/ medication reconciliation
+A2 = Primary care and behavioral health integration
+A3 = Social care integration
+A4 = Practice transformation payments
+A5 = EHR/HIT infrastructure payments
+B1 = Retrospective/prospective incentive payments: pay-for-reporting
+B2 = Retrospective/prospective incentive payments: pay-for-performance
+C1 = Procedure-related, episode-based payments with shared savings
+C2 = Procedure-related, episode-based payments with risk of recoupments
+C3 = Condition-related, episode-based payments with shared savings
+C4 = Condition-related, episode-based payments with risk of recoupments
+C5 = Risk for total cost of care (e.g., ACO) with shared savings
+C6 = Risk for total cost of care (e.g., ACO) with risk of recoupments
+D1 = Primary care capitation
+D2 = Professional capitation
+D3 = Facility capitation
+D4 = Behavioral health capitation
+D5 = Global capitation
+D6 = Payment to integrated, comprehensive payment and delivery systems
+X9 = Fee for service
+Z9 = Member count"
+CDLAP014,Member Count,int,12,"The total number of members enrolled during the reporting period.
+
+Report when Payment Category (CDLAP012) = 'B', 'C', 'D', or 'Z':
+
+1. Category = 'B': Total number of members associated with the incentive payments.
+2. Category = 'C': Total number of members associated with shared savings or recoupments.
+3. Category = 'D': Total number of members associated with the capitated payments reported.
+4. Category = 'Z': Total number of members enrolled (members for submitters entire book of business for the year). This record is not expected to have any associated dollar amounts reported."
+CDLAP015,Member Months,int,12,"Total number of members months during the reporting period, expressed in months of membership. Only report members for whom the data submitter is the primary payer.
+
+Report with Payment Category (CDLAP012) = 'B', 'D', or 'Z' or Payment Subcategory = 'C5' or 'C6':
+
+1. Category = 'B': Total number of member months associated with the incentive payments.
+2. Category = 'D': Total number of member months associated with the capitated payments reported.
+3. Category = 'Z': Total number of months enrolled for members reported in Member Count (member months for submitters entire book of business for the year). This record is not expected to have any associated dollar amounts reported.
+4. Subcategory = 'C5': Total number of member months associated with risk for total cost of care (e.g., ACO) with shared savings
+5. Subcategory = 'C6': Total number of member months associated with risk for total cost of care (e.g., ACO) with risk of recoupments"
+CDLAP016,Total Amount Paid/Allowed,int,12,"Total of all payments made to the billing provider during the Reporting/Performance Period.
+
+For non-fee for service payments, this is the amount paid to the provider by the insurer. For fee for service claims, this is the total allowable to include amounts paid by the insurer and the member responsibility amounts (copay, coinsurance, and deductibles).
+
+Round to the nearest dollar (e.g., $1,000.25 converted to 1000). If the value for this field is zero, report as ""0"", not as null. This field may contain a negative value."
+CDLAP017,Total Member Responsibility Amount,int,12,"Total of all member responsibility amounts (copay, coinsurance, and deductibles).
+
+Round to the nearest dollar (e.g., $1,000.25 converted to 1000). If the value for this field is zero, report as ""0"", not as null. This field may contain a negative value."
+CDLAP018,Total Amount Paid for Primary Care,int,12,"Total of all payments made to a billing provider for primary care services during the Reporting/Performance Period.
+
+For fee for service claims, this is the total allowable to include amounts paid by the insurer and the member responsibility amounts (copay, coinsurance, and deductibles).
+
+Round to the nearest dollar (e.g., $1,000.25 converted to 1000. If the value for this field is zero, report as ""0"", not as null. This field may contain a negative value."
+CDLAP019,Total Amount Paid for Behavioral Health,int,12,"Total of all payments made to a billing provider for behavioral health services during the Reporting/Performance Period.
+
+For fee for service claims, this is the total allowable to include amounts paid by the insurer and the member responsibility amounts (copay, coinsurance, and deductibles).
+
+Round to the nearest dollar (e.g., $1,000.25 converted to 1000). If the value for this field is zero, report as ""0"", not as null. This field may contain a negative value."
+CDLAP899,Record Type,char,2,Value = AP

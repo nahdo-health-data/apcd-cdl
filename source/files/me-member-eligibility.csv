@@ -1,0 +1,257 @@
+element_id,element_name,type,max_length,description,source_reference
+CDLME001,Data Submitter Code,varchar,8,APCD-assigned identifier of payer submitting data file. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms). This may or may not be the same code used in the Payer Code field.,N/A
+CDLME002,Payer Code,varchar,8,"APCD-assigned identifier of insurer in the case of premiums-based coverage, or of the administrator in the case of self-funded coverage. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms).",N/A
+CDLME003,Plan ID,varchar,30,CMS National Plan ID. The National Plan ID is a code assigned by CMS. (PLACEHOLDER),271/2100A/NM109 where NM108 = XV
+CDLME004,Member Insurance/ Product Category code,char,2,See Appendix J: Insurance/Product Category for codes. Use the most granular choice available.,"Subscriber:
+271/2110CA/EB04*
+
+Member:
+271/2110DA/EB04*
+
+*With additional values outlined in Appendix J"
+CDLME005,Eligibility Year,int,4,The year for which eligibility is reported in this submission file. YYYY.,N/A
+CDLME006,Eligibility Month,char,2,"The month for which eligibility is reported in this submission file is expressed numerically from 01 to 12. One record per member, per month, per plan is required.",N/A
+CDLME007,Insured Group or Policy Number,varchar,50,"The identification number, or code assigned by the carrier or administrator to identify the group under which the individual is covered. ME006 is not the number that uniquely identifies the subscriber. If no group or policy number is available, leave blank. If the coverage is Medicaid, then report a value of “IND”. If a policy is sold to an individual as a non-group policy, then report with a value of “IND”.","Subscriber:
+271/2100CA/REF02
+where REF01=1L, IG, 6P
+
+Member:
+271/2100DA/REF02
+where REF01=1L, IG, 6P"
+CDLME008,Coverage Level Code,char,3,"Benefit coverage level selected:
+CHD=Children Only;
+DEP=Dependents Only;
+ECH=Subscriber and Children/Dependents;
+EMP=Subscriber Only;
+ESP=Subscriber and Spouse/Life Partner;
+FAM=Family;
+SPC=Spouse/Life Partner and Children/Dependents;
+SPO=Spouse/Life Partner Only.","Subscriber: 271/2110CA/EB02
+
+Member:
+271/2110DA/EB02"
+CDLME009,Medicaid AID Category,varchar,10,"For Medicaid only. Provide the primary Medicaid Aid Category code for the member. Codes are determined by the state’s Medicaid agency. If not applicable, leave blank.",N/A
+CDLME010,Subscriber Social Security Number,char,9,Subscriber’s Social Security Number. Do not include dashes. Leave blank if not collected.,271/2100CA/REF02 where REF01 = SY
+CDLME011,Plan Specific Contract Number,varchar,80,"Plan assigned contract number. If Plan Specific Contract Number is the subscriber’s Social Security Number, leave blank. If this is a Medicaid eligibility record, provide Medicaid ID.",Subscriber: 271/2100CA/NM109 where NM108=MI
+CDLME012,Subscriber Last Name,varchar,60,The subscriber’s last name.,271/2100CA/NM103
+CDLME013,Subscriber First Name,varchar,35,The subscriber’s first name.,271/2100CA/NM104
+CDLME014,Subscriber Middle Initial,char,1,The subscriber’s middle initial.,271/2100CA/NM105
+CDLME015,Sequence Number,varchar,20,Unique number of the member within the contract. When the member is the subscriber use subscriber sequence number.,N/A
+CDLME016,Member Social Security Number,char,9,Member’s Social Security Number. Do not include dashes. Leave blank if not collected.,271/2100DA/REF02 where REF01=SY
+CDLME017,Individual Relationship Code,char,2,"Member’s relationship to insured. Individual Relationship Code is maintained by ANSI ASC X12. See Appendix L: External Code Source, Accredited Standards Committee.","Subscriber: 271/2100CA/INS02
+
+Member:
+271/2100DA/INS02 where INS01=N"
+CDLME018,Member Sex,char,1,"Sex of the member.
+M=Male;
+F=Female;
+U=UNKNOWN.
+
+Member sex represents biological or administrative sex. Where available, submitters should provide the sex the member was assigned at birth on their original birth certificate (natal sex). When this is not available, submitters may provide the values they have access to regarding physical or legal sex (e.g., administrative sex as categorized by X12 values).
+
+If the member is the subscriber, report the subscriber’s sex.","Subscriber: 271/2100CA/DMG03
+
+Member:
+271/2100DA/DMG03"
+CDLME019,Member Date of Birth,date,8,"Date of birth of the member. If the member is the subscriber, report the subscriber’s date of birth. YYYYMMDD.","Subscriber: 271/2100CA/DMG02
+
+Member:
+271/2100DA/DMG02"
+CDLME020,Member Last Name,varchar,60,"The member’s last name. If the member is the subscriber, report the subscriber’s last name.","Subscriber: 271/2100CA/NM103
+
+Member:
+271/2100DA/NM103"
+CDLME021,Member First Name,varchar,35,"The member’s first name. If the member is the subscriber, report the subscriber’s first name.","Subscriber: 271/2100CA/NM104
+
+Member:
+271/2100DA/NM104"
+CDLME022,Member Middle Initial,char,1,"The member’s middle initial. If the member is the subscriber, report the subscriber’s middle initial.","Subscriber: 271/2100CA/NM105
+
+Member:
+271/2100DA/NM105"
+CDLME023,Member Street Address,varchar,55,"First line of street address of member’s residence. If the member is the subscriber, report the street address of the subscriber’s residence.","Subscriber: 271/2100CA/N301
+
+Member:
+271/2100DA/N301"
+CDLME024,Member City Name,varchar,30,"City location of member’s residence. If the member is the subscriber, report the city location of the subscriber’s residence.","Subscriber: 271/2100CA/N401
+
+Member:
+271/2100DA/N401"
+CDLME025,Member State or Province,char,2,"State or province of member’s residence. If the member is the subscriber, report the state or province of the subscriber’s residence. State or Province codes are maintained by the US Postal Service. See Appendix L: External Code Sources, United States Postal Service.","Subscriber: 271/2100CA/N402
+
+Member:
+271/2100DA/N402"
+CDLME026,Member ZIP Code,varchar,9,"Report the 5 or 9-digit ZIP Code of the member’s residence. If the member is the subscriber, report the Zip Code of the subscriber’s residence. When submitting the 9-digit ZIP Code do not include hyphen. If using 5 digits, do not fill last 4 digits with 0. ZIP Codes are maintained by the US Postal Service. See Appendix L: External Code Sources.","Subscriber: 271/2100CA/N403
+
+Member:
+271/2100DA/N403"
+CDLME027,Member FIPS County Code,char,5,"Report the FIPS county code based on the member’s residential address. If the member is the subscriber, report the FIPS county code of the subscriber’s residence. The FIPS county code is a five-digit Federal Information Processing Standard (FIPS) code (FIPS 6-4) which uniquely identifies counties and county equivalents in the United States, certain U.S. possessions, and certain freely associated states. If member lives outside US, leave blank. See Appendix L: External Code Source, United States Census Bureau.",N/A
+CDLME028,Member Country Code,char,2,"Country of member’s residence. If the member is the subscriber, report the country code of the subscriber’s residence. Report two-digit code. Code US for United States. See Appendix L: External Code Source, United States Postal Service.",N/A
+CDLME029,Race 1,varchar,21,"Report the Member-identified race. If the member is the subscriber, report the subscriber’s race. The code value “UN” (Unknown/not specified) should be used ONLY when Member answers unknown or refuses to answer. Report only collected data. If not available leave blank. See Appendix L: External Code Sources, Centers for Disease Control and Prevention. Use Concept Code unless otherwise specified.",N/A
+CDLME030,Race 2,varchar,21,"Report the Member-identified race. If the member is the subscriber, report the subscriber’s race. The code value “UN” (Unknown/not specified) should be used ONLY when Member answers unknown or refuses to answer. Report only collected data. If not available leave blank. See Appendix L: External Code Sources, Centers for Disease Control and Prevention. Use Concept Code unless otherwise specified.",N/A
+CDLME031,Race 3,varchar,21,"Report the Member-identified race. If the member is the subscriber, report the subscriber’s race. The code value “UN” (Unknown/not specified) should be used ONLY when Member answers unknown or refuses to answer. Report only collected data. If not available leave blank. See Appendix L: External Code Sources, Centers for Disease Control and Prevention. Use Concept Code unless otherwise specified.",N/A
+CDLME032,Hispanic Indicator,char,1,"Report the value that defines the element. The code value “U” for unknown, should be used ONLY when the member/subscriber answers unknown or refuses to answer. Report only collected data. If not available leave blank.
+Y=Member is Hispanic/Latino/Spanish;
+N=Member is not Hispanic/Latino/Spanish;
+U=Unknown/not specified.",N/A
+CDLME033,Ethnicity 1,varchar,21,"Report the self-reported ethnicity using the six-character Concept Code that best describes the information obtained from the Member/Subscriber. For example, the Concept Code for an ethnicity value of Costa Rican is “2156-8”, and the Concept Code for an ethnicity value of Hispanic is “2135-2”. The value “UNKNOW” should be used ONLY when the Member answers unknown or refuses to answer. Report only collected data and leave blank if not available. See Appendix L: External Code Sources, Centers for Disease Control and Prevention. Use Concept Code unless otherwise specified.",N/A
+CDLME034,Ethnicity 2,varchar,21,"Report the self-reported ethnicity using the six-character Concept Code that best describes the information obtained from the Member/Subscriber. For example, the Concept Code for an ethnicity value of Costa Rican is “2156-8”, and the Concept Code for an ethnicity value of Hispanic is “2135-2”. The value “UNKNOW” should be used ONLY when the Member answers unknown or refuses to answer. Report only collected data and leave blank if not available. See Appendix L: External Code Sources, Centers for Disease Control and Prevention. Use Concept Code unless otherwise specified.",N/A
+CDLME035,Other Ethnicity,varchar,21,"Report the self-reported ethnicity using the six-character Concept Code that best describes the information obtained from the Member/Subscriber. For example, the Concept Code for an ethnicity value of Costa Rican is “2156-8”, and the Concept Code for an ethnicity value of Hispanic is “2135-2”. The value “UNKNOW” should be used ONLY when the Member answers unknown or refuses to answer. Report only collected data and leave blank if not available. See Appendix L: External Code Sources, Centers for Disease Control and Prevention. Use Concept Code unless otherwise specified.",N/A
+CDLME036,Medical Coverage Under This Plan,char,1,"Use this field to indicate whether medical coverage is part of this member’s plan (Note: medical coverage may be bundled with other types of coverage) Medical coverage includes any type of coverage besides prescription drug.
+Y=Yes;
+N=No.",N/A
+CDLME037,Pharmacy Coverage Under This Plan,char,1,"Use this field to indicate whether pharmacy coverage is part of this member’s plan (Note: pharmacy coverage may include prescription drugs, supplies and DME; and may be bundled with other types of coverage)
+Y=Yes;
+N=No.",N/A
+CDLME038,Dental Coverage Under This Plan,char,1,"Use this field to indicate whether dental coverage is part of this member’s plan (Note: dental coverage may be bundled with other types of coverage)
+Y=Yes;
+N=No.",N/A
+CDLME039,Behavioral Health Coverage Under this Plan,char,1,"Use this field to indicate whether behavioral health coverage is part of this member’s plan (Note: behavioral health coverage may be bundled with other types of coverage). Valid codes include:
+Y=Yes;
+N=No.",N/A
+CDLME040,Primary Insurance Indicator,char,1,"Use this field to report whether the policy for this eligibility record is the primary insurance for the member.
+Y=Yes, primary insurance;
+N=No, this is not the member’s primary insurance.",N/A
+CDLME041,Coverage Type,char,3,"This field identifies which entity holds the risk.
+ASW=Self-funded plans administered by a TPA, where the employer has purchased stop-loss, or group excess insurance coverage;
+ASO=Self- funded plans administered by a TPA, where the employer has not purchased stop-loss, or group excess insurance coverage;
+STN=Short-term, non-renewable health insurance (e.g., COBRA);
+UND=Plans underwritten by the insurer (i.e., fully insured group and individual policies);
+MEW=Associations/Trusts and Multiple Employer Welfare Arrangements;
+OTH=Any other plan (e.g., student health plan). States may require prior approval to use OTH.",N/A
+CDLME042,Plan State,char,2,"State in which the plan is sold/sitused. State or Province codes are maintained by the US Postal Service. See Appendix L: External Code Sources, United States Postal Service.",N/A
+CDLME043,Market Category Code,varchar,4,Code for identifying market category. See Appendix K: Market Category Codes which defines the market category by size and or association to which the policy is directly sold and issued. Report subscribers (not employees).,N/A
+CDLME044,Special Coverage,varchar,6,"Reserved for specific state coverage.
+0=Not applicable;
+XXXXXX=Specific state coverage.",N/A
+CDLME045,Group Name,varchar,60,"Name of the group which is covering the member (the name established in the payer’s system and not the full legal name). If the member is a group of one, or covered by an individual non-group, Medicaid, or Medicare policy, then report a value of “IND”.",N/A
+CDLME046,Member PCP ID,varchar,35,"Unique code identified for the Primary Care Provider (PCP). If the member is the subscriber, report the subscriber’s PCP. This should be the identifier used by the payer for internal identification purposes and does not routinely change. Must map to the Payer Assigned Provider ID (CDLPV004) in the Provider File. If not applicable, leave blank.",N/A
+CDLME047,NPI of Member’s PCP,char,10,"NPI of the member’s Primary Care Provider. If the member is the subscriber, report the NPI of the subscriber’s PCP. If not applicable, leave blank.",N/A
+CDLME048,PCP Assignment,char,1,"1=PCP in CDLME046 was selected by the member;
+2=PCP in CDLME046 was attributed by the health plan;
+3=PCP is not selected, and no services rendered;
+4=PCP is not assigned/unknown.",N/A
+CDLME049,Member PCP Effective Date,date,8,"Primary Care Provider Effective Date with member if CDLME048=1 or 2 (PCP Assignment). If the member is the subscriber, report the subscriber’s PCP effective date. Report the date in YYYYMMDD format. If not applicable, leave blank.",N/A
+CDLME050,Plan Effective Date,date,8,YYYYMMDD. Effective date of coverage; Date eligibility started for this member under this plan type. The purpose of this data element is to maintain an eligibility span for each member.,N/A
+CDLME051,Plan Term Date,date,8,"YYYYMMDD. Last continuous day of coverage (date eligibility ended) for this member under this plan. The purpose of this data element is to maintain an eligibility span for each member. For open contracts, leave blank.",N/A
+CDLME052,HIOS Plan indicator,char,1,"For Non-Grandfathered health plans for the Individual and Small Group markets (under ACA) ONLY. Is the member enrolled in a Health Insurance Oversight System plan?
+1=Yes;
+2=No;
+3=Unknown/not applicable.",N/A
+CDLME053,HIOS Plan ID,varchar,16,"For Non-Grandfathered health plans for the Individual and Small Group markets (under ACA) ONLY. Required for qualified health plans (QHPs) as defined in the Patient Protection and Affordable Care Act (ACA). If CDLME052 is NOT=1, leave blank. The HIOS Plan ID (Standard Component) includes a five-digit issuer ID, two-character state ID, 3-digit product number, four-digit standard component number and two-digit variant component ID. This field may not be available for all market segments. If not applicable, leave blank.",N/A
+CDLME054,Metal Tier,char,1,"For Non-Grandfathered health plans for the Individual and Small Group markets (under ACA) ONLY. Health benefit plan metal tier for qualified health plans (QHPs) and catastrophic plans as defined in the Patient Protection and Affordable Care Act, Public Law 111-148, Section 1302: Essential Health Benefits Requirements:
+0=Not a QHP or catastrophic plan;
+1=Catastrophic;
+2=Bronze;
+3=Silver;
+4=Gold;
+5=Platinum.
+If not applicable, leave blank.",N/A
+CDLME055,Medical Home Indicator,int,1,"Use this field to report whether the member had a medical home on record for this coverage period. If not stored in payer system, use code ‘3’. Valid codes include:
+1=Yes;
+2=No;
+3=Unknown/not applicable.",N/A
+CDLME056,Payer assigned ID for Medical Home,varchar,35,"Unique code identified for the Medical Home (as assigned by the reporting entity). Payer assigned ID for the Medical Home is for the Medical Home to which the member belongs. Payer assigned ID for the Medical Home is the identifier used by the payer for internal identification purposes and does not routinely change. Must correspond to a Payer Assigned Provider ID (CDLPV004) in the Provider File. If not applicable, leave blank.",N/A
+CDLME057,Enrolled Through a Public Health Insurance Exchange,char,1,"For Non-Grandfathered health plans for the Individual and Small Group markets (under ACA) ONLY. Use this field to report whether the policy for this eligibility record was enrolled through a Public Health Insurance Exchange. Valid codes include:
+1=Yes;
+2=No;
+3=Unknown/ not applicable.",N/A
+CDLME058,Employer Tax ID,char,9,"Subscriber’s employer EIN or SSN – do not include dashes or provide any punctuation. If coverage not purchased through or enrolled by an employer, leave blank. If not received leave blank.",N/A
+CDLME059,Employment Status,char,1,"Report the code that defines the employment status of the member/subscriber:
+A=Active;
+I=Involuntary Leave;
+P=Pending;
+R=Retiree;
+Z=Unemployed;
+U=Unknown.",N/A
+CDLME060,Employer ZIP Code,varchar,9,"Report the 5 or 9-digit ZIP Code of the employer (as reported in CDLME058) When submitting the 9-digit ZIP Code do not include hyphen. If using 5 digits, do not fill last 4 digits with 0. If coverage not purchased through or enrolled by an employer, leave blank. ZIP Codes are maintained by the US Postal Service. See Appendix L: External Code Source.",N/A
+CDLME061,Carrier Specific Unique Member ID,varchar,50,Report the identifier the carrier / submitter uses internally to uniquely identify the member. Used to create Unique Member ID and link across carrier’s / submitter’s files for reporting and aggregation.,N/A
+CDLME062,Carrier Specific Unique Subscriber ID,varchar,50,Report the identifier the carrier / submitter uses internally to uniquely identify the subscriber. Used to create Unique Subscriber ID and link across carrier’s / submitter’s files for reporting and aggregation.,N/A
+CDLME063,NAIC ID,char,5,Report the NAIC Code associated with the entity that maintains this product. Leave blank if entity does not have a NAIC Code. See Appendix L: External Code Source; NAIC codes are maintained by the National Association of Insurance Commissioners.,N/A
+CDLME064,High Deductible Plan Indicator,char,1,"High deductible plan as defined by the IRS at start of plan year. Valid codes include:
+Y=Yes;
+N=No.
+If not applicable, leave blank.",N/A
+CDLME065,Total Monthly Premium Amount,int,12,"For fully-insured premiums, report the monthly fee paid by a subscriber and/or employer for health insurance coverage for a given number of members (e.g. individual, individual plus one, family), prior to any medical loss ratio rebate payments, but inclusive of any fees paid to a third party (e.g., exchange fees, reinsurance). Report the total monthly premium at the Subscriber level only. Do not report on member lines. Report 0 if no premium is charged. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",N/A
+CDLME066,Actuarial Value,dec,"6, 4","For Non-Grandfathered health plans for the Individual and Small Group markets (under ACA) ONLY. Report value as calculated in the most recent version of the HHS Actuarial Value Calculator. Include decimal point with reported value. Format to be used is 0.0000. For example, an AV of 88.27689% should be reported as 0.8828. Required as of January 1, 2014, for small group and non-group (individual) plans sold inside or outside the Exchange. If not applicable, leave blank. See Appendix L: External Code Source, Centers for Medicaid and Medicare Services.",N/A
+CDLME067,Grand-fathered Plan Indicator,char,1,"Indicates if a plan qualifies as a “Grandfathered” or “Transitional Plan” under the Affordable Care Act (ACA). Please see definition for “grandfathered” and “transitional” in HHS rules 45-CFR-147.140: https://www.federalregister.gov/select-citation/2013/06/03/45-CFR-147
+
+The values of the indicator are as follows:
+1=Grandfathered;
+2=Non-Grandfathered;
+3=Transitional;
+4=Not Applicable.",N/A
+CDLME068,Cost-Sharing Reduction Indicator,char,1,"For Non-Grandfathered health plans for the Individual and Small Group markets (under ACA) ONLY. Indicates cost-sharing reduction under the Affordable Care Act (ACA). This is a person- level indicator in which enrollees who qualify for cost-sharing reduction are assigned cost- sharing indicator values of 1-8. Non-Cost-Sharing recipients are assigned a cost-sharing indicator value of zero. Valid codes include:
+1=Enrollees in 94% Actuarial Value (AV) Silver Plan Variation;
+2=Enrollees in 87% AV Silver Plan Variation;
+3=Enrollees in 73% AV Silver Plan Variation;
+4=Enrollees in Zero Cost Sharing Plan Variation of Platinum Level QHP (Qualified Health Plan);
+5=Enrollee in Zero Cost Sharing Plan Variation of Gold Level QHP;
+6=Enrollee in Zero Cost Sharing Plan Variation of Silver Level QHP;
+7=Enrollee in Zero Cost Sharing Plan Variation of Bronze Level QHP;
+8=Enrollee in Limited Cost Sharing Plan Variation;
+0=Non-CSR recipient, and enrollees with unknown CSR.",N/A
+CDLME069,Administrative Service Fees,int,12,"Administrative Service Fees (ASFs): Average monthly fee paid by an employer to cover its self- insured health plan administration, excluding any stop-loss premiums, and divided by the number of members under administration. Administrator services for these fees may vary, including plan design and network access, claims adjudication and administration, and/or population health management. Primary reporting goal will be to monitor self-insured coverage costs over time, using ASFs as one component of a “premium- equivalent.” Report 0 if no fee is charged. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025). Required when CDLME041=ASW or ASO.",N/A
+CDLME070,Tiered Network,char,1,"Tiered Network: Plans that segment their provider networks into tiers, with tiers typically based on differences in the quality and/or the cost of care provided. Tiers are not considered separate networks, but rather sub-segments of a payer’s HMO or PPO network. A tiered network is different than a plan only splitting benefits by in- network vs. out-of-network; a tiered network will have varying degrees of payments of in-network providers. Report the code that defines the tier network of the member/subscriber’s plan:
+0=Limited Network;
+1=Single Tier-Not tiered;
+2=Two Tier;
+3=Three Tier;
+4=Four Tier;
+5=Other.",N/A
+CDLME071,Member Income Frequency Code,char,1,"Report the frequency for the member income as reported at enrollment:
+1=Weekly;
+2=Bi-Weekly;
+3=Semi-Monthly;
+4=Monthly;
+6=Daily;
+7=Annually;
+8=Two calendar months;
+9=Lump sum separation allowance.
+If the member is the subscriber, report the subscriber’s income frequency.",834/2100A/ICM01
+CDLME072,Member Income Monetary Amount,int,12,"Member's annual income as reported during enrollment. If the member is the subscriber, report the subscriber’s income. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",834/2100A/ICM02
+CDLME073,Member Primary Language,char,3,"Report the primary language of the member. If the member is the subscriber, report the subscriber’s primary language. See Appendix L: External Code Source, ISO 639 Language Codes",834/2100/LUI02
+CDLME074,Un-assigned,char,1,Reserved for future use. Elements will only be added with approval from the APCD-CDL™ Maintenance and Change Committee.,N/A
+CDLME075,Member Medicare Beneficiary Identifier,varchar,11,Member’s Medicare Beneficiary Identifier. Required only for Medicare Supplemental/Companion.,271/2100CA/NM109 where NM108 = MI
+CDLME076,ACO Identifier,varchar,30,APCD agencies will provide guidance as to what values are to be reported in this field,N/A
+CDLME077,ACO Name,varchar,60,APCD agencies will provide guidance as to what values are to be reported in this field,N/A
+CDLME078,Physician Organization Identifier,varchar,30,"For managed care members assigned a PCP, the identifier of the physician group or provider organization or to which the PCP belongs. APCD agencies may provide state-specific guidance on what IDs to use",N/A
+CDLME079,Vision Coverage Indicator,char,1,"Use this field to indicate whether vision coverage is
+part of this member’s plan. (Note: vision coverage may
+be bundled with other types of coverage.)
+Y=Yes;
+N=No.",N/A
+CDLME080,Financial Risk Type,int,1,"Indicate the type of capitated financial risk contract(s) for a member to the member eligibility file, including the following values:
+1=Professional capitation only (no facility capitation);
+2=Facility capitation only (no professional capitation);
+3=Professional and facility capitation (plan has separate capitation contracts for professional services (with PO) and facility costs (generally with hospital));
+4=Global capitation (single contract with PO for both professional and facility);
+5=No capitation, fee-for-service only;
+6=Other.",N/A
+CDLME081,Member Gender Identity,varchar,4,"A person’s internal sense of being a man, woman, both, or neither.
+
+1=Male;
+2=Female;
+3=Female-to-Male (FTM)/Transgender Male/Trans Man;
+4=Male-to-Female (MTF)/Transgender Female/Trans Woman;
+5=Genderqueer, neither exclusively male nor female;
+6=Additional gender category or other;
+7=Choose not to disclose.
+
+If the member is the subscriber, report the subscriber’s gender identity.",N/A
+CDLME082,Member Sexual Orientation,varchar,4,"A person’s identification of their emotional, romantic, sexual, or affectional attraction to another person.
+
+1=Lesbian, gay, or homosexual;
+2=Straight or heterosexual;
+3=Bisexual;
+4=Something else;
+5=Don’t know;
+6=Choose not to disclose.
+
+If the member is the subscriber, report the subscriber’s sexual orientation.",N/A
+CDLME083,Member Street Address 2,varchar,55,"Second line of street address of member’s residence. If the member is the subscriber, report the street address of the subscriber's residence.","Subscriber: 271/2100CA/N302
+
+Member:
+271/2100DA/N302"
+CDLMEXXX,Un-assigned,char,1,Reserved for future use. Elements will only be added with review from states and payers.,N/A
+CDLME899,Record Type,char,2,Value=ME,N/A

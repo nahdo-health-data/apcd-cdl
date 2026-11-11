@@ -1,0 +1,230 @@
+element_id,element_name,type,max_length,description,source_reference
+CDLDC001,Data Submitter Code,varchar,8,APCD-assigned identifier of payer submitting data file. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms). This may or may not be the same code as the Payer Code (CDLDC002).,N/A
+CDLDC002,Payer Code,varchar,8,"APCD-assigned identifier of insurer in the case of premiums-based coverage, or of the administrator in the case of self-funded coverage. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms).",N/A
+CDLDC003,Plan ID,varchar,30,CMS National Plan ID. The National Plan ID is a code assigned by CMS. (PLACEHOLDER).,"837/2330A/NM109
+where NM108=PI"
+CDLDC004,Member Insurance/ Product Category code,char,2,See Appendix J: Insurance Type/Product Category for codes. Use the most granular choice available. Code reported must align with the member's enrollment product (CDLME004) during the time of service.,"837/2320/SBR09*
+
+*With additional values outlined in Appendix J"
+CDLDC005,Payer Claim Control Number,varchar,35,Must apply to the entire claim and be unique within the payer’s system. Payer Claim Control Number (PCCN) must be consistent across claim versions and therefore should not be a transaction number. A combination of the PCCN and version number (CDLDC007) will be used to determine which rows will carry forward into the final claim. It is also imperative that a reversal uses the same PCCN as the original paid claim.,837/2330A/REF02 where REF01=F8
+CDLDC006,Line Counter,int,4,Line number for this service. The line counter begins with 1 and is incremented by 1 for each additional service line of a claim.,837/2400/LX01
+CDLDC007,Version Number,int,4,"The version number of this claim service line. The version number begins with 0 and is incremented by 1 for each subsequent version of the claim. If version numbers are not used, use Cross Reference Claims ID (CDLDC008).",N/A
+CDLDC008,Cross Reference Claims ID,varchar,35,The original Payer Claim Control Number (CDLDC005) Used when a new Payer Claim Control Number is assigned to an adjusted claim and a Version Number (CDLDC007) is not used.,N/A
+CDLDC009,Insured Group or Policy Number,varchar,50,"The identification number, or code assigned by the carrier or administrator to identify the group under which the individual is covered. CDLDC009 is not the number that uniquely identifies the subscriber. If no group or policy number is available, leave blank. If the coverage is Medicaid, then report a value of “IND”. If a policy is sold to an individual as a non-group policy, then report with a value of “IND”.",837/2320A/SBR03
+CDLDC010,Medicaid AID Category,varchar,10,"For Medicaid only. Provide the primary Medicaid Aid Category code for the member. Codes are determined by the state’s Medicaid agency. If not applicable, leave blank.",N/A
+CDLDC011,Subscriber Social Security Number,char,9,Subscriber’s Social Security Number. Do not include dashes. Leave blank if not collected,837/2010BA/REF02 where REF01=SY
+CDLDC012,Plan Specific Contract Number,varchar,80,"Plan assigned contract number. If Plan Specific Contract Number is the subscriber’s Social Security Number, leave blank. If this is a Medicaid claim, provide the Medicaid ID.",837/2010BA/NM109 where NM108=MI
+CDLDC013,Subscriber Last Name,varchar,60,The subscriber’s last name.,837/2010BA/NM103
+CDLDC014,Subscriber First Name,varchar,35,The subscriber’s first name.,837/2010BA/NM104
+CDLDC015,Sequence Number,varchar,20,"Unique number of the member within the contract. When the member is the subscriber, use subscriber sequence number.",N/A
+CDLDC016,Member Social Security Number,char,9,"Member’s Social Security Number. If the member is the subscriber, report the subscriber’s SSN. Do not include dashes. Leave blank if not collected.","Subscriber:
+837/2010BA/REF02 where REF01=SY
+
+Member/Patient:
+837/2010CA/REF02 where REF01=SY"
+CDLDC017,Individual Relationship Code,char,2,"Member’s relationship to insured. Individual Relationship codes maintained by ANSI ASC X12. See Appendix L: External Code Source, Accredited Standards Committee.","Subscriber:
+837/2000B/SBR02
+
+Member:
+837/2000C/PAT01"
+CDLDC018,Member Sex,char,1,"Sex of the Member.
+M=Male;
+F=Female;
+U=Unknown.
+
+Member sex represents biological or administrative sex. If the member is the subscriber, report the subscriber’s sex. Where available, submitters should provide the sex the member was assigned at birth on their original birth certificate (natal sex). When this is not available, submitters may provide the values they have access to regarding physical or legal sex (e.g., administrative sex as categorized by X12 values).","Subscriber:
+837/2010BA/DMG03
+
+Member/Patient: 837/2010CA/DMG03"
+CDLDC019,Member Date of Birth,date,8,"YYYYMMDD. Date of birth of member. If the member is the subscriber, report the subscriber’s date of birth.","Subscriber:
+837/2010BA/DMG02
+
+Member/Patient: 837/2010CA/DMG02"
+CDLDC020,Member Last Name,varchar,60,"The member’s last name. If the member is the subscriber, report the subscriber’s last name.","Subscriber:
+837/2010BA/NM103
+
+Member/Patient:
+837/2010CA/NM103"
+CDLDC021,Member First Name,varchar,35,"The member’s first name. If the member is the subscriber, report the subscriber’s first name.","Subscriber:
+837/2010BA/NM104
+
+Member/Patient:
+837/2010CA/NM104"
+CDLDC022,Member ZIP Code,varchar,9,"Report the 5- or 9-digit ZIP Code of the member’s residence. If the member is the subscriber, report the Zip Code of the subscriber’s residence. When submitting the 9-digit ZIP Code do not include hyphen. If using 5 digits, do not fill last 4 digits with 0. ZIP Codes are maintained by the US Postal Service. See Appendix L: External Code Sources.","Subscriber:
+837/2010BA/N403
+
+Member/Patient:
+837/2010CA/N403"
+CDLDC023,Paid Date,date,8,"YYYYMMDD. Paid date of the claim line. Report the date that appears on the check and/or remit and/or explanation of benefits and corresponds to all types of payment in YYYYMMDD format. If paid/adjudicated date is not available, use Processed Date. Claims paid in full, partial, or zero paid must have a date reported.",837/2330A/DTP03 where DTP01=57
+CDLDC024,Place of Service– Professional,char,2,"Required for professional claims. Not to be used for institutional claims. Place of Service codes are maintained by CMS. See Appendix L: External Code Source, Center for Medicaid and Medicare Services.",837/2300/CLM05-01 where CLM05-02=B
+CDLDC025,ICD 10-CM Diagnosis Code,varchar,7,ICD 10-CM Diagnosis Code when applicable. See Appendix L: External Code Source.,837/2300/HI01-2 where HI01-01=ABF (ICD-10)
+CDLDC026,ICD-9/ICD-10 Flag,char,1,"The purpose of this field is to identify which code set is being utilized.
+9=This claim contains ICD-9- CM codes;
+0=This claim contains ICD-10-CM codes.",N/A
+CDLDC027,Procedure Code,varchar,5,"Common Dental Terminology (CDT) or Current Procedure Terminology (CPT) code for the dental procedure on the claim. CDT codes are maintained by American Dental Association. See Appendix L: External Code Source, American Dental Association. CPT codes are maintained by the American Medical Association. See Appendix L: External Code Source, American Medical Association.",837/2400/SV301-02 where SV301-01=AD
+CDLDC028,Oral Cavity 1,char,2,"Always report the area of the oral cavity when the procedure reported in field CDLDC027 (Procedure Code) refers to a quadrant or arch and the area of the oral cavity is not uniquely defined by the procedure’s nomenclature.
+Area of the oral cavity is designated by a two-digit code, selected from the following code list:
+00=entire oral cavity;
+01=maxillary arch;
+02=mandibular arch;
+10=upper right quadrant;
+20=upper left quadrant;
+30=lower left quadrant;
+40=lower right quadrant.",837/2400/SV304-01
+CDLDC029,Oral Cavity 2,char,2,"Always report the area of the oral cavity when the procedure reported in field CDLDC027 (Procedure Code) refers to a quadrant or arch and the area of the oral cavity is not uniquely defined by the procedure’s nomenclature.
+Area of the oral cavity is designated by a two-digit code, selected from the following code list:
+00=entire oral cavity;
+01=maxillary arch;
+02=mandibular arch;
+10=upper right quadrant;
+20=upper left quadrant;
+30=lower left quadrant;
+40=lower right quadrant.",837/2400/SV304-02
+CDLDC030,Oral Cavity 3,char,2,"Always report the area of the oral cavity when the procedure reported in field CDLDC027 (Procedure Code) refers to a quadrant or arch and the area of the oral cavity is not uniquely defined by the procedure’s nomenclature.
+Area of the oral cavity is designated by a two-digit code, selected from the following code list:
+00=entire oral cavity;
+01=maxillary arch;
+02=mandibular arch;
+10=upper right quadrant;
+20=upper left quadrant;
+30=lower left quadrant;
+40=lower right quadrant.",837/2400/SV304-03
+CDLDC031,Oral Cavity 4,char,2,"Always report the area of the oral cavity when the procedure reported in field CDLDC027 (Procedure Code) refers to a quadrant or arch and the area of the oral cavity is not uniquely defined by the procedure’s nomenclature.
+Area of the oral cavity is designated by a two-digit code, selected from the following code list:
+00=entire oral cavity;
+01=maxillary arch;
+02=mandibular arch;
+10=upper right quadrant;
+20=upper left quadrant;
+30=lower left quadrant;
+40=lower right quadrant.",837/2400/SV304-04
+CDLDC032,Oral Cavity 5,char,2,"Always report the area of the oral cavity when the procedure reported in field CDLDC027 (Procedure Code) refers to a quadrant or arch and the area of the oral cavity is not uniquely defined by the procedure’s nomenclature.
+Area of the oral cavity is designated by a two-digit code, selected from the following code list:
+00=entire oral cavity;
+01=maxillary arch;
+02=mandibular arch;
+10=upper right quadrant;
+20=upper left quadrant;
+30=lower left quadrant;
+40=lower right quadrant.",837/2400/SV304-05
+CDLDC033,Tooth Number or Letter (1),varchar,2,"Required when CDLDC027=D2000 thru D2999. Enter the appropriate tooth number or letter when the procedure directly involves a tooth or range of teeth. If not available, leave blank. Tooth Number codes are maintained by the American Dental Association. See Appendix L: External Code Source, American Dental Association.",837/2400/TOO02
+CDLDC034,Tooth – 1 Surface – 1,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC033 is populated.,837/2400/TOO03-01
+CDLDC035,Tooth – 1 Surface – 2,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC033 is populated.,837/2400/TOO03-02
+CDLDC036,Tooth – 1 Surface – 3,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC033 is populated.,837/2400/TOO03-03
+CDLDC037,Tooth – 1 Surface – 4,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC033 is populated.,837/2400/TOO03-04
+CDLDC038,Tooth – 1 Surface – 5,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC033 is populated.,837/2400/TOO03-05
+CDLDC039,Tooth Number or Letter (2),varchar,2,"Report the tooth identifier(s) when CDLDC027 is within the given range if a second tooth is involved in the procedure. Required when CDLDC027=D2000 thru D2999. See Appendix L: External Code Source, American Dental Association.",837/2400/TOO02
+CDLDC040,Tooth – 2 Surface – 1,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC039 is populated.,837/2400/TOO03-01
+CDLDC041,Tooth – 2 Surface – 2,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC039 is populated.,837/2400/TOO03-02
+CDLDC042,Tooth – 2 Surface – 3,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC039 is populated.,837/2400/TOO03-03
+CDLDC043,Tooth – 2 Surface – 4,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC039 is populated.,837/2400/TOO03-04
+CDLDC044,Tooth – 2 Surface – 5,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC039 is populated.,837/2400/TOO03-05
+CDLDC045,Tooth Number or Letter (3),varchar,2,"Report the tooth identifier(s) when CDLDC027 is within the given range if a third tooth is involved in the procedure. Required when CDLDC027=D2000 thru D2999. See Appendix L: External Code Source, American Dental Association.",837/2400/TOO02
+CDLDC046,Tooth – 3 Surface – 1,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC045 is populated.,837/2400/TOO03-01
+CDLDC047,Tooth – 3 Surface – 2,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC045 is populated.,837/2400/TOO03-02
+CDLDC048,Tooth – 3 Surface – 3,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC045 is populated.,837/2400/TOO03-03
+CDLDC049,Tooth – 3 Surface – 4,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC045 is populated.,837/2400/TOO03-04
+CDLDC050,Tooth – 3 Surface – 5,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC045 is populated.,837/2400/TOO03-05
+CDLDC051,Tooth Number or Letter (4),varchar,2,"Report the tooth identifier(s) when CDLDC027 is within the given range if a fourth tooth is involved in the procedure. Required when CDLDC027=D2000 thru D2999. See Appendix L: External Code Source, American Dental Association.",837/2400/TOO02
+CDLDC052,Tooth – 4 Surface – 1,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC051 is populated.,837/2400/TOO03-01
+CDLDC053,Tooth – 4 Surface – 2,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC051 is populated.,837/2400/TOO03-02
+CDLDC054,Tooth – 4 Surface – 3,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC051 is populated.,837/2400/TOO03-03
+CDLDC055,Tooth – 4 Surface – 4,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC051 is populated.,837/2400/TOO03-04
+CDLDC056,Tooth – 4 Surface – 5,varchar,1,Report the tooth surface(s) on which this service was performed. Provides further detail on procedure(s). Required when Tooth Number/ Letter CDLDC051 is populated.,837/2400/TOO03-05
+CDLDC057,Date of Service – From,date,8,YYYYMMDD. First date of service for this service line. Filled for all claim types. (This date should be within the coverage period on the Eligibility file i.e. between the Plan Effective Date and the Plan Term Date on the Eligibility file all inclusive).,"837/2400/DTP03 where DTP01=472 (service line)
+or
+837/2300/DTP03 where DTP01=434"
+CDLDC058,Date of Service – Thru,date,8,YYYYMMDD Last date of service for this service line. Filled for all claim types.,"837/2400/DTP03 where DTP01=472 (service line)
+or
+837/2300/DTP03 where DTP01=434"
+CDLDC059,Charge Amount,int,12,"Amount charged. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",837/2400/SV302
+CDLDC060,Plan Paid Amount,int,12,"Service line paid amount. This excludes the patient liability. For capitated claims, set to 0. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",837/2430/SVD02
+CDLDC061,Co-pay Amount,int,12,"Report the amount that defines a preset, fixed amount for this claim line service that the patient is responsible to pay. If only collected on the header record, report the co-pay amount on the first claim line. Report 0 if there is no co-pay amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).","837/2430 CAS03 where CAS02=3
+(service line)
+and
+837/2320A/CAS03 where CAS02=3"
+CDLDC062,Coinsurance Amount,int,12,"The dollar amount for which the member is responsible attributed to the coinsurance amount. This is the dollar amount, not the percentage from which the dollar amount was calculated. If only collected on the header record, report the coinsurance amount on the first claim line. Report 0 if there is no coinsurance amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).","837/2430/CAS03 where CAS02=2
+(service line)
+and
+837/2320A/CAS03 where CAS02=2
+(claim)"
+CDLDC063,Deductible Amount,int,12,"Report the amount of the deductible applied to the claim. If only collected on the header record, report the deductible amount on the first claim line. Report 0 if there is no deductible amount applied to the claim. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).","837/2430/CAS03 where CAS02=1
+(service line)
+and
+837/2320/CAS03 where CAS02=1
+(claim)"
+CDLDC064,Repriced Allowed Amount,Int,12,"When payment arrangement type in CDLDC065 is equal to 01 for capitated services, report the maximum amount that would have been paid under fee for service for a particular procedure or service. When payment arrangement type in CDLDC065 is equal to 02 for fee for service, report the maximum amount contractually allowed, and that a carrier will pay for a particular procedure or service.
+Report 0 if there is no allowed amount. Do not code decimal point or provide any punctuation (e.g. $1,000.25 converted to 100025).","837/2400/HCP02 (service line)
+and
+837/2300/HCP02 (claim)"
+CDLDC065,Payment Arrangement Type Flag,char,2,"Indicates the payment methodology. Valid codes are:
+01=Capitation;
+02=Fee for Service;
+03=Percent of Charges;
+07=Other.",N/A
+CDLDC066,Rendering Provider ID,varchar,35,Unique code identified for the provider as assigned by the reporting entity. Payer assigned provider ID for the provider that provided the services on the claims. This should be the identifier used by the payer for internal identification purposes and does not routinely change. Must map to the Payer Assigned Provider ID (CDLPV004) in the Provider File.,"837/2420A/REF02 where REF01=G2
+(service line)
+or
+837/2310B/REF02 where REF01=G2
+(claim)"
+CDLDC067,Rendering Provider NPI,char,10,"Rendering Provider NPI is the NPI of the entity or individual directly providing the service, as enumerated in the Center for Medicaid and Medicare Services NPPES.","837/2420A/NM109 where NM108 = XX
+(service line)
+or
+837/2310B/NM109 where NM108 = XX
+(claim)"
+CDLDC068,Rendering Provider Entity Type Qualifier,char,1,"Use this field to indicate whether the rendering provider is a person or “non-person entity”. HIPAA provider taxonomy classifies provider groups (clinicians who bill as a group practice or under a corporate name, even if that group is composed of one provider) as a “Person.” Valid codes are:
+1=Person;
+2=Non- Person Entity.","837/2420A/NM102
+or
+837/2310B/NM102"
+CDLDC069,Rendering Provider First Name,varchar,35,"Individual first name. If CDLDC068=2, leave blank.","837/2420A/NM104
+or
+837/2310B/NM104"
+CDLDC070,Rendering Provider Middle Name,varchar,25,"Individual middle name or initial. If CDLDC068=2, leave blank.","837/2420A/NM105
+or
+837/2310B/NM105"
+CDLDC071,Rendering Provider Last Name or Organization Name,varchar,60,Full name of provider organization (“non-person entity”) or last name of individual (“person”) provider. CDLDC068 determines if the rendering provider is a “person” or a “non- person entity”.,"837/2420A/NM103
+or
+837/2310B/NM103"
+CDLDC072,Rendering Provider Suffix,varchar,10,"Suffix to individual name. Set to null if provider is a facility or organization. The service provider suffix shall be used to capture the generation of the individual clinician (e.g., Jr., Sr., III).","837/2420A/NM107
+or
+837/2310B/NM107"
+CDLDC073,Rendering Provider Specialty,varchar,10,"Standard code that identifies the provider specialty for this line of service. Report the HIPAA-compliant healthcare provider national taxonomy code. Provider taxonomy codes are maintained by the National Uniform Claims Committee (NUCC). See Appendix L: External Code Source, National Uniform Claims Committee.","837/2420A/PRV03
+or
+837/2310B/PRV03"
+CDLDC074,Rendering Provider City Name,varchar,30,City name of provider or practice location.,"837/2420C/N401
+or
+837/2310C/N401"
+CDLDC075,Rendering Provider State or Province,char,2,"State of provider or practice location. State or Province codes are maintained by the US Postal Service. See Appendix L: External Code Sources, United States Postal Service.","837/2420C/N402
+or
+837/2310C/N402"
+CDLDC076,Rendering Provider ZIP Code,varchar,9,"Report the 5 or 9-digit ZIP Code of the Rendering Provider. When submitting the 9-digit ZIP Code do not include hyphen. If using 5 digits, do not fill last 4 digits with 0. ZIP Codes are maintained by the US Postal Service. See Appendix L: External Code Sources.","837/2420C/N403
+or
+837/2310C/N403"
+CDLDC077,Rendering Provider Group Practice NPI,varchar,10,NPI of rendering provider group practice to which a practitioner is affiliated if different from CDLDC067.,N/A
+CDLDC078,Billing Provider ID,varchar,35,Unique code identified for the provider as assigned by the reporting entity. Payer assigned provider ID for the provider that is the billing provider. This should be the identifier used by the payer for internal identification purposes and does not routinely change. Must map to the Payer Assigned Provider ID (CDLPV004) in the Provider File.,837/2010AA/REF02 where REF01=G2
+CDLDC079,Billing Provider NPI,char,10,NPI for billing provider as enumerated in the Center for Medicaid and Medicare Services NPPES.,837/2010AA/NM109 where NM108=XX
+CDLDC080,Billing Provider Last Name or Organization Name,varchar,60,Full name of provider billing organization or last name of individual billing provider.,837/2010AA/NM103
+CDLDC081,Billing Provider Tax ID,varchar,10,Tax ID of the billing provider. Do not code punctuation.,N/A
+CDLDC082,Carrier Associated with Claim,varchar,8,"For each claim, use the NAIC code of the carrier when a TPA processes claims on behalf of the carrier. Optional if all medical claims processed by a TPA under contract to a carrier for carved- out services are submitted by the carrier with unified member IDs in all files. NAIC codes are maintained by the National Association of Insurance Commissioners. If not available, leave blank. See Appendix L: External Code Source, National Association of Insurance Commissioners.",N/A
+CDLDC083,Claim Status,char,2,"01=Processed as primary;
+02=Processed as secondary;
+03=Processed as tertiary;
+04=Denied;
+19=Processed as primary, forwarded to additional payer(s);
+20=Processed as secondary, forwarded to additional payer(s);
+21=Processed as tertiary, forwarded to additional payer(s);
+22=Reversal of previous payment;
+23=Not our claim, forwarded to additional payer(s);
+25=Predetermination pricing only – No payment.",835/2100/CLP02
+CDLDC084,Claim Line Type,char,1,"Report the code that defines the claim line status in terms of adjudication. Valid codes are:
+O=Original;
+V=Void;
+R=Replacement;
+B=Back Out;
+A=Amendment;
+D=Denial.",N/A
+CDLDC085,Carrier Specific Unique Member ID,varchar,50,Report the identifier the carrier / submitter uses internally to uniquely identify the member. Used to create Unique Member ID and link across carrier’s / submitter’s files for reporting and aggregation.,N/A
+CDLDC086,Carrier Specific Unique Subscriber ID,varchar,50,Report the identifier the carrier / submitter uses internally to uniquely identify the subscriber. Used to create Unique Subscriber ID and link across carrier’s / submitter’s files for reporting and aggregation.,N/A
+CDLDCXXX,Un-assigned,char,1,Reserved for future use. Elements will only be added with review from states and payers.,N/A
+CDLDC899,Record Type,char,2,Value=DC,N/A

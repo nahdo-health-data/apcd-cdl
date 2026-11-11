@@ -1,0 +1,628 @@
+element_id,element_name,rif_file,rif_file_part,rif_short_sas_name,rif_long_sas_name,rif_label,notes
+CDLMC001,Data Submitter Code,N/A,N/A,N/A,N/A,N/A,APCD Specific
+CDLMC002,Payer Code,N/A,N/A,N/A,N/A,N/A,APCD Specific
+CDLMC003,Plan ID,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC004,Member Insurance/ Product Category Code,MBSF,N/A,N/A,"MDCR_ENTLMT_BUYIN_IND_01 - 
+MDCR_ENTLMT_BUYIN_IND_12","Medicare Entitlement/ Buy-In Indicator - January through
+Medicare Entitlement/ Buy-In Indicator - December","To align with what was reported in the eligibility file, join to MBSF file using the bene_id and the service date within the eligibility month.
+
+Transform as listed below to Product Code:
+0 (Not entitled) = No record for the month
+1 (Part A only) = MA
+2 (Part B only) = MB
+3 (Part A and Part B) = AB
+A (Part A state buy-in) = MA
+B (Part B state buy-in) = MB
+C (Part A and Part B state buy-in) = AB"
+CDLMC005,Payer Claim Control Number,All,Base,CLM_ID,CLM_ID,Claim ID,Used to link to Revenue Center and Line files.
+CDLMC006,Line Counter,carrier,Line,LINE_NUM,LINE_NUM,Claim Line Number,
+CDLMC006,Line Counter,dme,Line,LINE_NUM,LINE_NUM,Claim Line Number,
+CDLMC006,Line Counter,All other,Revenue,CLM_LN,CLM_LINE_NUM,Claim Line Number,
+CDLMC007,Version Number,N/A,N/A,N/A,N/A,N/A,Hard code as '0'
+CDLMC008,Cross Reference Claims ID,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC009,Insured Group or Policy Number,N/A,N/A,N/A,N/A,N/A,Hard code as 'IND'
+CDLMC010,Medicaid AID Category,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC011,Subscriber Social Security Number,bene_ssn crosswalk,N/A,ssn,SSN,Beneficiary Social Security Number,"Join to bene_ssn file using the bene_id
+Member is subscriber, repeat for CDLMC016 Member SSN"
+CDLMC012,Plan Specific Contract Number,bene_mbi crosswalk,N/A,mbi_num,MBI_NUM,Medicare Beneficiary Identifier (MBI),"Join to bene_mbi crosswalk table using the bene_id where crnt_sw = 'Y'
+
+Note: The MBI replaced the Health Insurance Claim Number (HICN) as of 1/1/2020.
+The transition period for replacing the HICN with the new Medicare Beneficiary Identifier (MBI) is April 1, 2018 through
+December 31, 2019."
+CDLMC013,Subscriber Last Name,bene_name crosswalk,N/A,bene_srnm_name,BENE_SRNM_NAME,Beneficiary Surname,"Join to bene_name file using the bene_id using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Member name fields"
+CDLMC014,Subscriber First Name,bene_name crosswalk,N/A,bene_gvn_name,BENE_GVN_NAME,Beneficiary First Name,"Join to bene_name file using the bene_id using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Member name fields"
+CDLMC015,Sequence Number,N/A,N/A,N/A,N/A,N/A,Hard code as '01'
+CDLMC016,Member Social Security Number,bene_ssn crosswalk,N/A,ssn,SSN,Beneficiary Social Security Number,"Join to bene_ssn file using the bene_id
+Member is subscriber, repeat for CDLMC011 Subscriber SSN"
+CDLMC017,Individual Relationship Code,N/A,N/A,N/A,N/A,N/A,Hard code as '18'
+CDLMC018,Member Sex,MBSF,N/A,N/A,SEX_IDENT_CD,Sex,"Note: CMS stopped providing member sex in claims, link to the MBSF file using bene_id to retrieve member sex.
+
+Master Beneficiary Summary File (MBSF)
+Transform as follows:
+0 = Unknown (Transform to 'U')
+1 = Male (Transform to 'M')
+2 = Female (Transform to 'F')"
+CDLMC019,Member Date of Birth,All,Base,DOB_DT,DOB_DT,Date of Birth from Claim,"If DOB_DT is null, link to the MBSF file using bene_id to retrieve member date of birth (BENE_BIRTH_DT)."
+CDLMC020,Member Last Name,bene_name crosswalk,N/A,bene_srnm_name,BENE_SRNM_NAME,Beneficiary Surname,"Join to bene_name file using the bene_id using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Subscriber name fields"
+CDLMC021,Member First Name,bene_name crosswalk,N/A,bene_gvn_name,BENE_GVN_NAME,Beneficiary First Name,"Join to bene_name file using the bene_id using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Subscriber name fields"
+CDLMC022,Member ZIP Code,All,Base,ZIP_CD,BENE_MLG_CNTCT_ZIP_CD,ZIP Code of Residence from Claim,"If BENE_MLG_CNTCT_ZIP_CD is null, link to the MBSF file using bene_id to retrieve member ZIP code (ZIP_CD)."
+CDLMC023,Patient Control Number,inpatient,Base,CLM_MDCL_REC,CLM_MDCL_REC,Claim Medical Record Number,
+CDLMC023,Patient Control Number,snf,Base,CLM_MDCL_REC,CLM_MDCL_REC,Claim Medical Record Number,
+CDLMC023,Patient Control Number,hospice,Base,CLM_MDCL_REC,CLM_MDCL_REC,Claim Medical Record Number,
+CDLMC023,Patient Control Number,hha,Base,CLM_MDCL_REC,CLM_MDCL_REC,Claim Medical Record Number,
+CDLMC023,Patient Control Number,hop,Base,CLM_MDCL_REC,CLM_MDCL_REC,Claim Medical Record Number,
+CDLMC024,Paid Date,All,Base,WKLY_DT,NCH_WKLY_PROC_DT,NCH Weekly Claim Processing Date,All claim files
+CDLMC025,Admission Date,inpatient,Base,ADMSN_DT,CLM_ADMSN_DT,Claim Admission Date,
+CDLMC025,Admission Date,snf,Base,ADMSN_DT,CLM_ADMSN_DT,Claim Admission Date,
+CDLMC025,Admission Date,hospice,Base,CLM_ADMSN_DT,CLM_ADMSN_DT,Claim Admission Date,
+CDLMC025,Admission Date,hha,Base,HHSTRTDT,CLM_ADMSN_DT,Claim Admission Date,"For home health claims, this designates when home health services started."
+CDLMC026,Admission Hour,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC027,Admission Type,inpatient,Base,TYPE_ADM,CLM_IP_ADMSN_TYPE_CD,Claim Inpatient Admission Type Code,
+CDLMC027,Admission Type,snf,Base,TYPE_ADM,CLM_IP_ADMSN_TYPE_CD,Claim Inpatient Admission Type Code,
+CDLMC028,Point of Origin,inpatient,Base,SRC_ADMS,CLM_SRC_IP_ADMSN_CD,Claim Source Inpatient Admission Code,
+CDLMC028,Point of Origin,snf,Base,SRC_ADMS,CLM_SRC_IP_ADMSN_CD,Claim Source Inpatient Admission Code,
+CDLMC029,Discharge Date,inpatient,Base,DSCHRGDT,NCH_BENE_DSCHRG_DT,NCH Beneficiary Discharge Date,
+CDLMC029,Discharge Date,snf,Base,DSCHRGDT,NCH_BENE_DSCHRG_DT,NCH Beneficiary Discharge Date,
+CDLMC029,Discharge Date,hospice,Base,DSCHRGDT,NCH_BENE_DSCHRG_DT,NCH Beneficiary Discharge Date,
+CDLMC029,Discharge Date,hha,Base,DSCHRGDT,NCH_BENE_DSCHRG_DT,NCH Beneficiary Discharge Date,
+CDLMC030,Discharge Hour,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC031,Discharge Status,inpatient,Base,STUS_CD,PTNT_DSCHRG_STUS_CD,Patient Discharge Status Code,
+CDLMC031,Discharge Status,snf,Base,STUS_CD,PTNT_DSCHRG_STUS_CD,Patient Discharge Status Code,
+CDLMC031,Discharge Status,hospice,Base,STUS_CD,PTNT_DSCHRG_STUS_CD,Patient Discharge Status Code,
+CDLMC031,Discharge Status,hha,Base,STUS_CD,PTNT_DSCHRG_STUS_CD,Patient Discharge Status Code,
+CDLMC031,Discharge Status,hop,Base,STUS_CD,PTNT_DSCHRG_STUS_CD,Patient Discharge Status Code,
+CDLMC032,Type of Bill – Institutional,inpatient,Base,"Concatenate three fields:
+FAC_TYPE 
+TYPESRVC
+FREQ_CD","Concatenate three fields
+CLM_FAC_TYPE_CD CLM_SRVC_CLSFCTN_TYPE_CD CLM_FREQ_CD","Claim Facility Type Code
+Claim Service classification Type Code
+Claim Frequency Code","Concatenate three fields
+CLM_FAC_TYPE_CD (1st digit for type of bill) + 
+CLM_SRVC_CLSFCTN_TYPE_CD (2nd digit for type of bill) + 
+CLM_FREQ_CD (3rd digit for type of bill)"
+CDLMC032,Type of Bill – Institutional,snf,Base,"Concatenate three fields:
+FAC_TYPE 
+TYPESRVC
+FREQ_CD","Concatenate three fields
+CLM_FAC_TYPE_CD CLM_SRVC_CLSFCTN_TYPE_CD CLM_FREQ_CD","Claim Facility Type Code
+Claim Service classification Type Code
+Claim Frequency Code","Concatenate three fields
+CLM_FAC_TYPE_CD (1st digit for type of bill) + 
+CLM_SRVC_CLSFCTN_TYPE_CD (2nd digit for type of bill) + 
+CLM_FREQ_CD (3rd digit for type of bill)"
+CDLMC032,Type of Bill – Institutional,hospice,Base,"Concatenate three fields:
+FAC_TYPE 
+TYPESRVC
+FREQ_CD","Concatenate three fields
+CLM_FAC_TYPE_CD CLM_SRVC_CLSFCTN_TYPE_CD CLM_FREQ_CD","Claim Facility Type Code
+Claim Service classification Type Code
+Claim Frequency Code","Concatenate three fields
+CLM_FAC_TYPE_CD (1st digit for type of bill) + 
+CLM_SRVC_CLSFCTN_TYPE_CD (2nd digit for type of bill) + 
+CLM_FREQ_CD (3rd digit for type of bill)"
+CDLMC032,Type of Bill – Institutional,hha,Base,"Concatenate three fields:
+FAC_TYPE 
+TYPESRVC
+FREQ_CD","Concatenate three fields
+CLM_FAC_TYPE_CD CLM_SRVC_CLSFCTN_TYPE_CD CLM_FREQ_CD","Claim Facility Type Code
+Claim Service classification Type Code
+Claim Frequency Code","Concatenate three fields
+CLM_FAC_TYPE_CD (1st digit for type of bill) + 
+CLM_SRVC_CLSFCTN_TYPE_CD (2nd digit for type of bill) + 
+CLM_FREQ_CD (3rd digit for type of bill)"
+CDLMC032,Type of Bill – Institutional,hop,Base,"Concatenate three fields:
+FAC_TYPE 
+TYPESRVC
+FREQ_CD","Concatenate three fields
+CLM_FAC_TYPE_CD CLM_SRVC_CLSFCTN_TYPE_CD CLM_FREQ_CD","Claim Facility Type Code
+Claim Service classification Type Code
+Claim Frequency Code","Concatenate three fields
+CLM_FAC_TYPE_CD (1st digit for type of bill) + 
+CLM_SRVC_CLSFCTN_TYPE_CD (2nd digit for type of bill) + 
+CLM_FREQ_CD (3rd digit for type of bill)"
+CDLMC033,Place of Service – Professional,carrier,Line,PLCSRVC,LINE_PLACE_OF_SRVC_CD,Line Place of Service Code,
+CDLMC033,Place of Service – Professional,dme,Line,PLCSRVC,LINE_PLACE_OF_SRVC_CD,Line Place of Service Code,
+CDLMC034,Admitting Diagnosis,inpatient,Base,ADMTG_DGNS_CD,ADMTG_DGNS_CD,Claim Admitting Diagnosis Code,
+CDLMC034,Admitting Diagnosis,snf,Base,ADMTG_DGNS_CD,ADMTG_DGNS_CD,Claim Admitting Diagnosis Code,
+CDLMC035,First External Cause Code,inpatient,Base,ICD_DGNS_E_CD1,ICD_DGNS_E_CD1,Claim Diagnosis E Code I,
+CDLMC035,First External Cause Code,snf,Base,ICD_DGNS_E_CD1,ICD_DGNS_E_CD1,Claim Diagnosis E Code I,
+CDLMC035,First External Cause Code,hospice,Base,ICD_DGNS_E_CD1,ICD_DGNS_E_CD1,Claim Diagnosis E Code I,
+CDLMC035,First External Cause Code,hha,Base,ICD_DGNS_E_CD1,ICD_DGNS_E_CD1,Claim Diagnosis E Code I,
+CDLMC035,First External Cause Code,hop,Base,ICD_DGNS_E_CD1,ICD_DGNS_E_CD1,Claim Diagnosis E Code I,
+CDLMC036,ICD Version Indicator,carrier,Line,PRNCPAL_DGNS_VRSN_CD,PRNCPAL_DGNS_VRSN_CD,Claim Principal Diagnosis Version Code,
+CDLMC036,ICD Version Indicator,dme,Line,PRNCPAL_DGNS_VRSN_CD,PRNCPAL_DGNS_VRSN_CD,Claim Principal Diagnosis Version Code,
+CDLMC036,ICD Version Indicator,All Other,N/A,N/A,N/A,N/A,"For discharge dates reported > 9/30/2015 then '0' (ICD-10) else '9' (ICD-9)
+else use date of service from > 9/30/2015 then '0' (ICD-10) else '9' (ICD-9)"
+CDLMC037,Principal Diagnosis,All,Base,ICD_DGNS_CD1,ICD_DGNS_CD1,Claim Diagnosis Code I,"Note that principal diagnosis and diagnosis 1 are duplicates per CMS documentation.
+Description for Principal Diagnosis: The diagnosis code identifying the diagnosis, condition, problem, or other reason for the admission/encounter/visit shown in the medical record to be chiefly responsible for the services provided.
+This data is also redundantly stored as the first occurrence of the diagnosis code (variable called ICD_DGNS_CD1)."
+CDLMC038,Other Diagnosis – 1,All,Base,ICD_DGNS_CD2,ICD_DGNS_CD2,Claim Diagnosis Code II,
+CDLMC039,Other Diagnosis – 2,All,Base,ICD_DGNS_CD3,ICD_DGNS_CD3,Claim Diagnosis Code III,
+CDLMC040,Other Diagnosis – 3,All,Base,ICD_DGNS_CD4,ICD_DGNS_CD4,Claim Diagnosis Code IV,
+CDLMC041,Other Diagnosis – 4,All,Base,ICD_DGNS_CD5,ICD_DGNS_CD5,Claim Diagnosis Code V,
+CDLMC042,Other Diagnosis – 5,All,Base,ICD_DGNS_CD6,ICD_DGNS_CD6,Claim Diagnosis Code VI,
+CDLMC043,Other Diagnosis – 6,All,Base,ICD_DGNS_CD7,ICD_DGNS_CD7,Claim Diagnosis Code VII,
+CDLMC044,Other Diagnosis – 7,All,Base,ICD_DGNS_CD8,ICD_DGNS_CD8,Claim Diagnosis Code VIII,
+CDLMC045,Other Diagnosis – 8,All,Base,ICD_DGNS_CD9,ICD_DGNS_CD9,Claim Diagnosis Code IX,
+CDLMC046,Other Diagnosis – 9,All,Base,ICD_DGNS_CD10,ICD_DGNS_CD10,Claim Diagnosis Code X,
+CDLMC047,Other Diagnosis – 10,All,Base,ICD_DGNS_CD11,ICD_DGNS_CD11,Claim Diagnosis Code XI,
+CDLMC048,Other Diagnosis – 11,All,Base,ICD_DGNS_CD12,ICD_DGNS_CD12,Claim Diagnosis Code XII,
+CDLMC049,Other Diagnosis – 12,inpatient,Base,ICD_DGNS_CD13,ICD_DGNS_CD13,Claim Diagnosis Code XIII,
+CDLMC049,Other Diagnosis – 12,snf,Base,ICD_DGNS_CD13,ICD_DGNS_CD13,Claim Diagnosis Code XIII,
+CDLMC049,Other Diagnosis – 12,hospice,Base,ICD_DGNS_CD13,ICD_DGNS_CD13,Claim Diagnosis Code XIII,
+CDLMC049,Other Diagnosis – 12,hha,Base,ICD_DGNS_CD13,ICD_DGNS_CD13,Claim Diagnosis Code XIII,
+CDLMC049,Other Diagnosis – 12,hop,Base,ICD_DGNS_CD13,ICD_DGNS_CD13,Claim Diagnosis Code XIII,
+CDLMC050,Other Diagnosis – 13,inpatient,Base,ICD_DGNS_CD14,ICD_DGNS_CD14,Claim Diagnosis Code XIV,
+CDLMC050,Other Diagnosis – 13,snf,Base,ICD_DGNS_CD14,ICD_DGNS_CD14,Claim Diagnosis Code XIV,
+CDLMC050,Other Diagnosis – 13,hospice,Base,ICD_DGNS_CD14,ICD_DGNS_CD14,Claim Diagnosis Code XIV,
+CDLMC050,Other Diagnosis – 13,hha,Base,ICD_DGNS_CD14,ICD_DGNS_CD14,Claim Diagnosis Code XIV,
+CDLMC050,Other Diagnosis – 13,hop,Base,ICD_DGNS_CD14,ICD_DGNS_CD14,Claim Diagnosis Code XIV,
+CDLMC051,Other Diagnosis – 14,inpatient,Base,ICD_DGNS_CD15,ICD_DGNS_CD15,Claim Diagnosis Code XV,
+CDLMC051,Other Diagnosis – 14,snf,Base,ICD_DGNS_CD15,ICD_DGNS_CD15,Claim Diagnosis Code XV,
+CDLMC051,Other Diagnosis – 14,hospice,Base,ICD_DGNS_CD15,ICD_DGNS_CD15,Claim Diagnosis Code XV,
+CDLMC051,Other Diagnosis – 14,hha,Base,ICD_DGNS_CD15,ICD_DGNS_CD15,Claim Diagnosis Code XV,
+CDLMC051,Other Diagnosis – 14,hop,Base,ICD_DGNS_CD15,ICD_DGNS_CD15,Claim Diagnosis Code XV,
+CDLMC052,Other Diagnosis – 15,inpatient,Base,ICD_DGNS_CD16,ICD_DGNS_CD16,Claim Diagnosis Code XVI,
+CDLMC052,Other Diagnosis – 15,snf,Base,ICD_DGNS_CD16,ICD_DGNS_CD16,Claim Diagnosis Code XVI,
+CDLMC052,Other Diagnosis – 15,hospice,Base,ICD_DGNS_CD16,ICD_DGNS_CD16,Claim Diagnosis Code XVI,
+CDLMC052,Other Diagnosis – 15,hha,Base,ICD_DGNS_CD16,ICD_DGNS_CD16,Claim Diagnosis Code XVI,
+CDLMC052,Other Diagnosis – 15,hop,Base,ICD_DGNS_CD16,ICD_DGNS_CD16,Claim Diagnosis Code XVI,
+CDLMC053,Other Diagnosis – 16,inpatient,Base,ICD_DGNS_CD17,ICD_DGNS_CD17,Claim Diagnosis Code XVII,
+CDLMC053,Other Diagnosis – 16,snf,Base,ICD_DGNS_CD17,ICD_DGNS_CD17,Claim Diagnosis Code XVII,
+CDLMC053,Other Diagnosis – 16,hospice,Base,ICD_DGNS_CD17,ICD_DGNS_CD17,Claim Diagnosis Code XVII,
+CDLMC053,Other Diagnosis – 16,hha,Base,ICD_DGNS_CD17,ICD_DGNS_CD17,Claim Diagnosis Code XVII,
+CDLMC053,Other Diagnosis – 16,hop,Base,ICD_DGNS_CD17,ICD_DGNS_CD17,Claim Diagnosis Code XVII,
+CDLMC054,Other Diagnosis – 17,inpatient,Base,ICD_DGNS_CD18,ICD_DGNS_CD18,Claim Diagnosis Code XVIII,
+CDLMC054,Other Diagnosis – 17,snf,Base,ICD_DGNS_CD18,ICD_DGNS_CD18,Claim Diagnosis Code XVIII,
+CDLMC054,Other Diagnosis – 17,hospice,Base,ICD_DGNS_CD18,ICD_DGNS_CD18,Claim Diagnosis Code XVIII,
+CDLMC054,Other Diagnosis – 17,hha,Base,ICD_DGNS_CD18,ICD_DGNS_CD18,Claim Diagnosis Code XVIII,
+CDLMC054,Other Diagnosis – 17,hop,Base,ICD_DGNS_CD18,ICD_DGNS_CD18,Claim Diagnosis Code XVIII,
+CDLMC055,Other Diagnosis – 18,inpatient,Base,ICD_DGNS_CD19,ICD_DGNS_CD19,Claim Diagnosis Code XIX,
+CDLMC055,Other Diagnosis – 18,snf,Base,ICD_DGNS_CD19,ICD_DGNS_CD19,Claim Diagnosis Code XIX,
+CDLMC055,Other Diagnosis – 18,hospice,Base,ICD_DGNS_CD19,ICD_DGNS_CD19,Claim Diagnosis Code XIX,
+CDLMC055,Other Diagnosis – 18,hha,Base,ICD_DGNS_CD19,ICD_DGNS_CD19,Claim Diagnosis Code XIX,
+CDLMC055,Other Diagnosis – 18,hop,Base,ICD_DGNS_CD19,ICD_DGNS_CD19,Claim Diagnosis Code XIX,
+CDLMC056,Other Diagnosis – 19,inpatient,Base,ICD_DGNS_CD20,ICD_DGNS_CD20,Claim Diagnosis Code XX,
+CDLMC056,Other Diagnosis – 19,snf,Base,ICD_DGNS_CD20,ICD_DGNS_CD20,Claim Diagnosis Code XX,
+CDLMC056,Other Diagnosis – 19,hospice,Base,ICD_DGNS_CD20,ICD_DGNS_CD20,Claim Diagnosis Code XX,
+CDLMC056,Other Diagnosis – 19,hha,Base,ICD_DGNS_CD20,ICD_DGNS_CD20,Claim Diagnosis Code XX,
+CDLMC056,Other Diagnosis – 19,hop,Base,ICD_DGNS_CD20,ICD_DGNS_CD20,Claim Diagnosis Code XX,
+CDLMC057,Other Diagnosis – 20,inpatient,Base,ICD_DGNS_CD21,ICD_DGNS_CD21,Claim Diagnosis Code XXI,
+CDLMC057,Other Diagnosis – 20,snf,Base,ICD_DGNS_CD21,ICD_DGNS_CD21,Claim Diagnosis Code XXI,
+CDLMC057,Other Diagnosis – 20,hospice,Base,ICD_DGNS_CD21,ICD_DGNS_CD21,Claim Diagnosis Code XXI,
+CDLMC057,Other Diagnosis – 20,hha,Base,ICD_DGNS_CD21,ICD_DGNS_CD21,Claim Diagnosis Code XXI,
+CDLMC057,Other Diagnosis – 20,hop,Base,ICD_DGNS_CD21,ICD_DGNS_CD21,Claim Diagnosis Code XXI,
+CDLMC058,Other Diagnosis – 21,inpatient,Base,ICD_DGNS_CD22,ICD_DGNS_CD22,Claim Diagnosis Code XXII,
+CDLMC058,Other Diagnosis – 21,snf,Base,ICD_DGNS_CD22,ICD_DGNS_CD22,Claim Diagnosis Code XXII,
+CDLMC058,Other Diagnosis – 21,hospice,Base,ICD_DGNS_CD22,ICD_DGNS_CD22,Claim Diagnosis Code XXII,
+CDLMC058,Other Diagnosis – 21,hha,Base,ICD_DGNS_CD22,ICD_DGNS_CD22,Claim Diagnosis Code XXII,
+CDLMC058,Other Diagnosis – 21,hop,Base,ICD_DGNS_CD22,ICD_DGNS_CD22,Claim Diagnosis Code XXII,
+CDLMC059,Other Diagnosis – 22,inpatient,Base,ICD_DGNS_CD23,ICD_DGNS_CD23,Claim Diagnosis Code XXIII,
+CDLMC059,Other Diagnosis – 22,snf,Base,ICD_DGNS_CD23,ICD_DGNS_CD23,Claim Diagnosis Code XXIII,
+CDLMC059,Other Diagnosis – 22,hospice,Base,ICD_DGNS_CD23,ICD_DGNS_CD23,Claim Diagnosis Code XXIII,
+CDLMC059,Other Diagnosis – 22,hha,Base,ICD_DGNS_CD23,ICD_DGNS_CD23,Claim Diagnosis Code XXIII,
+CDLMC059,Other Diagnosis – 22,hop,Base,ICD_DGNS_CD23,ICD_DGNS_CD23,Claim Diagnosis Code XXIII,
+CDLMC060,Other Diagnosis – 23,inpatient,Base,ICD_DGNS_CD24,ICD_DGNS_CD24,Claim Diagnosis Code XXIV,
+CDLMC060,Other Diagnosis – 23,snf,Base,ICD_DGNS_CD24,ICD_DGNS_CD24,Claim Diagnosis Code XXIV,
+CDLMC060,Other Diagnosis – 23,hospice,Base,ICD_DGNS_CD24,ICD_DGNS_CD24,Claim Diagnosis Code XXIV,
+CDLMC060,Other Diagnosis – 23,hha,Base,ICD_DGNS_CD24,ICD_DGNS_CD24,Claim Diagnosis Code XXIV,
+CDLMC060,Other Diagnosis – 23,hop,Base,ICD_DGNS_CD24,ICD_DGNS_CD24,Claim Diagnosis Code XXIV,
+CDLMC061,Other Diagnosis – 24,inpatient,Base,ICD_DGNS_CD25,ICD_DGNS_CD25,Claim Diagnosis Code XXV,
+CDLMC061,Other Diagnosis – 24,snf,Base,ICD_DGNS_CD25,ICD_DGNS_CD25,Claim Diagnosis Code XXV,
+CDLMC061,Other Diagnosis – 24,hospice,Base,ICD_DGNS_CD25,ICD_DGNS_CD25,Claim Diagnosis Code XXV,
+CDLMC061,Other Diagnosis – 24,hha,Base,ICD_DGNS_CD25,ICD_DGNS_CD25,Claim Diagnosis Code XXV,
+CDLMC061,Other Diagnosis – 24,hop,Base,ICD_DGNS_CD25,ICD_DGNS_CD25,Claim Diagnosis Code XXV,
+CDLMC062,Present on Admission Code -01,inpatient,Base,CLM_POA_IND_SW1,CLM_POA_IND_SW1,Claim Diagnosis Code I Diagnosis Present on Admission (POA) Indicator Code,
+CDLMC063,Present on Admission Code -02,inpatient,Base,CLM_POA_IND_SW2,CLM_POA_IND_SW2,Claim Diagnosis Code II Diagnosis Present on Admission (POA) Indicator Code,
+CDLMC064,Present on Admission Code -03,inpatient,Base,CLM_POA_IND_SW3,CLM_POA_IND_SW3,Claim Diagnosis Code III Diagnosis Present on Admission (POA) Indicator Code,
+CDLMC065,Present on Admission Code -04,inpatient,Base,CLM_POA_IND_SW4,CLM_POA_IND_SW4,Claim Diagnosis Code IV Diagnosis Present on Admission (POA) Indicator Code,
+CDLMC066,Present on Admission Code -05,inpatient,Base,CLM_POA_IND_SW5,CLM_POA_IND_SW5,Claim Diagnosis Code V Diagnosis Present on Admission (POA) Indicator Code,
+CDLMC067,Present on Admission Code -06,inpatient,Base,CLM_POA_IND_SW6,CLM_POA_IND_SW6,Claim Diagnosis Code VI Diagnosis Present on Admission Indicator Code,
+CDLMC068,Present on Admission Code -07,inpatient,Base,CLM_POA_IND_SW7,CLM_POA_IND_SW7,Claim Diagnosis Code VII Diagnosis Present on Admission Indicator Code,
+CDLMC069,Present on Admission Code -08,inpatient,Base,CLM_POA_IND_SW8,CLM_POA_IND_SW8,Claim Diagnosis Code VIII Diagnosis Present on Admission Indicator Code,
+CDLMC070,Present on Admission Code -09,inpatient,Base,CLM_POA_IND_SW9,CLM_POA_IND_SW9,Claim Diagnosis Code IX Diagnosis Present on Admission Indicator Code,
+CDLMC071,Present on Admission Code -10,inpatient,Base,CLM_POA_IND_SW10,CLM_POA_IND_SW10,Claim Diagnosis Code X Diagnosis Present on Admission Indicator Code,
+CDLMC072,Present on Admission Code -11,inpatient,Base,CLM_POA_IND_SW11,CLM_POA_IND_SW11,Claim Diagnosis Code XI Diagnosis Present on Admission Indicator Code,
+CDLMC073,Present on Admission Code -12,inpatient,Base,CLM_POA_IND_SW12,CLM_POA_IND_SW12,Claim Diagnosis Code XII Diagnosis Present on Admission Indicator Code,
+CDLMC074,Present on Admission Code -13,inpatient,Base,CLM_POA_IND_SW13,CLM_POA_IND_SW13,Claim Diagnosis Code XIII Diagnosis Present on Admission Indicator Code,
+CDLMC075,Present on Admission Code - 14,inpatient,Base,CLM_POA_IND_SW14,CLM_POA_IND_SW14,Claim Diagnosis Code XIV Diagnosis Present on Admission Indicator Code,
+CDLMC076,Present on Admission Code - 15,inpatient,Base,CLM_POA_IND_SW15,CLM_POA_IND_SW15,Claim Diagnosis Code XV Diagnosis Present on Admission Indicator Code,
+CDLMC077,Present on Admission Code - 16,inpatient,Base,CLM_POA_IND_SW16,CLM_POA_IND_SW16,Claim Diagnosis Code XVI Diagnosis Present on Admission Indicator Code,
+CDLMC078,Present on Admission Code - 17,inpatient,Base,CLM_POA_IND_SW17,CLM_POA_IND_SW17,Claim Diagnosis Code XVII Diagnosis Present on Admission Indicator Code,
+CDLMC079,Present on Admission Code- 18,inpatient,Base,CLM_POA_IND_SW18,CLM_POA_IND_SW18,Claim Diagnosis Code XVIII Diagnosis Present on Admission Indicator Code,
+CDLMC080,Present on Admission Code - 19,inpatient,Base,CLM_POA_IND_SW19,CLM_POA_IND_SW19,Claim Diagnosis Code XIX Diagnosis Present on Admission Indicator Code,
+CDLMC081,Present on Admission Code - 20,inpatient,Base,CLM_POA_IND_SW20,CLM_POA_IND_SW20,Claim Diagnosis Code XX Diagnosis Present on Admission Indicator Code,
+CDLMC082,Present on Admission Code - 21,inpatient,Base,CLM_POA_IND_SW21,CLM_POA_IND_SW21,Claim Diagnosis Code XXI Diagnosis Present on Admission Indicator Code,
+CDLMC083,Present on Admission Code - 22,inpatient,Base,CLM_POA_IND_SW22,CLM_POA_IND_SW22,Claim Diagnosis Code XXII Diagnosis Present on Admission Indicator Code,
+CDLMC084,Present on Admission Code - 23,inpatient,Base,CLM_POA_IND_SW23,CLM_POA_IND_SW23,Claim Diagnosis Code XXIII Diagnosis Present on Admission Indicator Code,
+CDLMC085,Present on Admission Code - 24,inpatient,Base,CLM_POA_IND_SW24,CLM_POA_IND_SW24,Claim Diagnosis Code XXIV Diagnosis Present on Admission Indicator Code,
+CDLMC086,Present on Admission Code - 25,inpatient,Base,CLM_POA_IND_SW25,CLM_POA_IND_SW25,Claim Diagnosis Code XXV Diagnosis Present on Admission Indicator Code,
+CDLMC087,Revenue Code,inpatient,Revenue,REV_CNTR,REV_CNTR,Revenue Center Code,
+CDLMC087,Revenue Code,snf,Revenue,REV_CNTR,REV_CNTR,Revenue Center Code,
+CDLMC087,Revenue Code,hospice,Revenue,REV_CNTR,REV_CNTR,Revenue Center Code,
+CDLMC087,Revenue Code,hha,Revenue,REV_CNTR,REV_CNTR,Revenue Center Code,
+CDLMC087,Revenue Code,hop,Revenue,REV_CNTR,REV_CNTR,Revenue Center Code,
+CDLMC088,Procedure Code,inpatient,Revenue,HCPCS_CD,HCPCS_CD,HCFA Common Procedure Coding System (HCPCS) Code,
+CDLMC088,Procedure Code,snf,Revenue,HCPCS_CD,HCPCS_CD,HCFA Common Procedure Coding System (HCPCS) Code,
+CDLMC088,Procedure Code,hospice,Revenue,HCPCS_CD,HCPCS_CD,HCFA Common Procedure Coding System (HCPCS) Code,
+CDLMC088,Procedure Code,hha,Revenue,HCPCS_CD,HCPCS_CD,HCFA Common Procedure Coding System (HCPCS) Code,
+CDLMC088,Procedure Code,hop,Revenue,HCPCS_CD,HCPCS_CD,HCFA Common Procedure Coding System (HCPCS) Code,
+CDLMC088,Procedure Code,carrier,Line,HCPCS_CD,HCPCS_CD,HCFA Common Procedure Coding System (HCPCS) Code,
+CDLMC088,Procedure Code,dme,Line,HCPCS_CD,HCPCS_CD,HCFA Common Procedure Coding System (HCPCS) Code,
+CDLMC089,Procedure Modifier – 1,inpatient,Revenue,MDFR_CD1,HCPCS_1ST_MDFR_CD,HCPCS Initial Modifier Code,
+CDLMC089,Procedure Modifier – 1,snf,Revenue,MDFR_CD1,HCPCS_1ST_MDFR_CD,HCPCS Initial Modifier Code,
+CDLMC089,Procedure Modifier – 1,hospice,Revenue,MDFR_CD1,HCPCS_1ST_MDFR_CD,HCPCS Initial Modifier Code,
+CDLMC089,Procedure Modifier – 1,hha,Revenue,MDFR_CD1,HCPCS_1ST_MDFR_CD,HCPCS Initial Modifier Code,
+CDLMC089,Procedure Modifier – 1,hop,Revenue,MDFR_CD1,HCPCS_1ST_MDFR_CD,HCPCS Initial Modifier Code,
+CDLMC089,Procedure Modifier – 1,carrier,Line,MDFR_CD1,HCPCS_1ST_MDFR_CD,HCPCS Initial Modifier Code,
+CDLMC089,Procedure Modifier – 1,dme,Line,MDFR_CD1,HCPCS_1ST_MDFR_CD,HCPCS Initial Modifier Code,
+CDLMC090,Procedure Modifier – 2,inpatient,Revenue,MDFR_CD2,HCPCS_2ND_MDFR_CD,HCPCS Second Modifier Code,
+CDLMC090,Procedure Modifier – 2,snf,Revenue,MDFR_CD2,HCPCS_2ND_MDFR_CD,HCPCS Second Modifier Code,
+CDLMC090,Procedure Modifier – 2,hospice,Revenue,MDFR_CD2,HCPCS_2ND_MDFR_CD,HCPCS Second Modifier Code,
+CDLMC090,Procedure Modifier – 2,hha,Revenue,MDFR_CD2,HCPCS_2ND_MDFR_CD,HCPCS Second Modifier Code,
+CDLMC090,Procedure Modifier – 2,hop,Revenue,MDFR_CD2,HCPCS_2ND_MDFR_CD,HCPCS Second Modifier Code,
+CDLMC090,Procedure Modifier – 2,carrier,Line,MDFR_CD2,HCPCS_2ND_MDFR_CD,HCPCS Second Modifier Code,
+CDLMC090,Procedure Modifier – 2,dme,Line,MDFR_CD2,HCPCS_2ND_MDFR_CD,HCPCS Second Modifier Code,
+CDLMC091,Procedure Modifier – 3,inpatient,Revenue,MDFR_CD3,HCPCS_3RD_MDFR_CD,HCPCS Third Modifier Code,
+CDLMC091,Procedure Modifier – 3,snf,Revenue,MDFR_CD3,HCPCS_3RD_MDFR_CD,HCPCS Third Modifier Code,
+CDLMC091,Procedure Modifier – 3,hospice,Revenue,MDFR_CD3,HCPCS_3RD_MDFR_CD,HCPCS Third Modifier Code,
+CDLMC091,Procedure Modifier – 3,hha,Revenue,MDFR_CD3,HCPCS_3RD_MDFR_CD,HCPCS Third Modifier Code,
+CDLMC091,Procedure Modifier – 3,hop,Revenue,MDFR_CD3,HCPCS_3RD_MDFR_CD,HCPCS Third Modifier Code,
+CDLMC091,Procedure Modifier – 3,dme,Line,MDFR_CD3,HCPCS_3RD_MDFR_CD,HCPCS Third Modifier Code,
+CDLMC092,Procedure Modifier – 4,hop,Revenue,MDFR_CD4,HCPCS_4th_MDFR_CD,HCPCS Fourth Modifier Code,
+CDLMC092,Procedure Modifier – 4,dme,Line,MDFR_CD4,HCPCS_4th_MDFR_CD,HCPCS Fourth Modifier Code,
+CDLMC093,ICD-9 CM/10- PCS Principal Procedure Code,inpatient,Base,ICD_PRCDR_CD1,ICD_PRCDR_CD1,Claim Procedure Code I,ICD_PRCDR_CD1 is considered the primary procedure performed.
+CDLMC093,ICD-9 CM/10- PCS Principal Procedure Code,snf,Base,ICD_PRCDR_CD1,ICD_PRCDR_CD1,Claim Procedure Code I,ICD_PRCDR_CD1 is considered the primary procedure performed.
+CDLMC093,ICD-9 CM/10- PCS Principal Procedure Code,hop,Base,ICD_PRCDR_CD1,ICD_PRCDR_CD1,Claim Procedure Code I,ICD_PRCDR_CD1 is considered the primary procedure performed.
+CDLMC094,"ICD-9 CM/10- CM-
+PCS Other Procedure Code – 1",inpatient,Base,ICD_PRCDR_CD2,ICD_PRCDR_CD2,Claim Procedure Code II,
+CDLMC094,"ICD-9 CM/10- CM-
+PCS Other Procedure Code – 1",snf,Base,ICD_PRCDR_CD2,ICD_PRCDR_CD2,Claim Procedure Code II,
+CDLMC094,"ICD-9 CM/10- CM-
+PCS Other Procedure Code – 1",hop,Base,ICD_PRCDR_CD2,ICD_PRCDR_CD2,Claim Procedure Code II,
+CDLMC095,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 2",inpatient,Base,ICD_PRCDR_CD3,ICD_PRCDR_CD3,Claim Procedure Code III,
+CDLMC095,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 2",snf,Base,ICD_PRCDR_CD3,ICD_PRCDR_CD3,Claim Procedure Code III,
+CDLMC095,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 2",hop,Base,ICD_PRCDR_CD3,ICD_PRCDR_CD3,Claim Procedure Code III,
+CDLMC096,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 3",inpatient,Base,ICD_PRCDR_CD4,ICD_PRCDR_CD4,Claim Procedure Code IV,
+CDLMC096,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 3",snf,Base,ICD_PRCDR_CD4,ICD_PRCDR_CD4,Claim Procedure Code IV,
+CDLMC096,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 3",hop,Base,ICD_PRCDR_CD4,ICD_PRCDR_CD4,Claim Procedure Code IV,
+CDLMC097,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 4",inpatient,Base,ICD_PRCDR_CD5,ICD_PRCDR_CD5,Claim Procedure Code V,
+CDLMC097,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 4",snf,Base,ICD_PRCDR_CD5,ICD_PRCDR_CD5,Claim Procedure Code V,
+CDLMC097,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 4",hop,Base,ICD_PRCDR_CD5,ICD_PRCDR_CD5,Claim Procedure Code V,
+CDLMC098,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 5",inpatient,Base,ICD_PRCDR_CD6,ICD_PRCDR_CD6,Claim Procedure Code VI,
+CDLMC098,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 5",snf,Base,ICD_PRCDR_CD6,ICD_PRCDR_CD6,Claim Procedure Code VI,
+CDLMC098,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 5",hop,Base,ICD_PRCDR_CD6,ICD_PRCDR_CD6,Claim Procedure Code VI,
+CDLMC099,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 6",inpatient,Base,ICD_PRCDR_CD7,ICD_PRCDR_CD7,Claim Procedure Code VII,
+CDLMC099,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 6",snf,Base,ICD_PRCDR_CD7,ICD_PRCDR_CD7,Claim Procedure Code VII,
+CDLMC099,"ICD-9 CM/10-CM- 
+PCS Other Procedure Code – 6",hop,Base,ICD_PRCDR_CD7,ICD_PRCDR_CD7,Claim Procedure Code VII,
+CDLMC100,ICD-9 CM/10-CM- PCS Other Procedure Code – 7,inpatient,Base,ICD_PRCDR_CD8,ICD_PRCDR_CD8,Claim Procedure Code VIII,
+CDLMC100,ICD-9 CM/10-CM- PCS Other Procedure Code – 7,snf,Base,ICD_PRCDR_CD8,ICD_PRCDR_CD8,Claim Procedure Code VIII,
+CDLMC100,ICD-9 CM/10-CM- PCS Other Procedure Code – 7,hop,Base,ICD_PRCDR_CD8,ICD_PRCDR_CD8,Claim Procedure Code VIII,
+CDLMC101,ICD-9 CM/10-CM- PCS Other Procedure Code – 8,inpatient,Base,ICD_PRCDR_CD9,ICD_PRCDR_CD9,Claim Procedure Code IX,
+CDLMC101,ICD-9 CM/10-CM- PCS Other Procedure Code – 8,snf,Base,ICD_PRCDR_CD9,ICD_PRCDR_CD9,Claim Procedure Code IX,
+CDLMC101,ICD-9 CM/10-CM- PCS Other Procedure Code – 8,hop,Base,ICD_PRCDR_CD9,ICD_PRCDR_CD9,Claim Procedure Code IX,
+CDLMC102,ICD-9 CM/10-CM- PCS Other Procedure Code –9,inpatient,Base,ICD_PRCDR_CD10,ICD_PRCDR_CD10,Claim Procedure Code X,
+CDLMC102,ICD-9 CM/10-CM- PCS Other Procedure Code –9,snf,Base,ICD_PRCDR_CD10,ICD_PRCDR_CD10,Claim Procedure Code X,
+CDLMC102,ICD-9 CM/10-CM- PCS Other Procedure Code –9,hop,Base,ICD_PRCDR_CD10,ICD_PRCDR_CD10,Claim Procedure Code X,
+CDLMC103,ICD-9 CM/10-CM- PCS Other Procedure Code – 10,inpatient,Base,ICD_PRCDR_CD11,ICD_PRCDR_CD11,Claim Procedure Code XI,
+CDLMC103,ICD-9 CM/10-CM- PCS Other Procedure Code – 10,snf,Base,ICD_PRCDR_CD11,ICD_PRCDR_CD11,Claim Procedure Code XI,
+CDLMC103,ICD-9 CM/10-CM- PCS Other Procedure Code – 10,hop,Base,ICD_PRCDR_CD11,ICD_PRCDR_CD11,Claim Procedure Code XI,
+CDLMC104,ICD-9 CM/10-CM- PCS Other Procedure Code – 11,inpatient,Base,ICD_PRCDR_CD12,ICD_PRCDR_CD12,Claim Procedure Code XII,
+CDLMC104,ICD-9 CM/10-CM- PCS Other Procedure Code – 11,snf,Base,ICD_PRCDR_CD12,ICD_PRCDR_CD12,Claim Procedure Code XII,
+CDLMC104,ICD-9 CM/10-CM- PCS Other Procedure Code – 11,hop,Base,ICD_PRCDR_CD12,ICD_PRCDR_CD12,Claim Procedure Code XII,
+CDLMC105,ICD-9 CM/10-CM- PCS Other Procedure Code – 12,inpatient,Base,ICD_PRCDR_CD13,ICD_PRCDR_CD13,Claim Procedure Code XIII,
+CDLMC105,ICD-9 CM/10-CM- PCS Other Procedure Code – 12,snf,Base,ICD_PRCDR_CD13,ICD_PRCDR_CD13,Claim Procedure Code XIII,
+CDLMC105,ICD-9 CM/10-CM- PCS Other Procedure Code – 12,hop,Base,ICD_PRCDR_CD13,ICD_PRCDR_CD13,Claim Procedure Code XIII,
+CDLMC106,ICD-9 CM/10-CM- PCS Other Procedure Code – 13,inpatient,Base,ICD_PRCDR_CD14,ICD_PRCDR_CD14,Claim Procedure Code XIV,
+CDLMC106,ICD-9 CM/10-CM- PCS Other Procedure Code – 13,snf,Base,ICD_PRCDR_CD14,ICD_PRCDR_CD14,Claim Procedure Code XIV,
+CDLMC106,ICD-9 CM/10-CM- PCS Other Procedure Code – 13,hop,Base,ICD_PRCDR_CD14,ICD_PRCDR_CD14,Claim Procedure Code XIV,
+CDLMC107,ICD-9 CM/10-CM- PCS Other Procedure Code – 14,inpatient,Base,ICD_PRCDR_CD15,ICD_PRCDR_CD15,Claim Procedure Code XV,
+CDLMC107,ICD-9 CM/10-CM- PCS Other Procedure Code – 14,snf,Base,ICD_PRCDR_CD15,ICD_PRCDR_CD15,Claim Procedure Code XV,
+CDLMC107,ICD-9 CM/10-CM- PCS Other Procedure Code – 14,hop,Base,ICD_PRCDR_CD15,ICD_PRCDR_CD15,Claim Procedure Code XV,
+CDLMC108,ICD-9 CM/10-CM- PCS Other Procedure Code – 15,inpatient,Base,ICD_PRCDR_CD16,ICD_PRCDR_CD16,Claim Procedure Code XVI,
+CDLMC108,ICD-9 CM/10-CM- PCS Other Procedure Code – 15,snf,Base,ICD_PRCDR_CD16,ICD_PRCDR_CD16,Claim Procedure Code XVI,
+CDLMC108,ICD-9 CM/10-CM- PCS Other Procedure Code – 15,hop,Base,ICD_PRCDR_CD16,ICD_PRCDR_CD16,Claim Procedure Code XVI,
+CDLMC109,ICD-9 CM/10-CM- PCS Other Procedure Code –16,inpatient,Base,ICD_PRCDR_CD17,ICD_PRCDR_CD17,Claim Procedure Code XVII,
+CDLMC109,ICD-9 CM/10-CM- PCS Other Procedure Code –16,snf,Base,ICD_PRCDR_CD17,ICD_PRCDR_CD17,Claim Procedure Code XVII,
+CDLMC109,ICD-9 CM/10-CM- PCS Other Procedure Code –16,hop,Base,ICD_PRCDR_CD17,ICD_PRCDR_CD17,Claim Procedure Code XVII,
+CDLMC110,ICD-9 CM/10-CM- PCS Other Procedure Code – 17,inpatient,Base,ICD_PRCDR_CD18,ICD_PRCDR_CD18,Claim Procedure Code XVIII,
+CDLMC110,ICD-9 CM/10-CM- PCS Other Procedure Code – 17,snf,Base,ICD_PRCDR_CD18,ICD_PRCDR_CD18,Claim Procedure Code XVIII,
+CDLMC110,ICD-9 CM/10-CM- PCS Other Procedure Code – 17,hop,Base,ICD_PRCDR_CD18,ICD_PRCDR_CD18,Claim Procedure Code XVIII,
+CDLMC111,ICD-9 CM/10-CM- PCS Other Procedure Code – 18,inpatient,Base,ICD_PRCDR_CD19,ICD_PRCDR_CD19,Claim Procedure Code XIX,
+CDLMC111,ICD-9 CM/10-CM- PCS Other Procedure Code – 18,snf,Base,ICD_PRCDR_CD19,ICD_PRCDR_CD19,Claim Procedure Code XIX,
+CDLMC111,ICD-9 CM/10-CM- PCS Other Procedure Code – 18,hop,Base,ICD_PRCDR_CD19,ICD_PRCDR_CD19,Claim Procedure Code XIX,
+CDLMC112,ICD-9 CM/10-CM- PCS Other Procedure Code – 19,inpatient,Base,ICD_PRCDR_CD20,ICD_PRCDR_CD20,Claim Procedure Code XX,
+CDLMC112,ICD-9 CM/10-CM- PCS Other Procedure Code – 19,snf,Base,ICD_PRCDR_CD20,ICD_PRCDR_CD20,Claim Procedure Code XX,
+CDLMC112,ICD-9 CM/10-CM- PCS Other Procedure Code – 19,hop,Base,ICD_PRCDR_CD20,ICD_PRCDR_CD20,Claim Procedure Code XX,
+CDLMC113,ICD-9 CM/10-CM- PCS Other Procedure Code – 20,inpatient,Base,ICD_PRCDR_CD21,ICD_PRCDR_CD21,Claim Procedure Code XXI,
+CDLMC113,ICD-9 CM/10-CM- PCS Other Procedure Code – 20,snf,Base,ICD_PRCDR_CD21,ICD_PRCDR_CD21,Claim Procedure Code XXI,
+CDLMC113,ICD-9 CM/10-CM- PCS Other Procedure Code – 20,hop,Base,ICD_PRCDR_CD21,ICD_PRCDR_CD21,Claim Procedure Code XXI,
+CDLMC114,ICD-9 CM/10-CM- PCS Other Procedure Code – 21,inpatient,Base,ICD_PRCDR_CD22,ICD_PRCDR_CD22,Claim Procedure Code XXII,
+CDLMC114,ICD-9 CM/10-CM- PCS Other Procedure Code – 21,snf,Base,ICD_PRCDR_CD22,ICD_PRCDR_CD22,Claim Procedure Code XXII,
+CDLMC114,ICD-9 CM/10-CM- PCS Other Procedure Code – 21,hop,Base,ICD_PRCDR_CD22,ICD_PRCDR_CD22,Claim Procedure Code XXII,
+CDLMC115,ICD-9 CM/10-CM- PCS Other Procedure Code – 22,inpatient,Base,ICD_PRCDR_CD23,ICD_PRCDR_CD23,Claim Procedure Code XXIII,
+CDLMC115,ICD-9 CM/10-CM- PCS Other Procedure Code – 22,snf,Base,ICD_PRCDR_CD23,ICD_PRCDR_CD23,Claim Procedure Code XXIII,
+CDLMC115,ICD-9 CM/10-CM- PCS Other Procedure Code – 22,hop,Base,ICD_PRCDR_CD23,ICD_PRCDR_CD23,Claim Procedure Code XXIII,
+CDLMC116,ICD-9 CM/10-CM- PCS Other Procedure Code – 23,inpatient,Base,ICD_PRCDR_CD24,ICD_PRCDR_CD24,Claim Procedure Code XXIV,
+CDLMC116,ICD-9 CM/10-CM- PCS Other Procedure Code – 23,snf,Base,ICD_PRCDR_CD24,ICD_PRCDR_CD24,Claim Procedure Code XXIV,
+CDLMC116,ICD-9 CM/10-CM- PCS Other Procedure Code – 23,hop,Base,ICD_PRCDR_CD24,ICD_PRCDR_CD24,Claim Procedure Code XXIV,
+CDLMC117,ICD-9 CM/10-CM- PCS Other Procedure Code – 24,inpatient,Base,ICD_PRCDR_CD25,ICD_PRCDR_CD25,Claim Procedure Code XXV,
+CDLMC117,ICD-9 CM/10-CM- PCS Other Procedure Code – 24,snf,Base,ICD_PRCDR_CD25,ICD_PRCDR_CD25,Claim Procedure Code XXV,
+CDLMC117,ICD-9 CM/10-CM- PCS Other Procedure Code – 24,hop,Base,ICD_PRCDR_CD25,ICD_PRCDR_CD25,Claim Procedure Code XXV,
+CDLMC118,ICD-9 CM/10-CM- PCS Other Procedure Code – 25,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC119,Date of Service – From,inpatient,Base,FROM_DT,CLM_FROM_DT,Claim From Date,
+CDLMC119,Date of Service – From,snf,Base,FROM_DT,CLM_FROM_DT,Claim From Date,
+CDLMC119,Date of Service – From,hospice,Revenue,REV_DT,REV_CNTR_DT,Revenue Center Date,
+CDLMC119,Date of Service – From,hha,Revenue,REV_DT,REV_CNTR_DT,Revenue Center Date,
+CDLMC119,Date of Service – From,hop,Revenue,REV_DT,REV_CNTR_DT,Revenue Center Date,
+CDLMC119,Date of Service – From,carrier,Line,EXPNSDT1,LINE_1ST_EXPNS_DT,Line First Expense Date,
+CDLMC119,Date of Service – From,dme,Line,EXPNSDT1,LINE_1ST_EXPNS_DT,Line First Expense Date,
+CDLMC120,Date of Service – Thru,inpatient,Base,THRU_DT,CLM_THRU_DT,Claim Through Date,
+CDLMC120,Date of Service – Thru,snf,Base,THRU_DT,CLM_THRU_DT,Claim Through Date,
+CDLMC120,Date of Service – Thru,hospice,Revenue,REV_DT,REV_CNTR_DT,Revenue Center Date,
+CDLMC120,Date of Service – Thru,hha,Revenue,REV_DT,REV_CNTR_DT,Revenue Center Date,
+CDLMC120,Date of Service – Thru,hop,Revenue,REV_DT,REV_CNTR_DT,Revenue Center Date,
+CDLMC120,Date of Service – Thru,carrier,Line,EXPNSDT2,LINE_LAST_EXPNS_DT,Line Last Expense Date,
+CDLMC120,Date of Service – Thru,dme,Line,EXPNSDT2,LINE_LAST_EXPNS_DT,Line Last Expense Date,
+CDLMC121,Service Units/ Quantity,inpatient,Revenue,REV_UNIT,REV_CNTR_UNIT_CNT,Revenue Center Unit Count,"CDL requires 3 decimal places: Multiplied by 1,000 to add implied decimals
+
+REV_CNTR_UNIT_CNT reported by Medicare does not include any decimal places (e.g., 1, 2,3, etc.). Each APCD will need to determine what calculation, if any, is needed to comply with their data submission requirements"
+CDLMC121,Service Units/ Quantity,snf,Revenue,REV_UNIT,REV_CNTR_UNIT_CNT,Revenue Center Unit Count,"CDL requires 3 decimal places: Multiplied by 1,000 to add implied decimals
+
+REV_CNTR_UNIT_CNT reported by Medicare does not include any decimal places (e.g., 1, 2,3, etc.). Each APCD will need to determine what calculation, if any, is needed to comply with their data submission requirements"
+CDLMC121,Service Units/ Quantity,hospice,Revenue,REV_UNIT,REV_CNTR_UNIT_CNT,Revenue Center Unit Count,"CDL requires 3 decimal places: Multiplied by 1,000 to add implied decimals
+
+REV_CNTR_UNIT_CNT reported by Medicare does not include any decimal places (e.g., 1, 2,3, etc.). Each APCD will need to determine what calculation, if any, is needed to comply with their data submission requirements"
+CDLMC121,Service Units/ Quantity,hha,Revenue,REV_UNIT,REV_CNTR_UNIT_CNT,Revenue Center Unit Count,"CDL requires 3 decimal places: Multiplied by 1,000 to add implied decimals
+
+REV_CNTR_UNIT_CNT reported by Medicare does not include any decimal places (e.g., 1, 2,3, etc.). Each APCD will need to determine what calculation, if any, is needed to comply with their data submission requirements"
+CDLMC121,Service Units/ Quantity,hop,Revenue,REV_UNIT,REV_CNTR_UNIT_CNT,Revenue Center Unit Count,"CDL requires 3 decimal places: Multiplied by 1,000 to add implied decimals
+
+REV_CNTR_UNIT_CNT reported by Medicare does not include any decimal places (e.g., 1, 2,3, etc.). Each APCD will need to determine what calculation, if any, is needed to comply with their data submission requirements"
+CDLMC121,Service Units/ Quantity,carrier,Line,SRVC_CNT,LINE_SRVC_CNT,Line Service Count,"CDL requires 3 decimal places: Multiplied by 10 to add implied decimals.
+
+LINE_SRVC_CNT reported by Medicare is an integer that takes into account the two decimal places (e.g., 1.00 is reported as 100 by Medicare). Each APCD will need to determine what calculation, if any, is needed to comply with their data submission requirements"
+CDLMC121,Service Units/ Quantity,dme,Line,SRVC_CNT,LINE_SRVC_CNT,Line Service Count,"CDL requires 3 decimal places: Multiplied by 10 to add implied decimals.
+
+LINE_SRVC_CNT reported by Medicare is an integer that takes into account the two decimal places (e.g., 1.00 is reported as 100 by Medicare). Each APCD will need to determine what calculation, if any, is needed to comply with their data submission requirements"
+CDLMC122,Unit of Measure,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC123,Charge Amount,inpatient,Revenue,REV_CHRG,REV_CNTR_TOT_CHRG_AMT,Revenue Center Total Charge Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC123,Charge Amount,snf,Revenue,REV_CHRG,REV_CNTR_TOT_CHRG_AMT,Revenue Center Total Charge Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC123,Charge Amount,hospice,Revenue,REV_CHRG,REV_CNTR_TOT_CHRG_AMT,Revenue Center Total Charge Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC123,Charge Amount,hha,Revenue,REV_CHRG,REV_CNTR_TOT_CHRG_AMT,Revenue Center Total Charge Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC123,Charge Amount,hop,Revenue,REV_CHRG,REV_CNTR_TOT_CHRG_AMT,Revenue Center Total Charge Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC123,Charge Amount,carrier,Line,LSBMTCHG,LINE_SBMTD_CHRG_AMT,Line Submitted Charge Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC123,Charge Amount,dme,Line,LSBMTCHG,LINE_SBMTD_CHRG_AMT,Line Submitted Charge Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC124,Withhold Amount,N/A,N/A,N/A,N/A,N/A,
+CDLMC125,Plan Paid Amount,inpatient,Base,PMT_AMT,CLM_PMT_AMT,Claim (Medicare) Payment Amount,"Report only where revenue code = '0001' else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals
+
+Note: The CLM_PMT_AMT is the amount paid by Medicare for the routine  care costs under the Inpatient Prospective Payment System (IPPS) based on the MS-DRG classification.
+The total amount actually paid to the hospital includes  an additional ""pass-through"" daily rate for overhead costs such as capital-related costs, direct medical education costs, bad debts, etc.
+States can then choose how they want to report their data with options being:
+1. Payment for routine services: CLM_PMT_AMT 
+2. Total payment amount including additional overhead costs: Multiply CLM_PASS_THRU_PER_DIEM_AMT by CLM_UTLZTN_DAY_CNT and add it to CLM_PMT_AMT
+3. Map to two separate columns providing the flexibility of using CLM_PMT_AMT alone or adding it to the CLM_PASS_THRU_PER_DIEM_AMT by CLM_UTLZTN_DAY_CNT"
+CDLMC125,Plan Paid Amount,snf,Base,PMT_AMT,CLM_PMT_AMT,Claim (Medicare) Payment Amount,"Report only where revenue code = '0001'
+else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC125,Plan Paid Amount,hospice,Revenue,RPRVDPMT,REV_CNTR_PRVDR_PMT_AMT,Revenue Center (Medicare) Provider Payment Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC125,Plan Paid Amount,hha,Revenue,RPRVDPMT,REV_CNTR_PRVDR_PMT_AMT,Revenue Center (Medicare) Provider Payment Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC125,Plan Paid Amount,hop,Revenue,RPRVDPMT,REV_CNTR_PRVDR_PMT_AMT,Revenue Center (Medicare) Provider Payment Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC125,Plan Paid Amount,carrier,Line,LPRVPMT,LINE_PRVDR_PMT_AMT,Line Provider Payment Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC125,Plan Paid Amount,dme,Line,LPRVPMT,LINE_PRVDR_PMT_AMT,Line Provider Payment Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC126,Co-Pay Amount,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC127,Coinsurance Amount,inpatient,Base,COIN_AMT,NCH_BENE_PTA_COINSRNC_LBLTY_AM,NCH Beneficiary Part A Coinsurance Liability Amount,"Report only where revenue code = '0001'
+else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC127,Coinsurance Amount,snf,Base,COIN_AMT,NCH_BENE_PTA_COINSRNC_LBLTY_AM,NCH Beneficiary Part A Coinsurance Liability Amount,"Report only where revenue code = '0001'
+else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC127,Coinsurance Amount,hospice,N/A,N/A,N/A,Not available,Report as null.
+CDLMC127,Coinsurance Amount,hha,N/A,N/A,N/A,Not available,Report as null.
+CDLMC127,Coinsurance Amount,hop,Revenue,WAGEADJ,REV_CNTR_COINSRNC_WGE_ADJSTD_C,Revenue Center Coinsurance/Wage Adjusted Coinsurance Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC127,Coinsurance Amount,carrier,Line,COINAMT,LINE_COINSRNC_AMT,Line Beneficiary Coinsurance Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC127,Coinsurance Amount,dme,Line,COINAMT,LINE_COINSRNC_AMT,Line Beneficiary Coinsurance Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC128,Deductible Amount,inpatient,Base,DED_AMT,NCH_BENE_IP_DDCTBL_AMT,NCH Beneficiary Inpatient (or other Part A) Deductible Amount,"Report only where revenue code = '0001' else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals
+
+Note: This deductible amount does not include the Blood Deductible Liability Amount. Options are:
+1. Only including the NCH_BENE_IP_DDCTBL_AMT
+2. Adding the NCH_BENE_BLOOD_DDCTBL_LBLTY_AM to the NCH_BENE_IP_DDCTBL_AMT
+3. Reporting each of these in separate columns allowing for flexibility in reporting."
+CDLMC128,Deductible Amount,snf,Base,DED_AMT,NCH_BENE_IP_DDCTBL_AMT,NCH Beneficiary Inpatient (or other Part A) Deductible Amount,"Report only where revenue code = '0001' else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals
+
+Note: This deductible amount does not include the Blood Deductible Liability Amount. Options are:
+1. Only including the NCH_BENE_IP_DDCTBL_AMT
+2. Adding the NCH_BENE_BLOOD_DDCTBL_LBLTY_AM to the NCH_BENE_IP_DDCTBL_AMT
+3. Reporting each of these in separate columns allowing for flexibility in reporting."
+CDLMC128,Deductible Amount,hospice,N/A,N/A,N/A,N/A,Report as null.
+CDLMC128,Deductible Amount,hha,N/A,N/A,N/A,N/A,Report as null.
+CDLMC128,Deductible Amount,hop,Revenue,REVDCTBL,REV_CNTR_CASH_DDCTBL_AMT,Revenue Center Cash Deductible Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals
+
+Note: This deductible amount does not include the Blood Deductible Liability Amount. Options are:
+1. Only including the NCH_BENE_IP_DDCTBL_AMT
+2. Adding the REV_CNTR_BLOOD_DDCTBL_AMT to the NCH_BENE_IP_DDCTBL_AMT
+3. Reporting each of these in separate columns allowing for flexibility in reporting."
+CDLMC128,Deductible Amount,carrier,Line,LDEDAMT,LINE_BENE_PTB_DDCTBL_AMT,Line Beneficiary Part B Deductible Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC128,Deductible Amount,dme,Line,LDEDAMT,LINE_BENE_PTB_DDCTBL_AMT,Line Beneficiary Part B Deductible Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC129,Other Insurance Paid Amount,inpatient,Base,PRPAYAMT,NCH_PRMRY_PYR_CLM_PD_AMT,NCH Primary Payer (if not Medicare) Claim Paid Amount,"Report only where revenue code = '0001'
+else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC129,Other Insurance Paid Amount,snf,Base,PRPAYAMT,NCH_PRMRY_PYR_CLM_PD_AMT,NCH Primary Payer (if not Medicare) Claim Paid Amount,"Report only where revenue code = '0001'
+else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC129,Other Insurance Paid Amount,hospice,Base,PRPAYAMT,NCH_PRMRY_PYR_CLM_PD_AMT,NCH Primary Payer (if not Medicare) Claim Paid Amount,"Report only where revenue code = '0001'
+else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC129,Other Insurance Paid Amount,hha,Base,PRPAYAMT,NCH_PRMRY_PYR_CLM_PD_AMT,NCH Primary Payer (if not Medicare) Claim Paid Amount,"Report only where revenue code = '0001'
+else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC129,Other Insurance Paid Amount,hop,Base,PRPAYAMT,NCH_PRMRY_PYR_CLM_PD_AMT,NCH Primary Payer (if not Medicare) Claim Paid Amount,"Report only where revenue code = '0001'
+else null
+Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC129,Other Insurance Paid Amount,carrier,Line,LPRPDAMT,LINE_BENE_PRMRY_PYR_PD_AMT,Line Primary Payer (if not Medicare) Paid Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC129,Other Insurance Paid Amount,dme,Line,LPRPDAMT,LINE_BENE_PRMRY_PYR_PD_AMT,Line Primary Payer (if not Medicare) Paid Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLMC130,COB/TPL Amount,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC131,Allowed Amount,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC132,Payment Arrangement Type Indicator,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC133,Drug Code,hop,Revenue,IDENDC,REV_CNTR_IDE_NDC_UPC_NUM,"Revenue Center IDE, NDC, or UPC Number",
+CDLMC133,Drug Code,carrier,Line,LNNDCCD,LINE_NDC_CD,Line National Drug Code (NDC),
+CDLMC133,Drug Code,dme,Line,LNNDCCD,LINE_NDC_CD,Line National Drug Code (NDC),
+CDLMC134,Rendering Provider ID,inpatient,Base,PROVIDER,PRVDR_NUM,Provider Number,
+CDLMC134,Rendering Provider ID,snf,Base,PROVIDER,PRVDR_NUM,Provider Number,
+CDLMC134,Rendering Provider ID,hospice,Base,PROVIDER,PRVDR_NUM,Provider Number,
+CDLMC134,Rendering Provider ID,hha,Base,PROVIDER,PRVDR_NUM,Provider Number,
+CDLMC134,Rendering Provider ID,hop,Base,PROVIDER,PRVDR_NUM,Provider Number,
+CDLMC134,Rendering Provider ID,carrier,Line,PRF_PRFL,CARR_PRFRNG_PIN_NUM,Carrier Line Performing Provider ID Number (PIN),
+CDLMC134,Rendering Provider ID,dme,Line,SUPLRNUM,PRVDR_NUM,DMERC Line Supplier Provider Number,
+CDLMC135,Rendering Provider NPI,inpatient,Base,ORGNPINM,ORG_NPI_NUM,Organization NPI Number,
+CDLMC135,Rendering Provider NPI,snf,Base,ORGNPINM,ORG_NPI_NUM,Organization NPI Number,
+CDLMC135,Rendering Provider NPI,hospice,Base,ORGNPINM,ORG_NPI_NUM,Organization NPI Number,
+CDLMC135,Rendering Provider NPI,hha,Base,ORGNPINM,ORG_NPI_NUM,Organization NPI Number,
+CDLMC135,Rendering Provider NPI,hop,Base,ORGNPINM,ORG_NPI_NUM,Organization NPI Number,
+CDLMC135,Rendering Provider NPI,carrier,Line,PRFNPI,PRF_PHYSN_NPI,Carrier Line Performing NPI Number,
+CDLMC135,Rendering Provider NPI,dme,Line,SUP_NPI,PRVDR_NPI,DMERC Line Item Supplier NPI Number,
+CDLMC136,Rendering Provider Entity Type Qualifier,N/A,N/A,N/A,N/A,N/A,"Report as null.
+Other option: Join to NPPES table using NPI and pull in Provider Entity Type as reported by NPPES."
+CDLMC137,In Plan Network Indicator,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC138,Rendering Provider First Name,N/A,N/A,N/A,N/A,N/A,"Report as null.
+Other option: Join to NPPES table using NPI to report data"
+CDLMC139,Rendering Provider Middle Name,N/A,N/A,N/A,N/A,N/A,"Report as null.
+Other option: Join to NPPES table using NPI to report data"
+CDLMC140,Rendering Provider Last Name or Organization Name,N/A,N/A,N/A,N/A,N/A,"Report as null.
+Other option: Join to NPPES table using NPI to report data"
+CDLMC141,Rendering Provider Suffix,N/A,N/A,N/A,N/A,N/A,"Report as null.
+Other option: Join to NPPES table using NPI to report data"
+CDLMC142,Rendering Provider Specialty,carrier,Line,RNDRNG_PRVDR_TXNMY_CD,RNDRNG_PRVDR_TXNMY_CD,Rendering Provider Taxonomy Code,
+CDLMC143,Rendering Provider City Name,N/A,N/A,N/A,N/A,N/A,"Report as null.
+Other option: Join to NPPES table using NPI to report data"
+CDLMC144,Rendering Provider State or Province,inpatient,Base,PRSTATE,PRVDR_STATE_CD,NCH Provider SSA State Code,Transform two digit state code number to two character state code alpha.
+CDLMC144,Rendering Provider State or Province,snf,Base,PRSTATE,PRVDR_STATE_CD,NCH Provider SSA State Code,Transform two digit state code number to two character state code alpha.
+CDLMC144,Rendering Provider State or Province,hospice,Base,PRSTATE,PRVDR_STATE_CD,NCH Provider SSA State Code,Transform two digit state code number to two character state code alpha.
+CDLMC144,Rendering Provider State or Province,hha,Base,PRSTATE,PRVDR_STATE_CD,NCH Provider SSA State Code,Transform two digit state code number to two character state code alpha.
+CDLMC144,Rendering Provider State or Province,hop,Base,PRSTATE,PRVDR_STATE_CD,NCH Provider SSA State Code,Transform two digit state code number to two character state code alpha.
+CDLMC144,Rendering Provider State or Province,carrier,Line,PRVSTATE,PRVDR_STATE_CD,Line Provider State Code (SSA),Transform two digit state code number to two character state code alpha.
+CDLMC144,Rendering Provider State or Province,dme,Line,PRVSTATE,PRVDR_STATE_CD,Line Provider State Code (SSA),Transform two digit state code number to two character state code alpha.
+CDLMC145,Rendering Provider ZIP Code,inpatient,Base,CLM_SRVC_FAC_ZIP_CD,CLM_SRVC_FAC_ZIP_CD,Claim service facility ZIP code (where service was provided),"If null, join to NPPES table using NPI to report data"
+CDLMC145,Rendering Provider ZIP Code,snf,Base,CLM_SRVC_FAC_ZIP_CD,CLM_SRVC_FAC_ZIP_CD,Claim service facility ZIP code (where service was provided),"If null, join to NPPES table using NPI to report data"
+CDLMC145,Rendering Provider ZIP Code,hospice,Base,CLM_SRVC_FAC_ZIP_CD,CLM_SRVC_FAC_ZIP_CD,Claim service facility ZIP code (where service was provided),"If null, join to NPPES table using NPI to report data"
+CDLMC145,Rendering Provider ZIP Code,hha,Base,CLM_SRVC_FAC_ZIP_CD,CLM_SRVC_FAC_ZIP_CD,Claim service facility ZIP code (where service was provided),"If null, join to NPPES table using NPI to report data"
+CDLMC145,Rendering Provider ZIP Code,hop,Base,CLM_SRVC_FAC_ZIP_CD,CLM_SRVC_FAC_ZIP_CD,Claim service facility ZIP code (where service was provided),"If null, join to NPPES table using NPI to report data"
+CDLMC145,Rendering Provider ZIP Code,carrier,Line,PROVZIP,PRVDR_ZIP,Carrier Line Performing Provider ZIP Code,"If null, join to NPPES table using NPI to report data"
+CDLMC146,Rendering Provider Group Practice NPI,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC147,Billing Provider ID,inpatient,Base,PRVDR_FULL_CCN_NUM,PRVDR_FULL_CCN_NUM,Full CMS Certification Number for Provider,
+CDLMC147,Billing Provider ID,snf,Base,PRVDR_FULL_CCN_NUM,PRVDR_FULL_CCN_NUM,Full CMS Certification Number for Provider,
+CDLMC147,Billing Provider ID,hospice,Base,PRVDR_FULL_CCN_NUM,PRVDR_FULL_CCN_NUM,Full CMS Certification Number for Provider,
+CDLMC147,Billing Provider ID,hha,Base,PRVDR_FULL_CCN_NUM,PRVDR_FULL_CCN_NUM,Full CMS Certification Number for Provider,
+CDLMC147,Billing Provider ID,hop,Base,PRVDR_FULL_CCN_NUM,PRVDR_FULL_CCN_NUM,Full CMS Certification Number for Provider,
+CDLMC148,Billing Provider NPI,inpatient,Base,ORGNPINM,ORG_NPI_NUM,Organization NPI Number,
+CDLMC148,Billing Provider NPI,snf,Base,ORGNPINM,ORG_NPI_NUM,Organization NPI Number,
+CDLMC148,Billing Provider NPI,hospice,Base,ORGNPINM,ORG_NPI_NUM,Organization NPI Number,
+CDLMC148,Billing Provider NPI,hha,Base,ORGNPINM,ORG_NPI_NUM,Organization NPI Number,
+CDLMC148,Billing Provider NPI,hop,Base,ORGNPINM,ORG_NPI_NUM,Organization NPI Number,
+CDLMC148,Billing Provider NPI,carrier,Base,CARR_CLM_BLG_NPI_NUM,CARR_CLM_BLG_NPI_NUM,Carrier Claim Billing NPI Number,
+CDLMC148,Billing Provider NPI,dme,Line,SUP_NPI,PRVDR_NPI,DMERC Line Item Supplier NPI Number,
+CDLMC149,Billing Provider Last Name or Organization Name,N/A,N/A,N/A,N/A,N/A,
+CDLMC150,Billing Provider Tax ID,N/A,N/A,N/A,N/A,N/A,
+CDLMC151,Referring Provider ID,N/A,N/A,N/A,N/A,N/A,
+CDLMC152,Referring Provider NPI,hospice,Base,RFR_PHYSN_NPI,RFR_PHYSN_NPI,Claim Referring Physician NPI Number,
+CDLMC152,Referring Provider NPI,hha,Base,RFR_PHYSN_NPI,RFR_PHYSN_NPI,Claim Referring Physician NPI Number,
+CDLMC152,Referring Provider NPI,hop,Base,RFR_PHYSN_NPI,RFR_PHYSN_NPI,Claim Referring Physician NPI Number,
+CDLMC152,Referring Provider NPI,carrier,Base,RFR_NPI,RFR_PHYSN_NPI,Carrier/DMERC Claim Referring Physician NPI Number,
+CDLMC152,Referring Provider NPI,dme,Base,RFR_NPI,RFR_PHYSN_NPI,Carrier/DMERC Claim Referring Physician NPI Number,
+CDLMC153,Attending Provider ID,N/A,Base,N/A,N/A,N/A,
+CDLMC154,Attending Provider NPI,inpatient,Base,AT_NPI,AT_PHYSN_NPI,Claim Attending Physician NPI Number,
+CDLMC154,Attending Provider NPI,snf,Base,AT_NPI,AT_PHYSN_NPI,Claim Attending Physician NPI Number,
+CDLMC154,Attending Provider NPI,hospice,Base,AT_NPI,AT_PHYSN_NPI,Claim Attending Physician NPI Number,
+CDLMC154,Attending Provider NPI,hha,Base,AT_NPI,AT_PHYSN_NPI,Claim Attending Physician NPI Number,
+CDLMC154,Attending Provider NPI,hop,Base,AT_NPI,AT_PHYSN_NPI,Claim Attending Physician NPI Number,
+CDLMC155,Carrier Associated with Claim,N/A,N/A,N/A,N/A,N/A,
+CDLMC156,Type of Claim,N/A,N/A,N/A,N/A,N/A,"Inpatient = 2
+SNF = 2
+Hospice = 2
+HHS = 2
+HOP = 2
+Carrier = 1
+DME = 1"
+CDLMC157,Claim Status,inpatient,Base,PRPAY_CD,NCH_PRMRY_PYR_CD,NCH Primary Payer Code (if not Medicare),"If = 'C', 'M', 'N' or null then '01' else '02'"
+CDLMC157,Claim Status,snf,Base,PRPAY_CD,NCH_PRMRY_PYR_CD,NCH Primary Payer Code (if not Medicare),"If = 'C', 'M', 'N' or null then '01' else '02'"
+CDLMC157,Claim Status,hospice,Base,PRPAY_CD,NCH_PRMRY_PYR_CD,NCH Primary Payer Code (if not Medicare),"If = 'C', 'M', 'N' or null then '01' else '02'"
+CDLMC157,Claim Status,hha,Base,PRPAY_CD,NCH_PRMRY_PYR_CD,NCH Primary Payer Code (if not Medicare),"If = 'C', 'M', 'N' or null then '01' else '02'"
+CDLMC157,Claim Status,hop,Base,PRPAY_CD,NCH_PRMRY_PYR_CD,NCH Primary Payer Code (if not Medicare),"If = 'C', 'M', 'N' or null then '01' else '02'"
+CDLMC157,Claim Status,carrier,Line,LPRPDAMT,LINE_BENE_PRMRY_PYR_PD_CD,Line Primary Payer (if not Medicare) Paid Amount,"C, M, N, and null/missing indicate Medicare is primary payer '01' else '02'"
+CDLMC157,Claim Status,dme,Line,LPRPDAMT,LINE_BENE_PRMRY_PYR_CD,Line Primary Payer (if not Medicare) Paid Amount,"C, M, N, and null/missing indicate Medicare is primary payer '01' else '02'"
+CDLMC158,Denied Claim Line Indicator,N/A,N/A,N/A,N/A,N/A,
+CDLMC159,Claim adjustment reason code,inpatient,Revenue,REV_CNTR_ADJUST_RSN_CD,REV_CNTR_ADJUST_RSN_CD,Revenue Center Adjustment Reason Code,
+CDLMC159,Claim adjustment reason code,snf,Revenue,REV_CNTR_ADJUST_RSN_CD,REV_CNTR_ADJUST_RSN_CD,Revenue Center Adjustment Reason Code,
+CDLMC159,Claim adjustment reason code,hospice,Revenue,REV_CNTR_ADJUST_RSN_CD,REV_CNTR_ADJUST_RSN_CD,Revenue Center Adjustment Reason Code,
+CDLMC159,Claim adjustment reason code,hha,Revenue,REV_CNTR_ADJUST_RSN_CD,REV_CNTR_ADJUST_RSN_CD,Revenue Center Adjustment Reason Code,
+CDLMC159,Claim adjustment reason code,hop,Revenue,REV_CNTR_ADJUST_RSN_CD,REV_CNTR_ADJUST_RSN_CD,Revenue Center Adjustment Reason Code,
+CDLMC159,Claim adjustment reason code,carrier,Line,LINE_ADJUST_RSN_CD,LINE_ADJUST_RSN_CD,Line Adjustment Reason Code,
+CDLMC160,Claim Line Type,N/A,N/A,N/A,N/A,N/A,
+CDLMC161,Carrier Specific Unique Member ID,All,base,BENE_ID,BENE_ID,Encrypted CCW Beneficiary ID,"For Medicare, member is the subscriber"
+CDLMC162,Carrier Specific Unique Subscriber ID,All,Base,BENE_ID,BENE_ID,Encrypted CCW Beneficiary ID,"For Medicare, member is the subscriber"
+CDLMC163,Rendering Provider Street Address,N/A,N/A,N/A,N/A,N/A,
+CDLMC164,Medical Record Number,inpatient,Base,CLM_MDCL_REC,CLM_MDCL_REC,Claim Medical Record Number,
+CDLMC164,Medical Record Number,snf,Base,CLM_MDCL_REC,CLM_MDCL_REC,Claim Medical Record Number,
+CDLMC164,Medical Record Number,hospice,Base,CLM_MDCL_REC,CLM_MDCL_REC,Claim Medical Record Number,
+CDLMC164,Medical Record Number,hha,Base,CLM_MDCL_REC,CLM_MDCL_REC,Claim Medical Record Number,
+CDLMC164,Medical Record Number,hop,Base,CLM_MDCL_REC,CLM_MDCL_REC,Claim Medical Record Number,
+CDLMCXXX,Un-assigned,N/A,N/A,N/A,N/A,N/A,Report as null.
+CDLMC899,Record Type,N/A,N/A,N/A,N/A,N/A,Hard code as 'MC'

@@ -1,0 +1,34 @@
+element_id,element_name,type,max_length,description
+CDLPV001,Data Submitter Code,varchar,8,APCD-assigned identifier of payer submitting data file. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms). This may or may not be the same code as the Payer Code (CDLPV002).
+CDLPV002,Payer Code,varchar,8,"APCD-assigned identifier of insurer/underwriter in the case of premiums-based coverage, or of the administrator in the case of self-funded coverage. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms)."
+CDLPV003,Plan ID,varchar,30,CMS National Plan ID. The national plan ID is a code assigned by CMS. (PLACEHOLDER).
+CDLPV004,Payer Assigned Provider ID,varchar,35,"Unique code identified for the provider as assigned by the reporting entity. For every provider included in the Eligibility, Medical, Pharmacy and Dental claims the payer assigned provider IDs shall be included."
+CDLPV005,Provider Tax ID,char,9,Tax ID of the provider. Do not code punctuation.
+CDLPV006,Entity Type Qualifier,char,1,"Use this field to indicate whether the rendering provider is a person or non-person entity. HIPAA provider taxonomy classifies provider groups (clinicians who bill as a group practice or under a corporate name, even if that group is composed of one provider) as a “Person.” Valid codes are:
+1=Person;
+2=Non-Person Entity."
+CDLPV007,Provider NPI,char,10,NPI for provider as enumerated in the Center for Medicaid and Medicare Services NPPES.
+CDLPV008,Provider DEA Number,varchar,12,Provider Drug Enforcement Agency number. For all prescribing providers (CDLPC050) that have a DEA number.
+CDLPV009,Provider State License Number,varchar,15,Prefix with two-character state of licensure with no punctuation. Example: COLL12345. Do not leave a blank space in between state and license number.
+CDLPV010,Provider First Name,varchar,35,"Individual first name. If provider is a facility or organization, leave blank."
+CDLPV011,Provider Middle Name or Initial,varchar,25,"Individual middle name or initial. If provider is a facility or organization, leave blank."
+CDLPV012,Provider Last Name or Organization Name,varchar,60,Full name of provider organization or last name of individual provider.
+CDLPV013,Provider Suffix,varchar,10,"Suffix to individual name. If provider is a facility or organization, leave blank. The provider suffix shall be used to capture the generation of the individual clinician (e.g., Jr., Sr., III). Do not use credentials such as MD or PhD."
+CDLPV014,Provider Office Street Address,varchar,55,First line of the street address for the physical location where the provider delivers healthcare services (street number and street name). Include suite number if applicable. Multiple addresses will require multiple provider records.
+CDLPV015,Provider Office City,varchar,30,The city of the physical address where the provider delivers healthcare services. Multiple addresses will require multiple provider records.
+CDLPV016,Provider Office State,char,2,"The state of the physical address where the provider delivers healthcare services. Use postal service standard 2 letter abbreviations. Multiple addresses will require multiple provider records. See Appendix L: External Code Source, United States Postal Service."
+CDLPV017,Provider Office ZIP Code,varchar,9,"Report the 5- or 9-digit ZIP Code of the Rendering Provider. When submitting the 9-digit ZIP Code do not include hyphen. If using 5 digits, do not fill last 4 digits with 0. Multiple addresses will require multiple provider records. ZIP Codes are maintained by the US Postal Service. See Appendix L: External Code Source."
+CDLPV018,Provider FIPS County Code,char,5,"Report the FIPS county code based on the provider’s address. The FIPS county code is a five-digit Federal Information Processing Standard (FIPS) code (FIPS 6-4) which uniquely identifies counties and county equivalents in the United States, certain U.S. possessions, and certain freely associated states. If member lives outside US, leave blank. See Appendix L: External Code Source, United States Census Bureau."
+CDLPV019,Provider Country Code,char,2,"Country of provider’s practice location. Report two-digit code. Code US for United States. See Appendix L: External Code Source, United States Postal Service."
+CDLPV020,Provider Phone,char,10,Phone number of Provider.
+CDLPV021,Provider Specialty,varchar,10,"Report the NUCC healthcare provider taxonomy code. See Appendix L: External Code Source, National Uniform Claim Committee."
+CDLPV022,Atypical Provider Taxonomy Code,varchar,10,"Non-medical or atypical providers not defined as covered entities by CMS. Non-medical providers who supply non-healthcare services, such as non-emergency transportation, will continue to submit claims and other transactions using their current provider ID and taxonomy. Use Code set for Atypical Provider Taxonomy Codes (maintained by NUCC). If not applicable, leave blank. See Appendix L: External Code Source, National Uniform Claim Committee."
+CDLPV023,Medicare Provider ID,varchar,10,"Provider ID as assigned by Medicare. Use CMS Certification Number (CCN) found in Appendix L: External Code Sources. If not available, leave blank."
+CDLPV024,Provider Medicaid Provider ID,varchar,30,"Provider ID as assigned by Medicaid. If not available, leave blank."
+CDLPV025,Provider Specialty 2,varchar,10,"Report additional NUCC healthcare provider taxonomy code for second specialty. In addition to the taxonomy code listed in CDLPV021. If not available, leave blank.
+See Appendix L: External Code Source, National Uniform Claim Committee."
+CDLPV026,Provider Specialty 3,varchar,10,"Report third NUCC healthcare provider taxonomy code. If not available, leave blank. See Appendix L: External Code Source, National Uniform Claim Committee."
+CDLPV027,Provider Specialty 4,varchar,10,"Report fourth NUCC healthcare provider taxonomy code. If not available, leave blank. See Appendix L: External Code Source, National Uniform Claim Committee."
+CDLPV028,Provider Specialty-5,varchar,10,"Report fifth NUCC healthcare provider taxonomy code. If not available, leave blank. See Appendix L: External Code Source, National Uniform Claim Committee."
+CDLPVXXX,Un-assigned,,,Reserved for future use. Elements will only be added with review from states and payers.
+CDLPV899,Record Type,char,2,Value=PV

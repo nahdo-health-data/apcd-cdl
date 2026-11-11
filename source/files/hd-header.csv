@@ -1,0 +1,19 @@
+element_id,element_name,type,max_length,description
+CDLHD001,Record Type,char,2,Value=HD
+CDLHD002,Data Submitter Code,varchar,8,APCD-assigned identifier of payer submitting data file. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms). This may or may not be the same code as the payer.
+CDLHD003,Payer Code,varchar,8,"APCD-assigned identifier of insurer in the case of premiums-based coverage, or of the administrator in the case of self-funded coverage. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms)."
+CDLHD004,Data Submitter Name,varchar,75,Name of data submitter.
+CDLHD005,File Type,char,2,"ME=Member Eligibility
+MC=Medical Claims
+PC=Pharmacy Claims
+DC=Dental Claims
+PV=Provider File
+AP=Annual Payments
+PR=Pharmacy Rebates
+PV=Provider File"
+CDLHD006,Period Beginning Date,date,6,YYYYMM. Beginning of period covered for Eligibility. Beginning of paid/adjudicated period for Claims. Beginning of period for Provider file updates.
+CDLHD007,Period Ending Date,date,6,YYYYMM. End of period covered for Eligibility. End of paid/adjudicated period for Claims. End of period for Provider file updates.
+CDLHD008,Test File Flag,char,1,"T=File submitted is a test file;
+P=File submitted is a production file."
+CDLHD009,Comments,varchar,50,Comments.
+CDLHD010,APCD-CDL™ Version Number,varchar,8,"The version of the APCD-CDL™ used to produce this file (e.g., 3.0.1)."

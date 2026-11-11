@@ -1,0 +1,456 @@
+element_id,element_name,type,max_length,description,source_reference
+CDLMC001,Data Submitter Code,varchar,8,APCD-assigned identifier of payer submitting data file. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms). This may or may not be the same code as the Payer Code (CDLMC002).,N/A
+CDLMC002,Payer Code,varchar,8,"APCD-assigned identifier of insurer in the case of premiums-based coverage, or of the administrator in the case of self-funded coverage. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms).",N/A
+CDLMC003,Plan ID,varchar,30,CMS National Plan ID. The National Plan ID is a code assigned by CMS. (PLACEHOLDER).,837/2010AC/NM109 where NM108 = XV
+CDLMC004,Member Insurance/ Product Category Code,char,2,See Appendix J: Insurance Type/Product Category for codes. Use the most granular choice available. Code reported must align with the member's enrollment product (CDLME004) during the time of service.,"271/2110DA/EB04*
+
+*With additional values outlined in Appendix J"
+CDLMC005,Payer Claim Control Number,varchar,35,Must apply to the entire claim and be unique within the payer’s system. Payer Claim Control Number (PCCN) must be consistent across claim versions and therefore should not be a transaction number. A combination of the PCCN and version number (CDLMC007) will be used to determine which rows will carry forward into the final claim. It is also imperative that a reversal uses the same PCCN as the original paid claim.,837/2300/REF02 where REF01=F8
+CDLMC006,Line Counter,int,4,Line number for this service. The line counter begins with 1 and is incremented by 1 for each additional service line of a claim.,837/2400/LX01
+CDLMC007,Version Number,int,4,"The version number of this claim service line. The version number begins with 0 and is incremented by 1 for each subsequent version of the claim. If version numbers are not used, Cross Reference Claims ID (CDLMC008) is to be utilized.",N/A
+CDLMC008,Cross Reference Claims ID,varchar,35,The original Payer Claim Control Number (CDLMC005). Used when a new Payer Claim Control Number is assigned to an adjusted claim and a Version Number (CDLMC007) is not used.,N/A
+CDLMC009,Insured Group or Policy Number,varchar,50,"The identification number, or code assigned by the carrier or administrator to identify the group under which the individual is covered. CDLME007 is not the number that uniquely identifies the subscriber. If no group or policy number is available, leave blank. If the coverage is Medicaid, then report a value of “IND”. If a policy is sold to an individual as a non-group policy, then report with a value of “IND”.",837/2320A/SBR03
+CDLMC010,Medicaid AID Category,varchar,10,"For Medicaid only. Provide the primary Medicaid Aid Category code for the member. Codes are determined by the state’s Medicaid agency. If not applicable, leave blank.",N/A
+CDLMC011,Subscriber Social Security Number,char,9,Subscriber’s Social Security Number. Do not include dashes. Leave blank if not collected.,837/2010BA/REF02 where REF01 = SY
+CDLMC012,Plan Specific Contract Number,varchar,80,"Plan assigned contract number. Leave blank if Plan Specific Contract Number is the subscriber’s Social Security Number. If this is a Medicaid claim, provide Medicaid ID.","Subscriber:
+837/2010BA/NM109 where NM108 = MI
+
+Member/Patient:
+837/2010CA/NM109 where NM108 = MI"
+CDLMC013,Subscriber Last Name,varchar,60,The subscriber’s last name.,837/2010BA/NM103
+CDLMC014,Subscriber First Name,varchar,35,The subscriber’s first name.,837/2010BA/NM104
+CDLMC015,Sequence Number,varchar,20,"Unique number of the member within the contract. When the member is the subscriber, use subscriber sequence number.",N/A
+CDLMC016,Member Social Security Number,char,9,"Member’s Social Security Number. If the member is the subscriber, report the subscriber’s SSN. Do not include dashes. Leave blank if not collected.","Subscriber:
+837/2010BA/REF102 where REF01 = SY
+
+Member/Patient:
+837/2010CA/REF102 where REF01 = SY"
+CDLMC017,Individual Relationship Code,char,2,"Member’s relationship to insured. Individual Relationship codes are maintained by ANSI ASC X12. See Appendix L: External Code Source, see Accredited Standards Committee.","Subscriber:
+837/2000B/SBR02
+
+Member/Patient:
+837/2000C/PAT01"
+CDLMC018,Member Sex,char,1,"Sex of the Member.
+M=Male;
+F=Female;
+U=Unknown.
+
+Member sex represents biological or administrative sex. If the member is the subscriber, report the subscriber’s sex. Where available, submitters should provide the sex the member was assigned at birth on their original birth certificate (natal sex). When this is not available, submitters may provide the values they have regarding physical or legal sex (e.g., administrative sex as categorized by X12 values).","Subscriber:
+837/2010BA/DMG03
+
+Member/Patient: 837/2010CA/DMG03"
+CDLMC019,Member Date of Birth,date,8,"YYYYMMDD; Date of birth of member. If the member is the subscriber, report the subscriber’s date of birth.","Subscriber:
+837/2010BA/DMG02
+
+Member/Patient:
+837/2010CA/DMG02"
+CDLMC020,Member Last Name,varchar,60,"The member’s last name. If the member is the subscriber, report the subscriber’s last name.","Subscriber:
+837/2010BA/NM103
+
+Member/Patient:
+837/2010CA/NM103"
+CDLMC021,Member First Name,varchar,35,"The member’s first name. If the member is the subscriber, report the subscriber’s first name.","Subscriber:
+837/2010BA/NM104
+
+Member/Patient:
+837/2010CA/NM104"
+CDLMC022,Member ZIP Code,varchar,9,"Report the 5 or 9-digit ZIP Code of the member’s residence. If the member is the subscriber, report the Zip Code of the subscriber’s residence. When submitting the 9-digit ZIP Code do not include hyphen. If using 5 digits, do not fill last 4 digits with 0. ZIP Codes are maintained by the US Postal Service. See Appendix L: External Code Sources.","Subscriber:
+837/2010BA/N403
+
+Member/Patient:
+837/2010CA/N403"
+CDLMC023,Patient Control Number,varchar,20,Patient secondary identification. Patient’s unique (alphanumeric) number assigned by the provider to facilitate retrieval of the individual’s account of services.,"Subscriber: 837/2010CA/REF02
+
+Member/Patient: 837/2010CA/REF02"
+CDLMC024,Paid Date,date,8,"YYYYMMDD. Paid date of the claim line. Report the date that appears on the: check, and/or remit, and/or explanation of benefits, and corresponds to any and all types of payment in YYYYMMDD Format. If paid/adjudicated date is not available, use Processed Date. Claims paid in full, partial, or zero paid, must have a date reported here.",837/2330A/DTP03 where DTP01=573
+CDLMC025,Admission Date,date,8,"YYYYMMDD. Required for all inpatient claims, this is the date of admission.",837/2300/DTP03 where DTP01=435 (I)
+CDLMC026,Admission Hour,char,4,HHMM. (Military time) The hour during which the patient was admitted for inpatient care.,837/2300/DTP03 where DTP01=435 and DTP02=DT (I)
+CDLMC027,Admission Type,char,1,"Required for all inpatient claims. Valid codes are:
+1=Emergency;
+2=Urgent;
+3=Elective;
+4=Newborn;
+5=Trauma Center;
+9=Information not available.
+For professional claims, leave blank. Admission Type codes are maintained by NUBC. See Appendix L: External Code Source, National Uniform Billing Committee.",837/2300/CL101 (I)
+CDLMC028,Point of Origin,char,1,"A code indicating the point of patient origin for this admission or visit. Required for all institutional claims. Admission Type codes are maintained by NUBC. See Appendix L: External Code Source, National Uniform Billing Committee.",837/2300/CL102 (I)
+CDLMC029,Discharge Date,date,8,YYYYMMDD. Date patient discharged. Required for all inpatient claims.,837/2300/HI01-03 where HI01-02 = 42
+CDLMC030,Discharge Hour,char,4,"HHMM (Military time). The hour during which the patient was discharged from inpatient care. For professional claims, leave blank.",837/2300/DTP03 where DTP01=096 and DTP02=TM (I)
+CDLMC031,Discharge Status,char,2,"Required for all institutional claims. Discharge Status codes are maintained by NUBC. For professional claims, leave blank. See Appendix L: External Code Source, National Uniform Billing Committee.",837/2300/CL103 (I)
+CDLMC032,Type of Bill – Institutional,char,3,"Required for institutional claims. Not to be used for professional claims. As defined by the National Uniform Billing Committee. Do not include the leading zero. Type of Bill codes are maintained by NUBC. See Appendix L: External Code Source, National Uniform Billing Committee.",837/2300/CLM05-02 & CLM05-03 (I)
+CDLMC033,Place of Service – Professional,char,2,"Required for professional claims. Not to be used for institutional claims. Place of Service codes are maintained by CMS. See Appendix L: External Code Source, Center for Medicaid and Medicare Services.",837/2300/CLM05-01 (P)
+CDLMC034,Admitting Diagnosis,varchar,7,"The ICD code describing the patient’s diagnosis at the time of admission. Required on all inpatient admission claims and encounters. Codes found in ICD-9-CM or ICD -10-CM. Do not code decimal point. See Appendix L: External Code Source, World Health Organization.",837/2300/HI01-02 (I)
+CDLMC035,First External Cause Code,varchar,7,"The ICD diagnosis codes pertaining to environmental events, circumstances, and conditions as the cause of injury, poisoning, and other adverse effects. As submitted by provider in the first external cause field- if not submitted by the provider or captured by the carrier leave blank. Codes found in ICD-9-CM or ICD -10-CM. Do not code decimal point. See Appendix L: External Code Source, World Health Organization.",837/2300/HI01-02 where HI01-01=ABJ (ICD- 10)
+CDLMC036,ICD Version Indicator,char,1,The purpose of this field is to identify which code set is being utilized. 9=This claim contains ICD-9- CM codes. 0=This claim contains ICD-10-CM codes.,N/A
+CDLMC037,Principal Diagnosis,varchar,7,ICD-9-CM or ICD-10-CM. Do not code decimal point. Cannot include codes V00-Y99. See Appendix L: External Code Source.,837/2300/HI01-02 where HI01-01=ABK (ICD-10)
+CDLMC038,Other Diagnosis – 1,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI01-02 where HI01-01=ABF (ICD-10)
+CDLMC039,Other Diagnosis – 2,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI02-02 where HI02-01=ABF (ICD-10)
+CDLMC040,Other Diagnosis – 3,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI03-02 where HI03-01=ABF (ICD-10)
+CDLMC041,Other Diagnosis – 4,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI04-02 where HI04-1=ABF (ICD-10)
+CDLMC042,Other Diagnosis – 5,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI05-02 where HI05-01=ABF (ICD-10)
+CDLMC043,Other Diagnosis – 6,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI06-02 where HI06-01=ABF (ICD-10)
+CDLMC044,Other Diagnosis – 7,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI07-02 where HI07-01=ABF (ICD-10)
+CDLMC045,Other Diagnosis – 8,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI08-02 where HI08-1=ABF (ICD-10)
+CDLMC046,Other Diagnosis – 9,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI09-02 where HI09-01=ABF (ICD-10)
+CDLMC047,Other Diagnosis – 10,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI10-02 where HI10-01=ABF (ICD-10)
+CDLMC048,Other Diagnosis – 11,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI11-02 where HI11-01=ABF (ICD-10)
+CDLMC049,Other Diagnosis – 12,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI12-02 where HI12-01=ABF (ICD-10)
+CDLMC050,Other Diagnosis – 13,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI13-02 where HI13-01=ABF (ICD-10)
+CDLMC051,Other Diagnosis – 14,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI14-02 where HI14-01=ABF (ICD-10)
+CDLMC052,Other Diagnosis – 15,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI15-02 where HI15-01=ABF (ICD-10)
+CDLMC053,Other Diagnosis – 16,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI16-02 where HI16-01=ABF (ICD-10)
+CDLMC054,Other Diagnosis – 17,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI17-02 where HI17-01=ABF (ICD-10)
+CDLMC055,Other Diagnosis – 18,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI18-02 where HI18-01=ABF (ICD-10)
+CDLMC056,Other Diagnosis – 19,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI19-02 where HI19-01=ABF (ICD-10)
+CDLMC057,Other Diagnosis – 20,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI20-02 where HI20-01 =ABF (ICD-10)
+CDLMC058,Other Diagnosis – 21,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI21-02 where HI21-01=ABF (ICD-10)
+CDLMC059,Other Diagnosis – 22,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI22-02 where HI22-01=ABF (ICD-10)
+CDLMC060,Other Diagnosis – 23,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI23-02 where HI23-01=ABF (ICD-10)
+CDLMC061,Other Diagnosis – 24,varchar,7,"ICD-9-CM or ICD-10-CM. Do not code decimal point. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI24-02 where HI24-01=ABF (ICD-10)
+CDLMC062,Present on Admission Code -01,char,1,"Present on Admission Indicator Principal Diagnosis For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABK/HI01-09
+CDLMC063,Present on Admission Code -02,char,1,"POA Indicator for Other Diagnosis – 1. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI01-09
+CDLMC064,Present on Admission Code -03,char,1,"POA Indicator for Other Diagnosis – 2. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI02-09
+CDLMC065,Present on Admission Code -04,char,1,"POA Indicator for Other Diagnosis – 3. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI03-09
+CDLMC066,Present on Admission Code -05,char,1,"POA Indicator for Other Diagnosis – 4. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI04-09
+CDLMC067,Present on Admission Code -06,char,1,"POA Indicator for Other Diagnosis – 5. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI05-09
+CDLMC068,Present on Admission Code -07,char,1,"POA Indicator for Other Diagnosis – 6. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI06-09
+CDLMC069,Present on Admission Code -08,char,1,"POA Indicator for Other Diagnosis – 7. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI07-09
+CDLMC070,Present on Admission Code -09,char,1,"POA Indicator for Other Diagnosis – 8. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI08-09
+CDLMC071,Present on Admission Code -10,char,1,"POA Indicator for Other Diagnosis – 9. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI09-09
+CDLMC072,Present on Admission Code -11,char,1,"POA Indicator for Other Diagnosis – 10. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI10-09
+CDLMC073,Present on Admission Code -12,char,1,"POA Indicator for Other Diagnosis – 11. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI11-09
+CDLMC074,Present on Admission Code -13,char,1,"POA Indicator for Other Diagnosis – 12 For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI12-09
+CDLMC075,Present on Admission Code - 14,char,1,"POA Indicator for Other Diagnosis – 13. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI13-09
+CDLMC076,Present on Admission Code - 15,char,1,"POA Indicator for Other Diagnosis – 14. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI14-09
+CDLMC077,Present on Admission Code - 16,char,1,"POA Indicator for Other Diagnosis – 15. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI15-09
+CDLMC078,Present on Admission Code - 17,char,1,"POA Indicator for Other Diagnosis – 16. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI16-09
+CDLMC079,Present on Admission Code- 18,char,1,"POA Indicator for Other Diagnosis – 17. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI17-09
+CDLMC080,Present on Admission Code - 19,char,1,"POA Indicator for Other Diagnosis – 18. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI18-09
+CDLMC081,Present on Admission Code - 20,char,1,"POA Indicator for Other Diagnosis – 19. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI19-09
+CDLMC082,Present on Admission Code - 21,char,1,"POA Indicator for Other Diagnosis – 20. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI20-09
+CDLMC083,Present on Admission Code - 22,char,1,"POA Indicator for Other Diagnosis – 21. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI21-09
+CDLMC084,Present on Admission Code - 23,char,1,"POA Indicator for Other Diagnosis – 22. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI22-09
+CDLMC085,Present on Admission Code - 24,char,1,"POA Indicator for Other Diagnosis – 23. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI23-09
+CDLMC086,Present on Admission Code - 25,char,1,"POA Indicator for Other Diagnosis – 24. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier, leave blank. Report the code that indicates present on admission:
+Y=Diagnosis was present at time of inpatient admission;
+N=Diagnosis was not present at time of inpatient admission;
+U=Documentation insufficient to determine if the condition was present at the time of inpatient admission;
+W=Clinically undetermined. Provider unable to clinically determine whether the condition was present at the time of inpatient admission;
+1=Unreported/Not used. Exempt from POA reporting. This code is equivalent to a blank on the UB-04; however, it was determined that blanks are undesirable when submitting this data via the 4010A.",837/2300/ABF/HI24-09
+CDLMC087,Revenue Code,char,4,"Codes that identify specific accommodations, ancillary service or unique billing calculations or arrangements. NUBC Code using leading zeroes, left justified, and four digits. For institutional claims only. Not for professional claims. Revenue codes are maintained by NUBC. See Appendix L: External Code Source, National Uniform Billing Committee.",837/2400/SV201 (I)
+CDLMC088,Procedure Code,varchar,5,"Healthcare Common Procedural Coding System (HCPCS). This includes the CPT codes maintained by the American Medical Association. This field should not include modifiers. Modifiers are submitted in different fields. See Appendix L: External Code Source, American Medical Association.","837/2400/SV202-02 where SV202-01=HC (I)
+and
+837/2400 SV101-02 where SV101-01=HC (P)"
+CDLMC089,Procedure Modifier – 1,char,2,"Procedure modifier required when a modifier clarifies/improves the reporting accuracy of the associated procedure code. CPT codes and modifiers are maintained by the American Medical Association. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, American Medical Association.","837/2400/SV202-03 (I);
+and
+837/2400 SV101-03 (P)"
+CDLMC090,Procedure Modifier – 2,char,2,"Procedure modifier required when a modifier clarifies/improves the reporting accuracy of the associated procedure code. CPT codes and modifiers are maintained by the American Medical Association. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, American Medical Association.","837/2400/SV202-04 (I);
+and
+837/2400 SV101-04 (P)"
+CDLMC091,Procedure Modifier – 3,char,2,"Procedure modifier required when a modifier clarifies/improves the reporting accuracy of the associated procedure code. CPT codes and modifiers are maintained by the American Medical Association. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, American Medical Association.","837/2400/SV202-05
+(I);
+and
+837/2400 SV101-05 (P)"
+CDLMC092,Procedure Modifier – 4,char,2,"Procedure modifier required when a modifier clarifies/improves the reporting accuracy of the associated procedure code. CPT codes and modifiers are maintained by the American Medical Association. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, American Medical Association.","837/2400/SV202-06
+(I);
+and
+837/2400 SV101-06 (P)"
+CDLMC093,ICD-9 CM/10- PCS Principal Procedure Code,char,7,"Primary procedure code for this line of service. Do not code decimal point. For institutional claims only. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI01-02 where 2300 HI01-01= BBR (ICD10PCS) (I)
+CDLMC094,ICD-9 CM/10- CM- PCS Other Procedure Code – 1,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI01-02 where HI01-01=BBQ (ICD-10) (I)
+CDLMC095,ICD-9 CM/10-CM- PCS Other Procedure Code – 2,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI02-02 where HI02-01=BBQ (ICD-10) (I)
+CDLMC096,ICD-9 CM/10-CM- PCS Other Procedure Code – 3,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI03-02 where HI03-01=BBQ (ICD-10) (I)
+CDLMC097,ICD-9 CM/10-CM- PCS Other Procedure Code – 4,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI04-02 where HI04-01=BBQ (ICD-10) (I)
+CDLMC098,ICD-9 CM/10-CM- PCS Other Procedure Code – 5,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI05-02 where HI05-01=BBQ (ICD-10) (I)
+CDLMC099,ICD-9 CM/10-CM- PCS Other Procedure Code – 6,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI06-02 where HI06-01 =BBQ (ICD-10) (I)
+CDLMC100,ICD-9 CM/10-CM- PCS Other Procedure Code – 7,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI07-02 where HI07-01= BBQ (ICD-10) (I)
+CDLMC101,ICD-9 CM/10-CM- PCS Other Procedure Code – 8,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI08-02 where HI08-01=BBQ (ICD-10) (I)
+CDLMC102,ICD-9 CM/10-CM- PCS Other Procedure Code –9,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI09-02 where HI09-01=BBQ (ICD-10) (I)
+CDLMC103,ICD-9 CM/10-CM- PCS Other Procedure Code – 10,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI10-02 where HI10-01=BBQ (ICD-10) (I)
+CDLMC104,ICD-9 CM/10-CM- PCS Other Procedure Code – 11,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI11-02 where HI11-01=BBQ (ICD-10) (I)
+CDLMC105,ICD-9 CM/10-CM- PCS Other Procedure Code – 12,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI12-02 where HI12-01=BBQ (ICD-10) (I)
+CDLMC106,ICD-9 CM/10-CM- PCS Other Procedure Code – 13,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI13-02 where HI13-01=BBQ (ICD-10) (I)
+CDLMC107,ICD-9 CM/10-CM- PCS Other Procedure Code – 14,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI14-02 where HI14-01=BBQ (ICD-10) (I)
+CDLMC108,ICD-9 CM/10-CM- PCS Other Procedure Code – 15,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI15-02 where HI15-01=BBQ (ICD-10) (I)
+CDLMC109,ICD-9 CM/10-CM- PCS Other Procedure Code –16,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI16-02 where HI16-01=BBQ (ICD-10) (I)
+CDLMC110,ICD-9 CM/10-CM- PCS Other Procedure Code – 17,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI17-02 where HI17-01=BBQ (ICD-10) (I)
+CDLMC111,ICD-9 CM/10-CM- PCS Other Procedure Code – 18,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI18-02 where HI18-01=BBQ (ICD-10) (I)
+CDLMC112,ICD-9 CM/10-CM- PCS Other Procedure Code – 19,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI19-02 where HI19-01=BBQ (ICD-10) (I)
+CDLMC113,ICD-9 CM/10-CM- PCS Other Procedure Code – 20,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI20-02 where HI20-01= BBQ (ICD- 10) (I)
+CDLMC114,ICD-9 CM/10-CM- PCS Other Procedure Code – 21,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI21-02 where HI21-01=BBQ (ICD- 10) (I)
+CDLMC115,ICD-9 CM/10-CM- PCS Other Procedure Code – 22,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI22-02 where HI22-01=BBQ (ICD-10) (I)
+CDLMC116,ICD-9 CM/10-CM- PCS Other Procedure Code – 23,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI23-02 where HI23-01=BBQ (ICD-10) (I)
+CDLMC117,ICD-9 CM/10-CM- PCS Other Procedure Code – 24,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI24-02 where HI24-01=BBQ (ICD-10) (I)
+CDLMC118,ICD-9 CM/10-CM- PCS Other Procedure Code – 25,varchar,7,"Secondary procedure code for this line of service. Do not code decimal point. For institutional claims only. Not for professional claims. If not submitted by the provider or captured by the carrier leave blank. See Appendix L: External Code Source, World Health Organization.",837/2300/HI25-02 where HI25-01=BBQ (ICD-10) (I)
+CDLMC119,Date of Service – From,date,8,YYYYMMDD. First date of service for this service line. Filled for all claim types.,"837/2300/DTP03 where DTP02=RD8 (I)
+and
+837/2400/DTP03 where DTP01=472"
+CDLMC120,Date of Service – Thru,date,8,YYYYMMDD Last date of service for this service line. Filled for all claim types.,"837/2300/DTP03 where DTP02=RD8 (I)
+and
+837/2400/DTP03 where DTP01=472"
+CDLMC121,Service Units/ Quantity,dec,"8,3","Numeric value of quantity. Count of service units performed. The Unit of Measure is typically based on the relevant reporting code (e.g., CPT, revenue, HCPCS). Must include a decimal point when reporting quantities with fractional values up to 3 digits (e.g., 9.999).","837/2400/SV205 (I)
+and
+837/2400/SV104 (P)"
+CDLMC122,Unit of Measure,varchar,2,"Type of units reported in CDLMC121. Example codes:
+DA=Days;
+MJ=Minutes;
+UN=Units.
+If CDLMC121 is blank (not reported), leave CDLMC122 blank.","837/2400/SV204 (I)
+and
+837/2400/SV103 (P)"
+CDLMC123,Charge Amount,int,12,"The line item charge amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).","837/2400/SV203 (I)
+and
+837/2400/SV102 (P)"
+CDLMC124,Withhold Amount,int,12,"A claim-based payment that is included in total medical expense. Report the amount paid to the provider for this claim line if the provider qualified/met performance guarantees. Report 0 if there is no withhold amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",N/A
+CDLMC125,Plan Paid Amount,int,12,"This is the service line paid amount. This excludes the patient liability. For capitated claims, set to 0. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",837/2430/SVD02
+CDLMC126,Co-Pay Amount,int,12,"Report the amount that defines a preset, fixed amount for this claim line service that the patient is responsible to pay. If only collected on the header record, report the co-pay amount on the first claim line. Report 0 if there is no co-pay amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",837/2430/CAS03 where CAS02 is 3
+CDLMC127,Coinsurance Amount,int,12,"The dollar amount for which the member is responsible attributed to the coinsurance amount. This is the dollar amount, not the percentage from which the dollar amount was calculated. If only collected on the header record, report the coinsurance amount on the first claim line. Report 0 if there is no coinsurance amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",837/2430/CAS03 where CAS02 is 2
+CDLMC128,Deductible Amount,int,12,"Report the amount of the deductible applied to the claim. If only collected on the header record, report the deductible amount on the first claim line. Report 0 if there is no deductible amount applied to the claim. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",837/2430/CAS03 where CAS02 is 1
+CDLMC129,Other Insurance Paid Amount,int,12,"Amount already paid by another carrier. Report the amount that a prior payer has paid for this claim line. Indicates the submitting payer is not the primary payer. Only Report “0” if the prior payer paid 0 toward this claim line; or if there is no prior payer. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025). May be reported as a negative.",N/A
+CDLMC130,COB/TPL Amount,int,12,"Payer paid amount from a secondary carrier. Report the amount that another payer is liable for after submitting payer has processed this claim line. If only collected on the header record report the COB/TPL amount on the first claim line. Report 0 if there is no COB/TPL amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).","837/2320/AMT02
+where AMT01 = D"
+CDLMC131,Allowed Amount,int,12,"When payment arrangement type in CDLMC132 is equal to 01 for capitated services, report the maximum amount contractually allowed, and that a carrier will pay to a provider for a particular procedure or service. When payment arrangement type in CDLMC132 is equal to 02 for fee for service, report the maximum amount contractually allowed, and that a carrier will pay to a provider for a particular procedure or service.
+Report 0 if there is no allowed amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",837/2300/HCP02
+CDLMC132,Payment Arrangement Type Indicator,char,2,"Indicates the payment methodology. Valid codes are:
+01=Capitation;
+02=Fee for Service;
+03=Percent of Charges;
+04=DRG;
+05=Pay for Performance;
+06=Global Payment;
+07=Other;
+08=Bundled Payment.",N/A
+CDLMC133,Drug Code,char,11,"Report the NDC code only when a medication is paid for as part of a medical claim. Do not include dashes. NDC codes are maintained by the Federal Drug Administration. If not available, leave blank. See Appendix L: External Code Source, United States Food and Drug Administration.",837/2410/LIN03 where LIN02=N4 (I)
+CDLMC134,Rendering Provider ID,varchar,35,Unique code identified for the provider as assigned by the reporting entity. Payer assigned provider ID for the provider that provided the services on the claims. This should be the identifier used by the payer for internal identification purposes and does not routinely change. Must map to the Payer Assigned Provider ID (CDLPV004) in the Provider File.,"837/2010AA/REF02 where REF01=G2 (I)
+and
+837/2420A/REF02 where REF01=G2 (P)
+or
+837/2310B/REF02 where REF01=G2 (P)"
+CDLMC135,Rendering Provider NPI,char,10,"Rendering Provider NPI is the NPI of the entity or individual directly providing the service, as enumerated in the Center for Medicaid and Medicare Services NPPES.","837/2010AA/NM109 where NMI08 = XX (I)
+and
+837/2420A/NM109 where NM108 = XX (P)
+or
+837/2310B/NM109 where NM108 = XX (P)"
+CDLMC136,Rendering Provider Entity Type Qualifier,char,1,"Use this field to indicate whether the rendering provider is a person or “non-person entity”. HIPAA provider taxonomy classifies provider groups (clinicians who bill as a group practice or under a corporate name, even if that group is composed of one provider) as a “Person.” Valid codes are:
+1=Person;
+2=Non-Person Entity.","837/2010AA/NM102 (I)
+and
+837/2420A/NM102 (P)
+or
+837/2310B/NM102 (P)"
+CDLMC137,In Plan Network Indicator,char,1,"A yes/no indicator that specifies if the provider (not the benefit) is within the health plan network. Valid codes are:
+N=No;
+Y=Yes;
+L=Leased Network.",N/A
+CDLMC138,Rendering Provider First Name,varchar,35,"Individual first name. If CDLMC136=2, leave blank.","837/2010AA/NM104 (I)
+and
+837/2420A/NM104 (P)
+or
+837/2310B/NM104 (P)"
+CDLMC139,Rendering Provider Middle Name,varchar,25,"Individual middle name or initial. If CDLMC136=2, leave blank.","837/2010AA/NM105 (I)
+and
+837/2420A/NM105 (P)
+or
+837/2310B/NM105 (P)"
+CDLMC140,Rendering Provider Last Name or Organization Name,varchar,60,Full name of provider organization (“non-person entity”) or last name of individual (“person”) provider. CDLMC136 determines if the Rendering Provider is a “person” or a “non-person entity”.,"837/2010AA/NM103 (I)
+and
+837/2420A/NM103 (P)
+or
+837/2310B/NM103 (P)"
+CDLMC141,Rendering Provider Suffix,varchar,10,"Suffix of Rendering Provider. Leave blank if provider is a facility or organization. The rendering provider suffix shall be used to capture the generation of the individual clinician (e.g., Jr., Sr., III). Do not use credentials such as MD or PhD.","837/2010AA/NM107 (I)
+and
+837/2420A/NM107 (P)
+or
+837/2310B/NM107 (P)"
+CDLMC142,Rendering Provider Specialty,varchar,10,"Standard code that identifies the provider specialty for this line of service. Report the HIPAA-compliant healthcare provider national taxonomy code. Provider taxonomy codes are maintained by the National Uniform Claims Committee (NUCC). See Appendix L: External Code Source, National Uniform Claims Committee.","837/2010AA/PRV03 where PRV02 = PXC (I)
+and
+837/2420A/PRV03 (P)
+or
+837/2310B/PRV03 (P)"
+CDLMC143,Rendering Provider City Name,varchar,30,City where the rendering provider delivered the service.,"837/2010AA/N401 (I)
+and
+837/2420C/N401 (P)
+or
+837/2310C/N401 (P)"
+CDLMC144,Rendering Provider State or Province,char,2,"State or Province where the rendering provider delivered the service. Codes are maintained by the US Postal Service. See Appendix L: External Code Sources, United States Postal Service.","837/2010AA/N402 (I)
+and
+837/2420C/N402 (P)
+or
+837/2310C/N402 (P)"
+CDLMC145,Rendering Provider ZIP Code,varchar,9,"Report the 5 or 9-digit ZIP Code of the address where the rendering provider delivered the service. When submitting the 9-digit ZIP Code do not include hyphen. If using 5 digits, do not fill last 4 digits with 0. ZIP Codes are maintained by the US Postal Service. See Appendix L: External Code Sources.","837/2010AA/N403 (I)
+and
+837/2420C/N403 (P)
+or
+837/2310C/N403 (P)"
+CDLMC146,Rendering Provider Group Practice NPI,char,10,NPI of group practice to which a rendering provider is affiliated if different from CDLMC135.,N/A
+CDLMC147,Billing Provider ID,varchar,35,Unique code assigned to the provider by the reporting entity. Payer assigned provider ID for the provider that is the billing provider. This should be the identifier used by the payer for internal identification purposes and does not routinely change. Must map to the Payer Assigned Provider ID (CDLPV004) in the Provider File.,837/2010AA/REF02 where REF01=G2
+CDLMC148,Billing Provider NPI,char,10,NPI for billing provider as enumerated in the Center for Medicaid and Medicare Services NPPES.,837/2010AA/NM109 where NM108=XX
+CDLMC149,Billing Provider Last Name or Organization Name,varchar,60,Full name of provider billing organization or last name of individual billing provider.,837/2010AA/NM103
+CDLMC150,Billing Provider Tax ID,char,9,Tax ID of the billing provider. Do not code punctuation.,837/2010AA/REF02 where REF01=EI
+CDLMC151,Referring Provider ID,varchar,35,"Payer assigned provider ID for the referring provider. The Referring Provider is the provider who directed the patient for care to the provider that rendered the services being submitted on the claim form. The Referring Provider Number is the identifier used by the payer for internal identification purposes and does not routinely change. Must map to the Payer Assigned Provider ID (CDLPV004) in the Provider File. If not available, leave blank.","837/2310F/REF02 where REF01=G2 (I)
+and
+837/2310A/REF02 where REF01=G2 (P)
+or
+837/2420F/REF02 where REF01=G2 (P)"
+CDLMC152,Referring Provider NPI,char,10,"NPI of the referring provider. The referring provider is the entity or individual that submitted the referral of the service or procedure. The Referring Provider is the individual who directed the patient for care to the provider that rendered the services being submitted on the claim form. If not available, leave blank.","837/2310F/NM109 where NM108=XX (I)
+and
+837/2310A/NM109 where NM108=XX (P)
+or
+837/2420F/NM109 where NM108=XX (P)"
+CDLMC153,Attending Provider ID,varchar,35,"Payer assigned provider ID for the attending provider. On the institutional claim, the Attending Provider is the individual that has primary responsibility for the patient’s medical care and treatment reported in the claim. The Attending Provider Number is the identifier used by the payer for internal identification purposes and does not routinely change. Must map to the Payer Assigned Provider ID (CDLPV004) in the Provider File. If not available, leave blank.",837/2310A/REF02 where REF01=G2 (I)
+CDLMC154,Attending Provider NPI,char,10,"NPI of the attending provider. On the institutional claim, the Attending Provider is the individual that has primary responsibility for the patient’s medical care and treatment reported in the claim. The Attending and Rendering provider can be the same individual. If not available, leave blank.",837/2310A/NM109 where NM108=XX (I)
+CDLMC155,Carrier Associated with Claim,varchar,8,"For each claim, use the NAIC code of the carrier when a TPA processes claims on behalf of the carrier. Optional if all medical claims processed by a TPA under contract to a carrier for carved- out services are submitted by the carrier with unified member IDs in all files. NAIC codes are maintained by the National Association of Insurance Commissioners. If not available, leave blank. See Appendix L: External Code Source, National Association of Insurance Commissioners.",N/A
+CDLMC156,Type of Claim,int,1,"Indicates the type of claim that was submitted. Valid codes are:
+1=Professional;
+2=Institutional/ Facility;
+3=Reimbursement Form (Member).",N/A
+CDLMC157,Claim Status,char,2,"01=Processed as primary;
+02=Processed as secondary;
+03=Processed as tertiary;
+04=Denied;
+19=Processed as primary, forwarded to additional payer(s);
+20=Processed as secondary, forwarded to additional payer(s);
+21=Processed as tertiary, forwarded to additional payer(s);
+22=Reversal of previous payment;
+23=Not our claim, forwarded to additional payer(s);
+25=Predetermination pricing only – No payment.",835/2100/CLP02
+CDLMC158,Denied Claim Line Indicator,int,1,"Use this field to indicate whether the payer denied this specific line on this specific claim. Valid codes are:
+1=Yes (denied);
+2=No (not denied).",N/A
+CDLMC159,Claim adjustment reason code,varchar,3,"Report the claim adjustment reason code. If CDLMC158=1, report the code that defines the reason for denial of the claim line. If not available, leave blank. Reason codes are maintained by ANSI ASC X12. See Appendix L: External Code Source, Accredited Standards Committee.",837/2430/CAS02
+CDLMC160,Claim Line Type,char,1,"Report the code that defines the claim line status in terms of adjudication. Valid codes are:
+O=Original;
+V=Void;
+R=Replacement;
+B=Back Out;
+A=Amendment;
+D=Denial.",N/A
+CDLMC161,Carrier Specific Unique Member ID,varchar,50,Report the identifier the carrier / submitter uses internally to uniquely identify the member. Used to create Unique Member ID and link across carrier’s / submitter’s files for reporting and aggregation.,N/A
+CDLMC162,Carrier Specific Unique Subscriber ID,varchar,50,Report the identifier the carrier / submitter uses internally to uniquely identify the subscriber. Used to create Unique Subscriber ID and link across carrier’s / submitter’s files for reporting and aggregation.,N/A
+CDLMC163,Rendering Provider Street Address,varchar,55,First line of street address where the rendering provider delivered the service (street number and street name). Include suite number if applicable.,"837/2010AA/N301 (I)
+and
+837/2420C/N301 (P)
+or
+837/2310C/N301 (P)"
+CDLMC164,Medical Record Number,varchar,35,Medical record number of the member.,837/2300/REF02 when REF01=EA
+CDLMCXXX,Un-assigned,char,1,Reserved for future use. Elements will only be added with review from states and payers.,N/A
+CDLMC899,Record Type,char,2,Value=MC,N/A

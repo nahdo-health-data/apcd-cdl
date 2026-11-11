@@ -1,0 +1,72 @@
+code,description
+12,Medicare Secondary Working Aged Beneficiary or Spouse with Employer Group Health Plan
+13,Medicare Secondary End-Stage Renal Disease Beneficiary in the Mandated Coordination Period with an Employer’s Group Health Plan
+14,"Medicare Secondary, No-Fault Insurance including Insurance in which Auto Is Primary"
+15,Medicare Secondary Workers’ Compensation
+16,Medicare Secondary Public Health Service (PHS) or Other Federal Agency
+17,Dental
+18,Vision
+19,Prescription Drugs (Commercial Coverage)
+41,Medicare Secondary Black Lung
+42,Medicare Secondary Veterans’ Administration
+43,Medicare Secondary Disabled Beneficiary Under Age 65 with Large Group Health Plan (LGHP)
+47,"Medicare Secondary, Other Liability Is Primary"
+AP,Auto Insurance Policy
+C1,Other Commercial (Not Specified Elsewhere)
+CO,Consolidated Omnibus Reconciliation Act (COBRA)
+CP,Medicare Conditionally Primary
+D,Disability
+DB,Disability Benefits
+E,Medicare – Point of Service (POS)
+EP,Exclusive Provider Organization
+FH,Federal Employees Health Benefits Program (HMO)
+FP,Federal Employees Health Benefits Program (PPO)
+FF,Family or Friends
+HM,Health Maintenance Organization (HMO)
+HN,Health Maintenance Organization (HMO) Medicare Advantage/Risk
+HS,Special Low Income Medicare Beneficiary
+IN,Indemnity
+IP,Individual Policy
+LC,Long Term Care
+LD,Long Term Policy
+LI,Life Insurance
+LT,Litigation
+MA,Medicare Part A (not to be used for commercial plans)
+MB,Medicare Part B (not to be used for commercial plans)
+MC,Medicaid
+MD,Medicare Part D
+MH,Medigap Part A
+MI,Medigap Part B
+MO,Medicare Advantage PPO
+MP,Medicare Primary (not to be used for commercial plans)
+MT,Medicaid CHIP
+OT,Other
+PE,Property Insurance – Personal
+PL,Personal
+PP,Personal Payment (Cash – No Insurance)
+PR,Preferred Provider Organization (PPO)
+PS,Point of Service (POS)
+QM,Qualified Medicare Beneficiary
+RP,Property Insurance – Real
+SP,Supplemental Policy
+S1,Medicare Special Needs Plan – Chronic Condition
+S2,Medicare Special Needs Plan - Institutionalized
+S3,Medicare Special Needs Plan – Dual Eligible
+TF,Tax Equity Fiscal Responsibility Act (TEFRA)
+TR,Tricare
+U,Multiple Options Health Plan
+VA,Veterans Administration Plan
+WC,Workers’ Compensation
+WU,Wrap Up Policy
+11,Other Non-Federal Programs
+DM,Dental Maintenance Organization
+AM,Automobile Medical
+BL,Blue Cross/Blue Shield
+CH,CHAMPUS
+CI,Commercial Insurance Company
+LB,Liability
+LM,Liability Medical
+OF,Other Federal Program
+TV,Title V
+SL,"Standalone limited (for example, vision only, hearing only)"
+ZZ,Mutually Defined (Use code ZZ when Type of Insurance is Unknown)

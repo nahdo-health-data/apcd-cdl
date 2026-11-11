@@ -1,0 +1,14 @@
+path,section,heading,table_title,file_code,reference_column_header
+source/files/hd-header.csv,A1,A1. Header Record,HEADER RECORD,HD,
+source/files/tr-trailer.csv,A2,A2. Trailer Record,TRAILER RECORD,TR,
+source/files/me-member-eligibility.csv,B,B. Member Eligibility File (ME),MEMBER ELIGIBILITY FILE,ME,ASC X12N 271 and 834 References
+source/files/mc-medical-claims.csv,C,C. Medical Claims File (MC),MEDICAL CLAIMS FILE,MC,ASC X12N PACDR and 835 References
+source/files/pc-pharmacy-claims.csv,D,D. Pharmacy Claims File (PC),PHARMACY CLAIMS FILE,PC,NCPDP References
+source/files/dc-dental-claims.csv,E,E. Dental Claims File (DC),DENTAL CLAIMS FILE,DC,ASC X12N PACDR and 835 References
+source/files/pv-provider.csv,F,F. Provider File (PV),PROVIDER FILE,PV,
+source/files/ap-annual-payments.csv,G,G. Annual Payments File (AP),ANNUAL PAYMENTS FILE,AP,
+source/files/pr-pharmacy-rebates.csv,H,H. Pharmacy Rebates File (PR),PHARMACY REBATE FILE,PR,
+source/files/cf-capitations.csv,I,I. Capitations File (CF),CAPITATION FILE,CF,
+source/codesets/insurance-type-product.csv,J,Appendix J. Insurance Type/ Product Code Values,APPENDIX J - INSURANCE TYPE/PRODUCT CODE,,
+source/codesets/market-category.csv,K,Appendix K. Market Category Codes,APPENDIX K - MARKET CATEGORY CODES,,
+source/reference/external-code-sources.md,L,Appendix L. External Code Sources,APPENDIX L - EXTERNAL CODE SOURCES,,

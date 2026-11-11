@@ -1,0 +1,128 @@
+element_id,element_name,rif_file,rif_file_part,rif_short_sas_name,rif_long_sas_name,rif_label,notes
+CDLPC001,Data Submitter Code,N/A,,,N/A,N/A,APCD Specific
+CDLPC002,Payer Code,N/A,,,N/A,N/A,APCD Specific
+CDLPC003,Plan ID,N/A,,,N/A,N/A,Report as null.
+CDLPC004,Member Insurance/ Product Category code,N/A,,,N/A,N/A,Hard code as 'MD'
+CDLPC005,Payer Claim Control Number,Medicare Part D Event (PDE)/ Drug Characteristics,,,PDE_ID,CCW Encrypted Part D Event Number,
+CDLPC006,Line Counter,N/A,,,N/A,N/A,Hard code as '1'
+CDLPC007,Version Number,N/A,,,N/A,N/A,Hard code as '0'
+CDLPC008,Cross Reference Claims ID,N/A,,,N/A,N/A,Report as null.
+CDLPC009,Insured Group or Policy Number,N/A,,,N/A,N/A,Hard code as 'IND'
+CDLPC010,Medicaid AID Category,N/A,,,N/A,N/A,Report as null.
+CDLPC011,Subscriber Social Security Number,bene_ssn crosswalk,,,SSN,Beneficiary Social Security Number,"Join to bene_ssn file using the bene_id
+Member is subscriber, repeat for CDLMC016 Member SSN"
+CDLPC012,Plan Specific Contract Number,Medicare Part D Event (PDE)/ Drug Characteristics,,,PLAN_CNTRCT_REC_ID + PLAN_PBP_REC_NUM,Plan Contract ID + Plan Benefit Package ID,"The Plan Contract Record ID is concatenated with the Plan PBP Record Number with a hyphen separating the two:
+PLAN_CNTRCT_REC_ID + PLAN_PBP_REC_NUM"
+CDLPC013,Subscriber Last Name,bene_name crosswalk,,,BENE_SRNM_NAME,Beneficiary Surname,"Join to bene_name file using the bene_id using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Member name fields"
+CDLPC014,Subscriber First Name,bene_name crosswalk,,,BENE_GVN_NAME,Beneficiary First Name,"Join to bene_name file using the bene_id using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Member name fields"
+CDLPC015,Sequence Number,N/A,,,N/A,N/A,Hard code as '01'
+CDLPC016,Member Social Security Number,bene_ssn crosswalk,,,SSN,Beneficiary Social Security Number,"Join to bene_ssn file using the bene_id
+Member is subscriber, repeat for CDLMC011 Subscriber SSN"
+CDLPC017,Individual Relationship Code,N/A,,,N/A,N/A,Hard code as '18'
+CDLPC018,Member Sex,Medicare Part D Event (PDE)/ Drug Characteristics,,,SEX_CD,Patient Sex,"In 2025 this field was renamed to SEX_CD to comply with Executive Order 14168.
+Transform as follows:
+Blank = '0' (Unspecified)
+1 = 'M' (Male)
+2 = 'F' (Female)"
+CDLPC019,Member Date of Birth,Medicare Part D Event (PDE)/ Drug Characteristics,,,DOB_DT,Patient Date of Birth (DOB),"Use DOB_DT from PDE if reported.
+If null use BENE_BIRTH_DT from MBSF using the BENE_ID to join between tables."
+CDLPC020,Member Last Name,bene_name crosswalk,,,BENE_SRNM_NAME,Beneficiary Surname,"Join to bene_name file using the bene_id using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Subscriber name fields"
+CDLPC021,Member First Name,bene_name crosswalk,,,BENE_GVN_NAME,Beneficiary First Name,"Join to bene_name file using the bene_id using the bene_id where crnt_rec_ind = 'Y'
+
+Member is subscriber, repeat for Subscriber name fields"
+CDLPC022,Member ZIP Code,mbsf,,,ZIP_CD,5-digit ZIP Code,Join to mbsf file using the bene_id
+CDLPC023,Date Prescription Filled,Medicare Part D Event (PDE)/ Drug Characteristics,,,SRVC_DT,RX Date of Service (DOS),
+CDLPC024,Paid Date,Medicare Part D Event (PDE)/ Drug Characteristics,,,PD_DT,Paid Date,"This field is optional and may be null.
+If null use SRVC_DT"
+CDLPC025,Drug Code,Medicare Part D Event (PDE)/ Drug Characteristics,,,PROD_SRVC_ID,Product Service ID (the National Drug Code [NDC]),
+CDLPC026,New Prescription or Refill,Medicare Part D Event (PDE)/ Drug Characteristics,,,FILL_NUM,Fill Number,
+CDLPC027,Generic Drug Indicator,Medicare Part D Event (PDE)/ Drug Characteristics,,,BRND_GNRC_CD,Brand-Generic Code Reported by Submitting Plan,"Transform as follows:
+If B then '01' (Branded Drug)
+If G then '02' (Generic Drug)"
+CDLPC028,Dispensed as Written Code,Medicare Part D Event (PDE)/ Drug Characteristics,,,DAW_PROD_SLCTN_CD,Dispense as Written (DAW) Product Selection Code,
+CDLPC029,Compound Drug Indicator,Medicare Part D Event (PDE)/ Drug Characteristics,,,CMPND_CD,Compound Code,"Transform as follows:
+0 = Not specified (missing values are also possible); transform to 'U' (Unknown)
+1 = Not a compound; transform to 'N' (Non-compound drug)
+2 = Compound; transform to 'Y' (Compound drug)"
+CDLPC030,Drug Name or Compound Drug Ingredient List,Medicare Part D Event (PDE)/ Drug Characteristics,,,"BN
+GNN","Brand Name
+Generic Name","Transform as follows:
+If BRND_GNRC_CD = 'B' use Brand name (BN) for drug name else use generic name (GNN)"
+CDLPC031,Formulary Indicator,Medicare Part D Event (PDE)/ Drug Characteristics,,,"FRMLRY_RX_ID
+FORMULARY_ID","CCW Formulary Drug ID
+Formulary ID","Transform as follows:
+If FRMLRY_RX_ID or FORMULARY_ID is not null then 1 else 2"
+CDLPC032,Quantity Dispensed,Medicare Part D Event (PDE)/ Drug Characteristics,,,QTY_DSPNSD_NUM,Quantity Dispensed,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLPC033,Days’ Supply,Medicare Part D Event (PDE)/ Drug Characteristics,,,DAYS_SUPLY_NUM,Days Supply,
+CDLPC034,Drug Unit of Measure,N/A,,,N/A,N/A,Report as null.
+CDLPC035,Prescription Number,Medicare Part D Event (PDE)/ Drug Characteristics,,,RX_SRVC_RFRNC_NUM,RX Service Reference Number,
+CDLPC036,Charge Amount,Medicare Part D Event (PDE)/ Drug Characteristics,,,TOT_RX_CST_AMT,Gross Drug Cost,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLPC037,Plan Paid Amount,Medicare Part D Event (PDE)/ Drug Characteristics,,,"CVRD_D_PLAN_PD_AMT +
+NCVRD_PLAN_PD_AMT","Covered D Plan Paid Amount (CPP) +
+Non-Covered Plan Paid Amount (NPP)","Transform as follows: 
+Sum: CVRD_D_PLAN_PD_AMT + NCVRD_PLAN_PD_AMT
+Multiplied by 100 to add implied decimals"
+CDLPC038,Allowed Amount,Medicare Part D Event (PDE)/ Drug Characteristics,,,"CVRD_D_PLAN_PD_AMT +
+NCVRD_PLAN_PD_AMT +
+PTNT_PAY_AMT","Covered D Plan Paid Amount (CPP) +
+Non-Covered Plan Paid Amount (NPP) +
+Patient Pay Amount","Transform as follows: 
+Sum: CVRD_D_PLAN_PD_AMT + NCVRD_PLAN_PD_AMT + PTNT_PAY_AMT
+Multiplied by 100 to add implied decimals"
+CDLPC039,Sales Tax Amount,N/A,,,N/A,N/A,Report as null.
+CDLPC040,Ingredient Cost/List Price,N/A,,,N/A,N/A,Report as null.
+CDLPC041,Postage Amount Claimed,N/A,,,N/A,N/A,Report as null.
+CDLPC042,Dispensing Fee,N/A,,,N/A,N/A,Report as null.
+CDLPC043,Co-Pay Amount,N/A,,,N/A,N/A,Report as null.
+CDLPC044,Coinsurance Amount,Medicare Part D Event (PDE)/ Drug Characteristics,,,PTNT_PAY_AMT,Patient Pay Amount,"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLPC045,Deductible Amount,N/A,,,N/A,N/A,Report as null.
+CDLPC046,COB/TPL Amount,N/A,,,N/A,N/A,Report as null.
+CDLPC047,Other Insurance Paid Amount,Medicare Part D Event (PDE)/ Drug Characteristics,,,PLRO_AMT,Patient Liability Reduction Due to Other Payer Amount (PLRO),"Transform as follows: 
+Multiplied by 100 to add implied decimals"
+CDLPC048,Member Self-Pay Amount,N/A,,,N/A,N/A,Report as null.
+CDLPC049,Payment Arrangement Type Flag,N/A,,,N/A,N/A,Report as null.
+CDLPC050,Prescribing Physician ID,Medicare Part D Event (PDE)/ Drug Characteristics,,,PRSCRBR_ID,Prescriber Identification Number,"Transform as follows:
+If PRSCRBR_ID_QLFYR_CD = '01' then PRSCRBR_ID else report as null"
+CDLPC051,Prescribing Physician NPI,Medicare Part D Event (PDE)/ Drug Characteristics,,,PRSCRBR_ID,Prescriber Identification Number,"Transform as follows:
+If PRSCRBR_ID_QLFYR_CD = '01' then PRSCRBR_ID else report as null"
+CDLPC052,Prescribing Physician First Name,N/A,,,N/A,N/A,"Provider names are not included in the ResDAC Research Identifiable Files (RIF).
+If wanted, these fields can be obtained using the NPPES reference table and joining on the provider NPI."
+CDLPC053,Prescribing Physician Last Name,N/A,,,N/A,N/A,Report as null.
+CDLPC054,Pharmacy NCPDP Number,Medicare Part D Event (PDE)/ Drug Characteristics,,,NCPDP_ID,NCPDP Pharmacy Identifier,
+CDLPC055,Pharmacy ID,N/A,,,N/A,N/A,Report as null.
+CDLPC056,Pharmacy Tax ID Number,N/A,,,N/A,N/A,Report as null.
+CDLPC057,Pharmacy NPI,N/A,,,N/A,N/A,Report as null.
+CDLPC058,Pharmacy Location Street Address,N/A,,,N/A,N/A,Report as null.
+CDLPC059,Pharmacy Location State,N/A,,,N/A,N/A,Report as null.
+CDLPC060,Pharmacy ZIP Code,N/A,,,N/A,N/A,Report as null.
+CDLPC061,Pharmacy Country Code,N/A,,,N/A,N/A,Report as null.
+CDLPC062,Mail-Order Pharmacy Indicator,Medicare Part D Event (PDE)/ Drug Characteristics,,,PHRMCY_SRVC_TYPE_CD,Pharmacy Service Type Code,"Transform as follows:
+If  PHRMCY_SRVC_TYPE_CD = '06' (Mail order pharmacy), then '1' (Yes, mail-order pharmacy)
+If  PHRMCY_SRVC_TYPE_CD <> '06' (Mail order pharmacy), then '2' (No, not a mail-
+order pharmacy)"
+CDLPC063,Carrier Associated with Claim,N/A,,,N/A,N/A,Report as null.
+CDLPC064,In Plan Network Indicator,Medicare Part D Event (PDE)/ Drug Characteristics,,,PRCNG_EXCPTN_CD,Pricing Exception Code,"Transform as follows:
+If PRCGEXCD = 'O' (Out of Network), then 'N' (No, out of network) If PRCGEXCD is null (In Network), then 'Y' (Yes, in network)"
+CDLPC065,Record Status Code,Medicare Part D Event (PDE)/ Drug Characteristics,,,PRCNG_EXCPTN_CD,Pricing Exception Code,"Transform as follows: 
+If 'M' (Medicare is a secondary payer then '02' else '01'"
+CDLPC066,Claim Line Type,Medicare Part D Event (PDE)/ Drug Characteristics,,,ADJSTMT_DLTN_CD,Adjustment Deletion Code,"Transform as follows:
+Null = 'O' (Original)
+A (Adjustment) = 'A' (Amendment) 
+D (Deletion) = 'V' (Void)
+R (Resubmitted) = 'R' (Replacement)"
+CDLPC067,Reject Code,N/A,,,N/A,N/A,Report as null.
+CDLPC068,Carrier Specific Unique Member ID,Medicare Part D Event (PDE)/ Drug Characteristics,,,BENE_ID,Encrypted CCW Beneficiary ID,
+CDLPC069,Carrier Specific Unique Subscriber ID,Medicare Part D Event (PDE)/ Drug Characteristics,,,BENE_ID,Encrypted CCW Beneficiary ID,
+CDLPC070,Prescriber Specialty,N/A,,,N/A,N/A,Report as null.
+CDLPC071,Pharmacy City,N/A,,,N/A,N/A,Report as null.
+CDLPCXXX,Un-assigned,N/A,,,N/A,N/A,Report as null.
+CDLPC899,Record Type,N/A,,,N/A,N/A,Hard code as 'PC'

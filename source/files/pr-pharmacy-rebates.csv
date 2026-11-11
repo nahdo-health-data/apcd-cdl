@@ -1,0 +1,22 @@
+element_id,element_name,type,max_length,description
+CDLPR001,Data Submitter Code,varchar,8,APCD-assigned identifier of payer submitting data file. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms). This may or may not be the same code as the payer.
+CDLPR002,Payer Code,varchar,8,"APCD-assigned identifier of insurer in the case of premiums-based coverage, or of the administrator in the case of self-funded coverage. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms)."
+CDLPR003,Reporting Period Start Date,integer,6,YYYYMM. Beginning of reporting period covered for contract performance.
+CDLPR004,Reporting Period End Date,integer,6,YYYYMM. End of reporting period covered for contract performance.
+CDLPR005,Drug Code - NDC Product Code,varchar,9,"Report the National Drug Code (NDC) product code, which includes the first 8 or 9 digits and excludes the last one or two digits (package code) of the NDC. Do not include dashes.
+
+NDC codes are maintained by the Federal Drug Administration. See Appendix J: External Code Source, United States Food and Drug Administration."
+CDLPR006,Drug Manufacturer,varchar,50,Use this field to report the manufacturer of the drug.
+CDLPR007,Drug Name,varchar,80,Use this field to report the text name of the drug.
+CDLPR008,Brand/Generic Indicator,char,2,"Indicates whether the drug itself is generic, not how the payer pays it. Valid codes are:
+01=Branded drug
+02=Generic drug."
+CDLPR009,Prescription Count,int,12,Number of prescription fills for each drug. Includes original prescriptions and refills.
+CDLPR010,Member Count,int,12,Number of members filling a prescription during the reporting period.
+CDLPR011,Total Paid Amount,int,12,"Total of all payments made during the Reporting/Performance Period.
+
+Round to the nearest dollar (e.g., $1,000.25 converted to 1000. If the value for this field is zero, report as ""0"", not as null. This field may contain a negative value."
+CDLPR012,Rebates Received,int,12,"Report the total amount of the rebate received for the specified NDC code.
+
+Round to the nearest dollar (e.g., $1,000.25 converted to 1000. If the value for this field is zero, report as ""0"", not as null. This field may contain a negative value."
+CDLPR899,Record Type,char,2,Value = PR

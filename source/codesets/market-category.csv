@@ -1,0 +1,14 @@
+code,description
+IND,Individuals (non-group)
+FCH,Individuals on a franchise basis
+GCV,Individuals as group conversion Policies
+GS1,Employers having exactly 1 employee
+GS2,Employers having 2 thru 9 employees
+GS3,Employers having 10 thru 25 employees
+GS4,Employers having 26 thru 50 employees
+GLG1,Employers having 51 thru 100 employees
+GLG2,Employers having 101 thru 250 employees
+GLG3,Employers having 251 thru 500 employees
+GLG4,Employers having more than 500 employees
+GSA,Small employers through a qualified association trust
+OTH,Other types of entities. Insurers using this market code shall obtain prior approval.

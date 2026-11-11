@@ -1,0 +1,16 @@
+element_id,element_name,type,max_length,description
+CDLTR001,Record Type,char,2,Value=TR
+CDLTR002,Data Submitter Code,varchar,8,APCD-assigned identifier of payer submitting data file. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms). This may or may not be the same code as the payer.
+CDLTR003,Payer Code,varchar,8,"APCD-assigned identifier of insurer/underwriter in the case of premiums- based coverage, or of the administrator in the case of self-funded coverage. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms)."
+CDLTR004,Data Submitter Name,varchar,75,Name of data submitter.
+CDLTR005,File Type,char,2,"ME=Member Eligibility
+MC=Medical Claims
+PC=Pharmacy Claims
+DC=Dental Claims
+PV=Provider File
+AP=Annual Payments
+PR=Pharmacy Rebates
+PV=Provider File"
+CDLTR006,Extraction Date,date,8,YYYYMMDD; Date file was created.
+CDLTR007,Control Total of Paid Amount,int,12,"Provide total paid dollars submitted in the file. Control total for each file (CDLMC125, CDLPC037, CDLDC060, CDLAP016, CDLPR011, CDLCF019). Eligibility and provider file blank. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025)."
+CDLTR008,Record Count,int,10,"Total number of records submitted in the file, excluding header and trailer records."

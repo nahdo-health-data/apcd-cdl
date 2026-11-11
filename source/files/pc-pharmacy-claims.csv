@@ -1,0 +1,141 @@
+element_id,element_name,type,max_length,description,source_reference
+CDLPC001,Data Submitter Code,varchar,8,APCD-assigned identifier of payer submitting data file. Code assigned to the plan by the APCD registration system (may be multi- tiered to support different platforms). This may or may not be the same code as the Payer Code (CDLPC002).,N/A
+CDLPC002,Payer Code,varchar,8,"APCD-assigned identifier of insurer in the case of premiums-based coverage, or of the administrator in the case of self-funded coverage. Code assigned to the plan by the APCD registration system (may be multi- tiered to support different platforms).",879-N2
+CDLPC003,Plan ID,varchar,30,CMS National Plan ID. The National Plan ID is a code assigned by CMS. (PLACEHOLDER).,569-J8
+CDLPC004,Member Insurance/ Product Category code,char,2,See Appendix J: Insurance Type/Product Category for codes. Use the most granular choice available. Code reported must align with the member's enrollment product (CDLME004) during the time of service.,"A90*
+
+*With additional values outlined in Appendix J"
+CDLPC005,Payer Claim Control Number,varchar,35,NCPDP refers to this field as Internal Control Number. Must apply to the entire claim and be unique within the payer’s system. Payer Claim Control Number (PCCN) must be consistent across claim versions and therefore should not be a transaction number. A combination of the PCCN and version number (CDLPC007) will be used to determine which rows will carry forward into the final claim. It is also imperative that a reversal uses the same PCCN as the original paid claim.,993-A7
+CDLPC006,Line Counter,int,4,Line number for this service. The line counter begins with 1 and is incremented by 1 for each additional service line of a claim.,A91
+CDLPC007,Version Number,int,4,"The version number of this claim service line. The version number begins with 0 and is incremented by 1 for each subsequent version of the claim. If version numbers are not used, Cross Reference Claims ID (CDLPC008) is to be utilized.",102-A2
+CDLPC008,Cross Reference Claims ID,varchar,35,The original Payer Claim Control Number (CDLPC005). Used when a new Payer Claim Control Number is assigned to an adjusted claim and a Version Number (CDLPC007) is not used.,N/A
+CDLPC009,Insured Group or Policy Number,varchar,50,"The identification number, or code assigned by the carrier or administrator to identify the group under which the individual is covered. CDLPC009 is not the number that uniquely identifies the subscriber. If no group or policy number is available, leave blank. If the coverage is Medicaid, then report a value of “IND”. If a policy is sold to an individual as a non-group policy, then report with a value of “IND”.",246
+CDLPC010,Medicaid AID Category,varchar,10,"For Medicaid only. Provide the primary Medicaid Aid Category code for the member. Codes are determined by the state’s Medicaid agency. If not applicable, leave blank.",N/A
+CDLPC011,Subscriber Social Security Number,char,9,Subscriber’s Social Security Number. Do not include dashes. Leave blank if not collected.,A89
+CDLPC012,Plan Specific Contract Number,varchar,80,"Plan assigned subscriber’s contract number (NCPDP refers to this as the Cardholder ID). If Plan Specific Contract Number is the subscriber’s Social Security Number, leave blank. If this is a Medicaid claim, provide Medicaid ID.",302-C2
+CDLPC013,Subscriber Last Name,varchar,60,The subscriber’s last name.,716
+CDLPC014,Subscriber First Name,varchar,35,The subscriber’s first name.,717
+CDLPC015,Sequence Number,varchar,20,"Unique number of the member within the contract. When the member is the subscriber, use subscriber sequence number.",303-C3
+CDLPC016,Member Social Security Number,char,9,"Member’s Social Security Number. When the member is the subscriber, use subscriber social security number. Do not include dashes. Leave blank if not collected.",332-CY
+CDLPC017,Individual Relationship Code,char,2,Member’s relationship to insured. Individual Relationship codes maintained by ANSI ASC X12. See Appendix L: External Code Source.,247
+CDLPC018,Member Sex,char,1,"Sex of the Member.
+1=Male;
+2=Female;
+0=Unspecified.
+
+Member sex represents biological or administrative sex. If the member is the subscriber, report the subscriber’s sex. Where available, submitters should provide the sex the member was assigned at birth on their original birth certificate (natal sex). When this is not available, submitters may provide the values they have access to regarding physical or legal sex (e.g., administrative sex as categorized by X12 values).",305-C5
+CDLPC019,Member Date of Birth,date,8,"YYYYMMDD; Date of birth of member. If the member is the subscriber, report the subscriber’s date of birth.",304-C4
+CDLPC020,Member Last Name,varchar,60,"Member last name. If the member is the subscriber, report the subscriber’s last name.",716
+CDLPC021,Member First Name,varchar,35,"Member first name. If the member is the subscriber, report the subscriber’s last name.",717
+CDLPC022,Member ZIP Code,varchar,9,"Report the 5- or 9-digit ZIP Code of the member’s residence. If the member is the subscriber, report the Zip Code of the subscriber’s residence. When submitting the 9-digit ZIP Code do not include hyphen. If using 5 digits, do not fill last 4 digits with 0. ZIP Codes are maintained by the US Postal Service. See Appendix L: External Code Sources.",730-TC
+CDLPC023,Date Prescription Filled,date,8,YYYYMMDD. Date the prescription was filled.,401-D1
+CDLPC024,Paid Date,date,8,"YYYYMMDD. Check Date or Adjudication Date of the claim line. Report the date that appears on the: check, and/or remit, and/or explanation of benefits, and corresponds to all types of payment in YYYYMMDD Format. If paid/adjudicated date is not available, use Processed Date. Claims paid in full, partial, or zero paid, must have a date reported here.",216 or 578
+CDLPC025,Drug Code,char,11,"NDC Code for the drug on the claim. Do not include dashes. NDC codes are maintained by the Federal Drug Administration. See Appendix L: External Code Source, United States Federal Drug Administration.",407-D7
+CDLPC026,New Prescription or Refill,char,2,"Provide ‘00’ for new prescriptions; for refills, provide the refill number.
+00=New prescription;
+01–99=Refill.",254
+CDLPC027,Generic Drug Indicator,char,2,"Indicates whether the drug itself is generic, not how the payer pays it. Valid codes are:
+01=Branded drug;
+02=Generic drug.",425-DP
+CDLPC028,Dispensed as Written Code,char,1,"Use this field to indicate how the drug was dispensed:
+0=No Product Selection Indicated (may also have missing values);
+1=Substitution Not Allowed by Prescriber;
+2=Substitution Allowed - Patient Requested That Brand Product Be Dispensed;
+3=Substitution Allowed - Pharmacist Selected Product Dispensed;
+4=Substitution Allowed - Generic Drug Not in Stock;
+5=Substitution Allowed - Brand Drug Dispensed as Generic;
+6=Override;
+7=Substitution Not Allowed - Brand Drug Mandated by Law;
+8=Substitution Allowed - Generic Drug Not Available in Marketplace;
+9=Other.",408-D8
+CDLPC029,Compound Drug Indicator,char,1,"Use this field to indicate whether the drug is a compound drug or non-compound drug. Valid codes are:
+N=Non-compound drug;
+Y=Compound drug;
+U=Unknown.",406-D6
+CDLPC030,Drug Name or Compound Drug Ingredient List,char,128,"Use this field to report the name of the drug dispensed. If CDLPC029=Y, then provide the names of the compound drug ingredients. Use a semi-colon (;) delimiter to separate multiple compound drug ingredients.",N/A
+CDLPC031,Formulary Indicator,char,1,"Use this field to report if the prescribed drug was on the carrier’s formulary list. Valid codes include:
+1=Yes;
+2=No;
+3=Unknown;
+4=Other;
+5=Not applicable.",N/A
+CDLPC032,Quantity Dispensed,dec,"10,2",Quantity dispensed.,442-E7
+CDLPC033,Days’ Supply,int,3,Estimated number of days the prescription will last.,405-D5
+CDLPC034,Drug Unit of Measure,varchar,3,"Report the code that defines the unit of measure for the drug dispensed in PC033. Valid codes are:
+EA=Each;
+F2=International Units;
+GM=Grams;
+ML=Milliliters;
+MG=Milligrams;
+MEQ=Milliequivalent;
+MM=Millimeter;
+UG=Microgram;
+UU=Unit;
+OT=Other.",N/A
+CDLPC035,Prescription Number,varchar,20,Report the unique prescription identifier.,254 (fill number calculated)
+CDLPC036,Charge Amount,int,10,"NCPDP refers to this as Gross Amount Due. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",430-DU
+CDLPC037,Plan Paid Amount,int,10,"NCPDP refers to this as Net Amount Due. Includes all health plan payments and excludes all member payments. For capitated claims, set to 0. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",281
+CDLPC038,Allowed Amount,int,12,"When payment arrangement type in CDLPC049 is equal to 01 for capitated services, report the maximum amount that would have been paid under fee for service for a prescription. When payment arrangement type in CDLPC049 is equal to 02 for fee for service, report the maximum amount contractually allowed.
+Report 0 if there is no allowed amount Do not code decimal point or provide any punctuation (e.g. $1,000.25 converted to 100025).",N/A
+CDLPC039,Sales Tax Amount,int,12,"Report the amount of state sales tax applied to this claim line. Report 0 if there is no state tax amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025). Do not round up / down to whole dollars, code zero cents (00) when applicable.",558-AW
+CDLPC040,Ingredient Cost/List Price,int,10,"Cost of the drug dispensed. Report 0 if there is no Ingredient Cost/List Price Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",506-F6
+CDLPC041,Postage Amount Claimed,int,10,"Postage amount associated with the claim. Report 0 if there is no Postage Amount Claimed Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",N/A
+CDLPC042,Dispensing Fee,int,10,"Dispensing fee associated with the claim Report 0 if there is no Dispensing Fee. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",507-F7
+CDLPC043,Co-Pay Amount,int,10,"Actual co-payment dollar amount paid for which the individual is responsible. (e.g., If the fixed amount is $25 but the cost to the member is $4 report, 400.) Report 0 if there is no co-pay amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",518-FI
+CDLPC044,Coinsurance Amount,int,10,"The dollar amount of coinsurance for this claim line for which an individual is responsible, not the percentage. Report 0 if no coinsurance amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",572-4U
+CDLPC045,Deductible Amount,int,10,"The dollar amount for this claim line applied to the deductible. Report 0 if there is no deductible amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",517-FH
+CDLPC046,COB/TPL Amount,int,12,"Amount due from a secondary carrier. Report the amount that another payer is liable for after submitting payer has processed this claim line. If only collected on the header record report the COB/TPL amount on the first claim line. Report 0 if there is no COB/ TPL amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025).",N/A
+CDLPC047,Other Insurance Paid Amount,int,10,"Amount already paid by another carrier. Report the amount that a prior payer has paid for this claim line. Indicates the submitting payer is not the primary payer. Only Report “0” if the prior payer paid 0 toward this claim line; or if there is no prior payer. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025). May be reported as a negative.",565-J4
+CDLPC048,Member Self-Pay Amount,int,12,"Report the amount that the member has paid beyond the other patient obligations (e.g., gap on Medicare Part D, or difference between generic and brand) that are not otherwise listed in the file in CDLPC043, CDLPC044, CDLPC045. Report “0” if there is no member Self-Pay Amount. Do not code decimal point or provide any punctuation (e.g., $1,000.25 converted to 100025). Do not round up / down to whole dollars, code zero cents (00) when applicable.",505-F5
+CDLPC049,Payment Arrangement Type Flag,char,2,"Indicates the payment methodology. Valid codes are:
+01=Capitation;
+02=Fee for Service;
+03=Percent of Charges;
+07=Other.",N/A
+CDLPC050,Prescribing Physician ID,varchar,35,Payer assigned provider ID for the prescribing physician. This should be the identifier used by the payer for internal identification purposes and does not routinely change. Must map to the Payer Assigned Provider ID (CDLPV004) in the Provider File.,N/A
+CDLPC051,Prescribing Physician NPI,char,10,NPI number for prescribing physician.,411-DB
+CDLPC052,Prescribing Physician First Name,varchar,25,Prescribing Physician’s first name or initial.,A92
+CDLPC053,Prescribing Physician Last Name,varchar,60,Prescribing Physician’s last name.,716
+CDLPC054,Pharmacy NCPDP Number,varchar,7,Unique 7-digit number assigned by the National Council for Prescription Drug Program (NCPDP).,N/A
+CDLPC055,Pharmacy ID,varchar,35,Payer assigned pharmacy ID. This should be the identifier used by the payer for internal identification purposes and does not routinely change. Must map to the Payer Assigned Provider ID (CDLPV004) in the Provider File.,201-B1
+CDLPC056,Pharmacy Tax ID Number,char,9,Dispensing pharmacy federal taxpayer’s identification number coded with no punctuation (carriers that contract with outside PBMs may not have this data).,N/A
+CDLPC057,Pharmacy NPI,char,10,NPI of the entity or individual (pharmacy) directly providing the service.,201-B1
+CDLPC058,Pharmacy Location Street Address,varchar,55,"First line of street address of pharmacy that dispensed the prescription, including street number, name. Include suite number if applicable. Relates to CDLPC059-CDLPC061.",728-SU
+CDLPC059,Pharmacy Location State,char,2,"State or Province where dispensing pharmacy located. State or Province codes are maintained by the US Postal Service. See Appendix L: External Code Sources, United States Postal Service.",729-TA
+CDLPC060,Pharmacy ZIP Code,varchar,9,"Report the 5 or 9-digit ZIP Code of the Pharmacy. When submitting the 9-digit ZIP Code, do not include hyphen. If using 5 digits, do not fill last 4 digits with 0. ZIP Codes are maintained by the US Postal Service. See Appendix L: External Code Sources.",730-TC
+CDLPC061,Pharmacy Country Code,char,2,"Country where dispensing pharmacy located. Report two-digit code. Code US for United States. See Appendix L: External Code Sources, United States Postal Service",A93-1T
+CDLPC062,Mail-Order Pharmacy Indicator,int,1,"Use this field to report if the pharmacy was a mail-order pharmacy. Valid codes include:
+1=Yes, mail order pharmacy;
+2=No, not a mail order pharmacy;
+3=Unknown;
+4=Other;
+5=Not applicable.",N/A
+CDLPC063,Carrier Associated with Claim,varchar,8,"For each claim, use the NAIC code of the carrier when a PBM processes claims on behalf of the carrier. Optional if all pharmacy claims processed by a PBM under contract to a carrier for carved-out services are submitted by the carrier with unified member IDs in all files. NAIC codes are maintained by the National Association of Insurance Commissioners. See Appendix L: External Code Source, National Association of Insurance Commissioners.",N/A
+CDLPC064,In Plan Network Indicator,char,1,"Use this field to specify if services from the requested provider were provided within the health plan network. Valid values are:
+N=No;
+Y=Yes;
+L=Leased Network.",N/A
+CDLPC065,Record Status Code,char,1,"01=Processed as primary;
+02=Processed as secondary;
+03=Processed as tertiary;
+04=Denied;
+19=Processed as primary, forwarded to additional payer(s);
+20=Processed as secondary, forwarded to additional payer(s);
+21=Processed as tertiary, forwarded to additional payer(s);
+22=Reversal of previous payment;
+23=Not our claim, forwarded to additional payer(s);
+25=Predetermination pricing only – No payment.",N/A
+CDLPC066,Claim Line Type,char,1,"Report the code that defines the claim line status in terms of adjudication. Valid codes are:
+O=Original;
+V=Void;
+R=Replacement;
+B=Back Out;
+A=Amendment;
+D=Denial.",N/A
+CDLPC067,Reject Code,varchar,3,"Report the reason code for the denial. Report the code that defines the reason for denial of the claim line. If not available, leave blank. Reason codes are maintained by NCPDP. See Appendix L: External Code Source, NCPDP.",511-FB
+CDLPC068,Carrier Specific Unique Member ID,varchar,50,Report the identifier the carrier / submitter uses internally to uniquely identify the member. Used to create Unique Member ID and link across carrier’s / submitter’s files for reporting and aggregation.,N/A
+CDLPC069,Carrier Specific Unique Subscriber ID,char,50,Report the identifier the carrier / submitter uses internally to uniquely identify the subscriber. Used to create Unique Member ID and link across carrier’s / submitter’s files for reporting and aggregation.,N/A
+CDLPC070,Prescriber Specialty,varchar,10,"Report the NUCC healthcare provider taxonomy code. See Appendix L: External Code Source, National Uniform Claim Committee.",296
+CDLPC071,Pharmacy City,varchar,30,City or town where dispensing pharmacy located.,728-SU
+CDLPCXXX,Un-assigned,char,1,Reserved for future use. Elements will only be added with review from states and payers.,N/A
+CDLPC899,Record Type,char,2,Value=PC,N/A

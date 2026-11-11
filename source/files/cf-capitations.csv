@@ -1,0 +1,35 @@
+element_id,element_name,type,max_length,description
+CDLCF001,Data Submitter Code,varchar,8,APCD-assigned identifier of payer submitting data file. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms). This may or may not be the same code as the payer.
+CDLCF002,Payer Code,varchar,8,"APCD-assigned identifier of insurer in the case of premiums-based coverage, or of the administrator in the case of self-funded coverage. Code assigned to the plan by the APCD registration system (may be multi-tiered to support different platforms)."
+CDLCF003,Reporting Period Start Date,integer,6,YYYYMM. Beginning of reporting period covered for contract performance.
+CDLCF004,Reporting Period End Date,integer,6,YYYYMM. End of reporting period covered for contract performance.
+CDLCF005,Carrier Specific Unique Member ID,varchar,50,Report the identifier the carrier / submitter uses internally to uniquely identify the member. Used to create Unique Member ID and link across carrier’s / submitter’s files for reporting and aggregation.
+CDLCF006,Member Last Name,varchar,60,"The member’s last name. If the member is the subscriber, report the subscriber’s last name."
+CDLCF007,Member First Name,varchar,35,"The member’s first name. If the member is the subscriber, report the subscriber’s first name."
+CDLCF008,Member Middle Initial,varchar,1,"The member’s middle initial. If the member is the subscriber, report the subscriber’s middle initial."
+CDLCF009,Member Sex,char,1,"Sex of the member.
+M=Male;
+F=Female;
+U=UNKNOWN.
+
+Member sex represents biological or administrative sex. Where available, submitters should provide the sex the member was assigned at birth on their original birth certificate (natal sex). When this is not available, submitters may provide the values they have access to regarding physical or legal sex (e.g., administrative sex as categorized by X12 values)."
+CDLCF010,Member Date of Birth,date,8,"Date of birth of the member. If the member is the subscriber, report the subscriber’s date of birth. YYYYMMDD."
+CDLCF011,Member Social Security Number,char,9,"The member’s Social Security Number. If the member is the subscriber, report the subscriber’s Social Security Number.
+
+Do not include dashes. Leave blank if not collected."
+CDLCF012,Billing Provider ID,varchar,35,Unique code assigned to the provider by the reporting entity. Payer assigned provider ID for the provider that is the billing provider. This should be the identifier used by the payer for internal identification purposes and does not routinely change.
+CDLCF013,Billing Provider NPI,char,10,National Provider Identifier (NPI) for the billing provider as enumerated in the Center for Medicaid and Medicare Services National Plan & Provider Enumeration System (NPPES).
+CDLCF014,Billing Provider Tax ID,char,9,Tax ID of the billing provider. Do not code punctuation.
+CDLCF015,Billing Provider Last Name or Organization,varchar,60,Full name of provider billing organization or last name of individual billing provider.
+CDLCF016,Billing Provider First Name,varchar,35,"Individual first name. If provider is a facility or organization, leave blank."
+CDLCF017,Insurance/ Product Category Code,char,2,See Appendix J: Insurance Type/Product Category for codes. Use the most granular choice available.
+CDLCF018,Payment Subcategory,char,2,"D1 = Primary care capitation
+D2 = Professional capitation
+D3 = Facility Capitation
+D4 = Behavioral health capitation
+D5 = Global capitation
+D6 = Payment to integrated, comprehensive payment and delivery systems"
+CDLCF019,Total Paid Amount,integer,12,"Total of all payments made to a contractor during the Reporting/Performance Period.
+
+Round to the nearest dollar (e.g., $1,000.25 converted to 1000). This field may contain a negative value."
+CDLCF899,Record Type,char,2,Value = CF
